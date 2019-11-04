@@ -54,7 +54,7 @@ test:
   commands:
     - if exist %PREFIX%\\Library\\bin\\gzserver.exe (exit 0) else (exit 1)  # [win]
     - if exist %PREFIX%\\Library\\bin\\gzclient.exe (exit 0) else (exit 1)  # [win]
-    - if exist %PREFIX%\\Library\\lib\\gazebo.dll (exit 0) else (exit 1)  # [win]
+    - if exist %PREFIX%\\Library\\bin\\gazebo.dll (exit 0) else (exit 1)  # [win]
 
 about:
   home: http://gazebosim.org/

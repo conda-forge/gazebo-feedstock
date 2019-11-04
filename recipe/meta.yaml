@@ -13,7 +13,7 @@ source:
       - qwt-fix.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

@@ -11,9 +11,10 @@ source:
     patches:
       - use-external-libs-config.patch
       - qwt-fix.patch
+      - normalize-ogre-path.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

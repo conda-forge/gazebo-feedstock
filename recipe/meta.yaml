@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "9.11.0" %}
+{% set version = "9.12.0" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,7 @@ source:
       - normalize-ogre-path.patch
 
 build:
-  number: 4
+  number: 0
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

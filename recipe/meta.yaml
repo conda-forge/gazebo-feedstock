@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version[0] }}_{{ version }}.tar.gz
-    sha256: df25536768f457e30e5213ba7b490d0e3b87c69ab5f55f9142179fad0cbd62d4
+    sha256: bd4787ead49360b5435a456ebcf37ba1cbf009f4a4e88821c3ee7b88306a5477
     patches:
       - use-external-libs-config.patch
       - qwt-fix.patch

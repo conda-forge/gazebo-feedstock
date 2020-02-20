@@ -32,7 +32,7 @@ requirements:
     - libsdformat 6.*
     - libignition-transport4
     - qt
-    - ogre
+    - ogre 1.10.*
     - freeimage
     - curl
     - tbb-devel

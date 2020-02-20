@@ -14,7 +14,7 @@ source:
       - normalize-ogre-path.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
@@ -32,7 +32,7 @@ requirements:
     - libsdformat 6.*
     - libignition-transport4
     - qt
-    - ogre
+    - ogre 1.10.*
     - freeimage
     - curl
     - tbb-devel

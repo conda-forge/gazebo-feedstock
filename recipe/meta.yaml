@@ -32,7 +32,7 @@ requirements:
     - libsdformat 9.*
     - libignition-transport8
     - libignition-fuel-tools4
-    - libignition-common3
+    - libignition-common3 3.4.*
     - qt
     - ogre 1.10.*
     - freeimage
@@ -45,7 +45,7 @@ requirements:
     - libsdformat 9.*
     - libignition-transport8
     - libignition-fuel-tools4
-    - libignition-common3
+    - libignition-common3 3.4.*
     - qt
     - ogre
     - freeimage

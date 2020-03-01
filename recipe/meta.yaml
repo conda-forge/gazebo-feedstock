@@ -1,13 +1,13 @@
 {% set name = "gazebo" %}
-{% set version = "9.12.0" %}
+{% set version = "11.0.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version[0] }}_{{ version }}.tar.gz
-    sha256: bd4787ead49360b5435a456ebcf37ba1cbf009f4a4e88821c3ee7b88306a5477
+  - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
+    sha256: f1c873dfa17c1653332321ef4f10430fb22825de0688017455a2983f176cd69e
     patches:
       - use-external-libs-config.patch
       - qwt-fix.patch
@@ -29,8 +29,10 @@ requirements:
     - cmake
     - pkg-config
   host:
-    - libsdformat 6.*
-    - libignition-transport4
+    - libsdformat 9.*
+    - libignition-transport8
+    - libignition-fuel-tools4
+    - libignition-common3
     - qt
     - ogre 1.10.*
     - freeimage
@@ -40,8 +42,10 @@ requirements:
     - dlfcn-win32  # [win]
     - boost-cpp >=1.71
   run:
-    - libsdformat 6.*
-    - libignition-transport4
+    - libsdformat 9.*
+    - libignition-transport8
+    - libignition-fuel-tools4
+    - libignition-common3
     - qt
     - ogre
     - freeimage

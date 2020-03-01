@@ -34,7 +34,7 @@ requirements:
     - libignition-fuel-tools4
     - libignition-common3
     - qt
-    - ogre 1.10.*
+    - ogre
     - freeimage
     - curl
     - tbb-devel

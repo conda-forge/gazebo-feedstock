@@ -14,7 +14,7 @@ source:
       - normalize-ogre-path.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
@@ -34,7 +34,7 @@ requirements:
     - libignition-fuel-tools4
     - libignition-common3
     - qt
-    - ogre 1.10.*
+    - ogre
     - freeimage
     - curl
     - tbb-devel

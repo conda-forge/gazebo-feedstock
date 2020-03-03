@@ -14,7 +14,7 @@ source:
       - normalize-ogre-path.patch
 
 build:
-  number: 3
+  number: 4
   skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
@@ -40,7 +40,7 @@ requirements:
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.71
+    - boost-cpp
   run:
     - libsdformat 9.*
     - libignition-transport8

@@ -1,0 +1,269 @@
+diff -r 449141632fc3 CMakeLists.txt
+--- a/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
++++ b/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
+@@ -267,7 +267,7 @@
+ 
+ # Visual Studio enables c++11 support by default
+ if (NOT MSVC)
+-  set(UNFILTERED_FLAGS "-std=c++11")
++  set(UNFILTERED_FLAGS "-std=c++17")
+ endif()
+ 
+ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${VALID_CXX_FLAGS} ${UNFILTERED_FLAGS}")
+diff -r 449141632fc3 cmake/SearchForStuff.cmake
+--- a/cmake/SearchForStuff.cmake	Thu Jan 30 17:57:33 2020 -0800
++++ b/cmake/SearchForStuff.cmake	Fri Mar 06 12:30:49 2020 +0100
+@@ -199,8 +199,8 @@
+   if (USE_EXTERNAL_TINYXML)
+     pkg_check_modules(tinyxml tinyxml)
+     if (NOT tinyxml_FOUND)
+-        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH)
+-        find_library(tinyxml_LIBRARIES NAMES tinyxml)
++        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH HINTS "${CMAKE_PREFIX_PATH}/include/")
++        find_library(tinyxml_LIBRARIES NAMES tinyxml HINTS "${CMAKE_PREFIX_PATH}/lib/")
+         set (tinyxml_FAIL False)
+         if (NOT tinyxml_INCLUDE_DIRS)
+           message (STATUS "Looking for tinyxml headers - not found")
+@@ -355,7 +355,7 @@
+   if (OGRE-RTShaderSystem_FOUND)
+     set(ogre_ldflags ${OGRE-RTShaderSystem_LDFLAGS})
+     set(ogre_include_dirs ${OGRE-RTShaderSystem_INCLUDE_DIRS})
+-    set(ogre_libraries ${OGRE-RTShaderSystem_LIBRARIES})
++    set(ogre_libraries ${OGRE-RTShaderSystem_LINK_LIBRARIES})
+     set(ogre_library_dirs ${OGRE-RTShaderSystem_LIBRARY_DIRS})
+     set(ogre_cflags ${OGRE-RTShaderSystem_CFLAGS})
+ 
+@@ -384,7 +384,9 @@
+     list(APPEND OGRE_LIBRARIES ${OGRE_Terrain_LIBRARIES})
+     list(APPEND OGRE_LIBRARIES ${OGRE_Overlay_LIBRARIES})
+     list(APPEND OGRE_LIBRARIES ${OGRE_Paging_LIBRARIES})
++    set(OGRE_LINK_LIBRARIES OGRE_LIBRARIES)
+     set(OGRE_PLUGINDIR ${OGRE_PLUGIN_DIR})
++    set()
+   endif ()
+ 
+   if (NOT OGRE_FOUND)
+@@ -392,7 +394,7 @@
+   else ()
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE_CFLAGS})
+   endif ()
+@@ -401,7 +403,7 @@
+   if (OGRE-Terrain_FOUND)
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Terrain_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Terrain_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Terrain_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE-Terrain_CFLAGS})
+   endif()
+@@ -410,7 +412,7 @@
+   if (OGRE-Overlay_FOUND)
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Overlay_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Overlay_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
+   endif()
+@@ -433,6 +435,22 @@
+     endif()
+   endif()
+ 
++  # set(ogre_final_libraries "")
++  # foreach(ogre_lib ${ogre_libraries})
++  #   message("LOOPED OVER ${ogre_lib}")
++  #   string(FIND "${ogre_lib}" "Ogre" out)
++  #   if("${out}" EQUAL 0)
++  #     find_library(final_ogre_lib ${ogre_lib} HINTS ${ogre_library_dirs})
++  #     list(APPEND ogre_final_libraries "${final_ogre_lib}")
++  #   else()
++  #     list(APPEND ogre_final_libraries "${ogre_lib}")
++  #   endif()
++  # endforeach()
++  # set(ogre_libraries "${ogre_final_libraries}")
++
++  # message("LIBS OF OGRE: ${ogre_libraries}")
++  # message("FINAL OGRE LIBS: ${ogre_final_libraries}")
++
+   ########################################
+   # Check and find libccd (if needed)
+   pkg_check_modules(CCD ccd>=1.4)
+@@ -533,14 +551,15 @@
+ 
+   ########################################
+   # Find GNU Triangulation Surface Library
+-  pkg_check_modules(gts gts)
+-  if (gts_FOUND)
+-    message (STATUS "Looking for GTS - found")
+-    set (HAVE_GTS TRUE)
+-  else ()
+-    set (HAVE_GTS FALSE)
+-    BUILD_WARNING ("GNU Triangulation Surface library not found - Gazebo will not have CSG support.")
+-  endif ()
++  # pkg_check_modules(gts gts)
++  # if (gts_FOUND)
++  #   message (STATUS "Looking for GTS - found")
++  #   set (HAVE_GTS TRUE)
++  # else ()
++  #   set (HAVE_GTS FALSE)
++  #   BUILD_WARNING ("GNU Triangulation Surface library not found - Gazebo will not have CSG support.")
++  # endif ()
++  set (HAVE_GTS FALSE)
+ 
+   #################################################
+   # Find bullet
+@@ -661,15 +680,15 @@
+ 
+ ########################################
+ # Find Space Navigator header and library
+-find_library(SPNAV_LIBRARY NAMES spnav)
+-find_file(SPNAV_HEADER NAMES spnav.h)
+-if (SPNAV_LIBRARY AND SPNAV_HEADER)
+-  message(STATUS "Looking for libspnav and spnav.h - found")
+-  set(HAVE_SPNAV TRUE)
+-else()
+-  message(STATUS "Looking for libspnav and spnav.h - not found")
+-  set(HAVE_SPNAV FALSE)
+-endif()
++# find_library(SPNAV_LIBRARY NAMES spnav)
++# find_file(SPNAV_HEADER NAMES spnav.h)
++# if (SPNAV_LIBRARY AND SPNAV_HEADER)
++#   message(STATUS "Looking for libspnav and spnav.h - found")
++#   set(HAVE_SPNAV TRUE)
++# else()
++#   message(STATUS "Looking for libspnav and spnav.h - not found")
++# endif()
++set(HAVE_SPNAV FALSE)
+ 
+ ########################################
+ # Find xsltproc, which is used by tools/check_test_ran.py
+diff -r 449141632fc3 cmake/gazebo-config.cmake.in
+--- a/cmake/gazebo-config.cmake.in	Thu Jan 30 17:57:33 2020 -0800
++++ b/cmake/gazebo-config.cmake.in	Fri Mar 06 12:30:49 2020 +0100
+@@ -129,7 +129,7 @@
+ 
+ # Visual Studio enables c++11 support by default
+ if (NOT MSVC)
+-  list(APPEND @PKG_NAME@_CXX_FLAGS -std=c++11)
++  list(APPEND @PKG_NAME@_CXX_FLAGS)
+ endif()
+ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
+     "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
+diff -r 449141632fc3 deps/opende/CMakeLists.txt
+--- a/deps/opende/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
++++ b/deps/opende/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
+@@ -283,7 +283,7 @@
+   gazebo_opcode
+   gazebo_gimpact
+   gazebo_opende_ou
+-  ${CCD_LIBRARIES}
++  ${CCD_LINK_LIBRARIES}
+   ${Boost_LIBRARIES})
+ 
+ if (HAVE_BULLET)
+diff -r 449141632fc3 gazebo/gui/plot/qwt_gazebo.h
+--- a/gazebo/gui/plot/qwt_gazebo.h	Thu Jan 30 17:57:33 2020 -0800
++++ b/gazebo/gui/plot/qwt_gazebo.h	Fri Mar 06 12:30:49 2020 +0100
+@@ -23,24 +23,24 @@
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wfloat-equal"
+ 
+-#include <qwt/qwt_curve_fitter.h>
+-#include <qwt/qwt_legend.h>
+-#include <qwt/qwt_painter.h>
+-#include <qwt/qwt_picker_machine.h>
+-#include <qwt/qwt_plot.h>
+-#include <qwt/qwt_plot_canvas.h>
+-#include <qwt/qwt_plot_curve.h>
+-#include <qwt/qwt_plot_directpainter.h>
+-#include <qwt/qwt_plot_grid.h>
+-#include <qwt/qwt_plot_layout.h>
+-#include <qwt/qwt_plot_magnifier.h>
+-#include <qwt/qwt_plot_marker.h>
+-#include <qwt/qwt_plot_panner.h>
+-#include <qwt/qwt_plot_zoomer.h>
+-#include <qwt/qwt_scale_engine.h>
+-#include <qwt/qwt_scale_widget.h>
+-#include <qwt/qwt_symbol.h>
+-#include <qwt/qwt_plot_renderer.h>
++#include <qwt_curve_fitter.h>
++#include <qwt_legend.h>
++#include <qwt_painter.h>
++#include <qwt_picker_machine.h>
++#include <qwt_plot.h>
++#include <qwt_plot_canvas.h>
++#include <qwt_plot_curve.h>
++#include <qwt_plot_directpainter.h>
++#include <qwt_plot_grid.h>
++#include <qwt_plot_layout.h>
++#include <qwt_plot_magnifier.h>
++#include <qwt_plot_marker.h>
++#include <qwt_plot_panner.h>
++#include <qwt_plot_zoomer.h>
++#include <qwt_scale_engine.h>
++#include <qwt_scale_widget.h>
++#include <qwt_symbol.h>
++#include <qwt_plot_renderer.h>
+ 
+ #pragma clang diagnostic pop
+ 
+diff -r 449141632fc3 gazebo/msgs/CMakeLists.txt
+--- a/gazebo/msgs/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
++++ b/gazebo/msgs/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
+@@ -143,6 +143,13 @@
+ 
+ add_executable(gazebomsgs_out generator/GazeboGenerator.cc generator/gazebo_generator.cc)
+ target_link_libraries(gazebomsgs_out ${GZ_PROTOBUF_LIBRARY} ${GZ_PROTOBUF_PROTOC_LIBRARY})
++set_target_properties(gazebomsgs_out
++  PROPERTIES
++    BUILD_WITH_INSTALL_RPATH TRUE
++    SKIP_BUILD_RPATH FALSE
++    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
++)
++
+ if (UNIX)
+   target_link_libraries(gazebomsgs_out pthread)
+ endif()
+diff -r 449141632fc3 gazebo/rendering/CMakeLists.txt
+--- a/gazebo/rendering/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
++++ b/gazebo/rendering/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
+@@ -235,7 +235,9 @@
+ endif()
+ 
+ if (NOT APPLE AND NOT WIN32)
+-  target_link_libraries(gazebo_rendering X11)
++  find_package(X11 REQUIRED)
++  include_directories(${X11_INCLUDE_DIR})
++  target_link_libraries(gazebo_rendering ${X11_LIBRARIES})
+ endif()
+ 
+ if (USE_PCH)
+diff -r 449141632fc3 gazebo/util/CMakeLists.txt
+--- a/gazebo/util/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
++++ b/gazebo/util/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
+@@ -80,7 +80,7 @@
+   gazebo_common
+   gazebo_transport
+   gazebo_msgs
+-  ${tinyxml2_LIBRARIES}
++  ${tinyxml2_LINK_LIBRARIES}
+   ${IGNITION-TRANSPORT_LIBRARIES}
+   ${IGNITION-MSGS_LIBRARIES}
+ )
+diff -r 449141632fc3 plugins/rest_web/RestApi.cc
+--- a/plugins/rest_web/RestApi.cc	Thu Jan 30 17:57:33 2020 -0800
++++ b/plugins/rest_web/RestApi.cc	Fri Mar 06 12:30:49 2020 +0100
+@@ -18,7 +18,7 @@
+ #include <cstring>
+ #include <stdlib.h>
+ #include <curl/curl.h>
+-#include <inttypes.h>
++#include <cinttypes>
+ 
+ #include "RestApi.hh"
+ 

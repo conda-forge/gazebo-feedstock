@@ -9,57 +9,118 @@ source:
   - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
     sha256: f1c873dfa17c1653332321ef4f10430fb22825de0688017455a2983f176cd69e
     patches:
-      - use-external-libs-config.patch
-      - qwt-fix.patch
-      - normalize-ogre-path.patch
+      - fix_build.patch  # [linux]
+      - use-external-libs-config.patch  # [win]
+      - qwt-fix.patch  # [win]
+      - normalize-ogre-path.patch  # [win]
 
 build:
-  number: 4
-  skip: true  # [not win]
+  number: 5
+  skip: true  # [osx]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 
 requirements:
   build:
-    - {{ compiler('cxx') }}              # [not win]
-    - {{ compiler('c') }}                # [not win]
-    - vs2017_win-64                      # [win64]
-    - vs2017_win-32                      # [win32]
-    - ninja
+    - {{ compiler('cxx') }}         # [not win]
+    - {{ compiler('c') }}           # [not win]
+    - vs2017_win-64                 # [win64]
+    - vs2017_win-32                 # [win32]
     - cmake
     - pkg-config
+    - ninja
+
+    # x11 stuff
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('libselinux') }}        # [linux]
+    - {{ cdt('libxcb') }}            # [linux]
+    - {{ cdt('libxdamage') }}        # [linux]
+    - {{ cdt('libxfixes') }}         # [linux]
+    - {{ cdt('libxxf86vm') }}        # [linux]
+    - {{ cdt('libxext') }}           # [linux]
+    - {{ cdt('libxau') }}            # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('mesa-dri-drivers') }}  # [linux]
   host:
+    - xorg-libxext      # [linux]
+    - xorg-libxdmcp     # [linux]
+    - xorg-libxau       # [linux]
+    - libxcb            # [linux]
+    - xorg-libxfixes    # [linux]
+    - xorg-libxrender   # [linux]
+    - xorg-libx11       # [linux]
+    - xorg-libice       # [linux]
+    - xorg-libsm        # [linux]
+    - libglu            # [linux]
+    # deps
+    - libprotobuf
     - libsdformat 9.*
     - libignition-transport8
-    - libignition-fuel-tools4
     - libignition-common3
+    - libignition-fuel-tools4
     - qt
-    - ogre
-    - freeimage
+    - ogre 1.10.12  # [linux]
+    - ogre  # [win]
+    - freeimage 3.18
     - curl
     - tbb-devel
     - qwt
+    - tinyxml2 ==7.1
+    - libtar  # [linux]
+    - libccd  # [linux]
     - dlfcn-win32  # [win]
     - boost-cpp
+    # additional deps
+    - libuuid  # [linux]
+    - libcurl
+    - tinyxml
+    # - hdf5
+    # - simbody
+    # - gts
+
   run:
+    - xorg-libxext      # [linux]
+    - xorg-libxdmcp     # [linux]
+    - xorg-libxau       # [linux]
+    - libxcb            # [linux]
+    - xorg-libxfixes    # [linux]
+    - xorg-libxrender   # [linux]
+    - xorg-libx11       # [linux]
+    - xorg-libice       # [linux]
+    - xorg-libsm        # [linux]
+    - libglu            # [linux]
+    # deps
+    - libprotobuf
     - libsdformat 9.*
     - libignition-transport8
-    - libignition-fuel-tools4
     - libignition-common3
+    - libignition-fuel-tools4
     - qt
-    - ogre
-    - freeimage
+    - {{ pin_compatible('ogre', exact=True) }}
+    - {{ pin_compatible('freeimage', exact=True) }}
     - curl
     - tbb-devel
     - qwt
+    - {{ pin_compatible('tinyxml2', max_pin='x.x') }}
+    - libtar  # [linux]
+    - libccd  # [linux]
+    # - hdf5
+    # - simbody
+    # - gts
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.71
+    - boost-cpp
+    - libuuid  # [linux]
+    - libcurl
+    - tinyxml
 
 test:
   commands:
     - if exist %PREFIX%\\Library\\bin\\gzserver.exe (exit 0) else (exit 1)  # [win]
     - if exist %PREFIX%\\Library\\bin\\gzclient.exe (exit 0) else (exit 1)  # [win]
     - if exist %PREFIX%\\Library\\bin\\gazebo.dll (exit 0) else (exit 1)  # [win]
+    - test -f $PREFIX/bin/gzserver  # [unix]
+    - test -f $PREFIX/bin/gzclient  # [unix]
+    - test -f $PREFIX/bin/gazebo    # [unix]
 
 about:
   home: http://gazebosim.org/
@@ -70,3 +131,4 @@ about:
 extra:
   recipe-maintainers:
     - seanyen
+    - wolfv

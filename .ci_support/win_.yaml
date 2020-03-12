@@ -1,0 +1,23 @@
+boost_cpp:
+- '1.72'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+curl:
+- '7.64'
+libcurl:
+- '7.64'
+libprotobuf:
+- '3.11'
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  curl:
+    max_pin: x
+  libcurl:
+    max_pin: x
+  qt:
+    max_pin: x.x
+qt:
+- '5.12'

@@ -59,23 +59,22 @@ requirements:
     - libignition-common3
     - libignition-fuel-tools4
     - qt
-    - ogre 1.10.12  # [linux]
-    - ogre  # [win]
+    - ogre 1.10.*
     - freeimage 3.18
     - curl
     - tbb-devel
     - qwt
     - tinyxml2 ==7.1
-    - libtar  # [linux]
-    - libccd  # [linux]
+    - libtar   # [linux]
+    - libccd   # [linux]
+    - hdf5     # [linux]
+    - simbody  # [linux]
     - dlfcn-win32  # [win]
     - boost-cpp
     # additional deps
     - libuuid  # [linux]
     - libcurl
     - tinyxml
-    # - hdf5
-    # - simbody
     # - gts
 
   run:
@@ -102,10 +101,10 @@ requirements:
     - tbb-devel
     - qwt
     - {{ pin_compatible('tinyxml2', max_pin='x.x') }}
-    - libtar  # [linux]
-    - libccd  # [linux]
-    # - hdf5
-    # - simbody
+    - libtar   # [linux]
+    - libccd   # [linux]
+    - hdf5     # [linux]
+    - simbody  # [linux]
     # - gts
     - dlfcn-win32  # [win]
     - boost-cpp

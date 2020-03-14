@@ -15,7 +15,7 @@ source:
       - normalize-ogre-path.patch  # [win]
 
 build:
-  number: 5
+  number: 6
   skip: true  # [osx]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
@@ -64,7 +64,7 @@ requirements:
     - curl
     - tbb-devel
     - qwt
-    - tinyxml2 ==7.1
+    - tinyxml2
     - libtar   # [linux]
     - libccd   # [linux]
     # - hdf5     # [linux]

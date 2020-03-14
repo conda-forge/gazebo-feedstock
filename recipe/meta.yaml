@@ -64,7 +64,7 @@ requirements:
     - curl
     - tbb-devel
     - qwt
-    - tinyxml2 ==7.1
+    - tinyxml2
     - libtar   # [linux]
     - libccd   # [linux]
     # - hdf5     # [linux]

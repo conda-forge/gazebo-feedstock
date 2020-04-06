@@ -60,7 +60,7 @@ requirements:
     - libignition-fuel-tools4
     - qt
     - ogre 1.10.*
-    - freeimage 3.18
+    - freeimage
     - curl
     - tbb-devel
     - qwt
@@ -90,17 +90,17 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.*
+    - libsdformat
     - libignition-transport8
     - libignition-common3
     - libignition-fuel-tools4
     - qt
-    - {{ pin_compatible('ogre', exact=True) }}
-    - {{ pin_compatible('freeimage', exact=True) }}
+    - ogre
+    - freeimage
     - curl
     - tbb-devel
     - qwt
-    - {{ pin_compatible('tinyxml2', max_pin='x.x') }}
+    - tinyxml2
     - libtar   # [linux]
     - libccd   # [linux]
     # - hdf5     # [linux]

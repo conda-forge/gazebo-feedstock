@@ -13,6 +13,7 @@ source:
       - use-external-libs-config.patch  # [win]
       - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch  # [win]
+      - windows-warnings.patch  # [win]
 
 build:
   number: 7

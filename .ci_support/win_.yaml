@@ -1,11 +1,15 @@
 boost_cpp:
 - '1.72'
+c_compiler:
+- vs2017
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
 curl:
 - '7.64'
+cxx_compiler:
+- vs2017
 libcurl:
 - '7.64'
 libprotobuf:

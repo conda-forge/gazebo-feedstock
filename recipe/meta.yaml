@@ -83,7 +83,7 @@ requirements:
     - libxcb            # [unix]
     - xorg-libxfixes    # [unix]
     - xorg-libxrender   # [unix]
-    - xorg-libx11       # unix
+    - xorg-libx11       # [unix]
     - xorg-libice       # [unix]
     - xorg-libsm        # [unix]
     - libglu            # [linux]

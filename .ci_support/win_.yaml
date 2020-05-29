@@ -7,13 +7,13 @@ channel_sources:
 channel_targets:
 - conda-forge main
 curl:
-- '7.64'
+- '7'
 cxx_compiler:
 - vs2017
 libcurl:
-- '7.64'
+- '7'
 libprotobuf:
-- '3.11'
+- '3.12'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

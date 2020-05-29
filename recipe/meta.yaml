@@ -9,14 +9,14 @@ source:
   - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
     sha256: f1c873dfa17c1653332321ef4f10430fb22825de0688017455a2983f176cd69e
     patches:
-      - fix_build.patch  # [linux]
+      - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
       - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch  # [win]
 
 build:
-  number: 7
-  skip: true  # [osx]
+  number: 8
+  skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 
@@ -29,7 +29,8 @@ requirements:
     - ninja
 
     # x11 stuff
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [unix]
+    - {{ cdt('mesa-dri-drivers') }}  # [unix]
     - {{ cdt('libselinux') }}        # [linux]
     - {{ cdt('libxcb') }}            # [linux]
     - {{ cdt('libxdamage') }}        # [linux]
@@ -37,18 +38,16 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - {{ cdt('libxau') }}            # [linux]
-    - {{ cdt('mesa-libgl-devel') }}  # [linux]
-    - {{ cdt('mesa-dri-drivers') }}  # [linux]
   host:
-    - xorg-libxext      # [linux]
-    - xorg-libxdmcp     # [linux]
-    - xorg-libxau       # [linux]
-    - libxcb            # [linux]
-    - xorg-libxfixes    # [linux]
-    - xorg-libxrender   # [linux]
-    - xorg-libx11       # [linux]
-    - xorg-libice       # [linux]
-    - xorg-libsm        # [linux]
+    - xorg-libxext      # [unix]
+    - xorg-libxdmcp     # [unix]
+    - xorg-libxau       # [unix]
+    - libxcb            # [unix]
+    - xorg-libxfixes    # [unix]
+    - xorg-libxrender   # [unix]
+    - xorg-libx11       # [unix]
+    - xorg-libice       # [unix]
+    - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
     - libprotobuf
@@ -63,8 +62,8 @@ requirements:
     - tbb-devel
     - qwt
     - tinyxml2
-    - libtar   # [linux]
-    - libccd   # [linux]
+    - libtar   # [unix]
+    - libccd   # [unix]
     # - hdf5     # [linux]
     # - simbody  # [linux]
     - dlfcn-win32  # [win]
@@ -76,15 +75,15 @@ requirements:
     # - gts
 
   run:
-    - xorg-libxext      # [linux]
-    - xorg-libxdmcp     # [linux]
-    - xorg-libxau       # [linux]
-    - libxcb            # [linux]
-    - xorg-libxfixes    # [linux]
-    - xorg-libxrender   # [linux]
-    - xorg-libx11       # [linux]
-    - xorg-libice       # [linux]
-    - xorg-libsm        # [linux]
+    - xorg-libxext      # [unix]
+    - xorg-libxdmcp     # [unix]
+    - xorg-libxau       # [unix]
+    - libxcb            # [unix]
+    - xorg-libxfixes    # [unix]
+    - xorg-libxrender   # [unix]
+    - xorg-libx11       # unix
+    - xorg-libice       # [unix]
+    - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
     - libprotobuf
@@ -99,8 +98,8 @@ requirements:
     - tbb-devel
     - qwt
     - tinyxml2
-    - libtar   # [linux]
-    - libccd   # [linux]
+    - libtar   # [unix]
+    - libccd   # [unix]
     # - hdf5     # [linux]
     # - simbody  # [linux]
     # - gts
@@ -129,3 +128,4 @@ extra:
   recipe-maintainers:
     - seanyen
     - wolfv
+    - Tobias-Fischer

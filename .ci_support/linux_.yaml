@@ -9,7 +9,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 curl:
-- '7.64'
+- '7'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -17,7 +17,7 @@ cxx_compiler_version:
 docker_image:
 - condaforge/linux-anvil-comp7
 libcurl:
-- '7.64'
+- '7'
 libprotobuf:
 - '3.11'
 libuuid:

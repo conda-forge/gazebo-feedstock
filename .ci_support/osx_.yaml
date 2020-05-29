@@ -1,7 +1,13 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.14'
 boost_cpp:
 - '1.72'
+bzip2:
+- '1'
 c_compiler:
-- vs2017
+- clang
+c_compiler_version:
+- '9'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -9,19 +15,31 @@ channel_targets:
 curl:
 - '7'
 cxx_compiler:
-- vs2017
+- clangxx
+cxx_compiler_version:
+- '9'
 libcurl:
 - '7'
 libprotobuf:
 - '3.11'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+macos_min_version:
+- '10.14'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
+  bzip2:
+    max_pin: x
   curl:
     max_pin: x
   libcurl:
     max_pin: x
   qt:
     max_pin: x.x
+  zlib:
+    max_pin: x.x
 qt:
 - '5.12'
+zlib:
+- '1.2'

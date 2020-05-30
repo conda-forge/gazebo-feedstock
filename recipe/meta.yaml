@@ -51,7 +51,7 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.*
+    - libsdformat >= 9.2
     - libignition-transport8
     - libignition-common3
     - libignition-fuel-tools4

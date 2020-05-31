@@ -13,7 +13,7 @@ cxx_compiler:
 libcurl:
 - '7'
 libprotobuf:
-- '3.11'
+- '3.12'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

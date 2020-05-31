@@ -267,3 +267,19 @@ diff -r 449141632fc3 plugins/rest_web/RestApi.cc
  
  #include "RestApi.hh"
  
+--- a/tools/CMakeLists.txt	2020-01-31 11:57:33.000000000 +1000
++++ b/tools/CMakeLists.txt	2020-05-29 11:55:11.000000000 +1000
+@@ -67,6 +67,12 @@
+   target_link_libraries(gz pthread)
+ endif()
+ 
++if (APPLE)
++  find_package(BZip2 REQUIRED)
++  find_package(ZLIB REQUIRED)
++  target_link_libraries(gz ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES})
++endif()
++
+ gz_install_executable(gz)
+ 
+ if (NOT WIN32)
+

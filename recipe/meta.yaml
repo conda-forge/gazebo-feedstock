@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: f1c873dfa17c1653332321ef4f10430fb22825de0688017455a2983f176cd69e
+  - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
+    sha256: bd4a26b9dd3edb6098b930110b8e22dbadab0212e1e6c654e03a32da38cbbf21
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]

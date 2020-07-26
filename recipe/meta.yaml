@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: bd4a26b9dd3edb6098b930110b8e22dbadab0212e1e6c654e03a32da38cbbf21
+    sha256: c038f5e680dde1512ecf80b87fc9fd1e24f4c6575f41a0e432b80da8e299aa17
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]

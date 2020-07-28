@@ -75,6 +75,7 @@ requirements:
     # - gts
     - bzip2  # [osx]
     - zlib  # [osx]
+    - expat  # [linux]
 
   run:
     - xorg-libxext      # [unix]
@@ -112,6 +113,7 @@ requirements:
     - tinyxml
     - bzip2  # [osx]
     - zlib  # [osx]
+    - expat  # [linux]
 
 test:
   commands:

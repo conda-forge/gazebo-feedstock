@@ -38,7 +38,7 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - {{ cdt('libxau') }}            # [linux]
-    - {{ cdt('libexpat') }}          # [linux]
+    - {{ cdt('expat-devel') }}       # [linux]
   host:
     - xorg-libxext      # [unix]
     - xorg-libxdmcp     # [unix]

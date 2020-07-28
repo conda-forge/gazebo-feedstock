@@ -38,6 +38,7 @@ requirements:
     - {{ cdt('libxxf86vm') }}        # [linux]
     - {{ cdt('libxext') }}           # [linux]
     - {{ cdt('libxau') }}            # [linux]
+    - {{ cdt('libexpat') }}          # [linux]
   host:
     - xorg-libxext      # [unix]
     - xorg-libxdmcp     # [unix]
@@ -75,7 +76,6 @@ requirements:
     # - gts
     - bzip2  # [osx]
     - zlib  # [osx]
-    - expat  # [linux]
 
   run:
     - xorg-libxext      # [unix]
@@ -113,7 +113,6 @@ requirements:
     - tinyxml
     - bzip2  # [osx]
     - zlib  # [osx]
-    - expat  # [linux]
 
 test:
   commands:

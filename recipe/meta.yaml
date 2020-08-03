@@ -54,6 +54,7 @@ requirements:
     - zlib     # [osx]
     - libtar   # [unix]
     - libccd   # [unix]
+    - libspnav   # [unix]
   run:
     - libsdformat 6.*
     - libignition-transport4
@@ -65,6 +66,8 @@ requirements:
     - qwt
     - dlfcn-win32  # [win]
     - boost-cpp >=1.72
+    - libspnav   # [unix]
+
 
 test:
   commands:

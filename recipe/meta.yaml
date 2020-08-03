@@ -1,55 +1,70 @@
 {% set name = "gazebo" %}
-{% set version = "9.12.0" %}
+{% set version = "9.13.1" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  - url: https://bitbucket.org/osrf/{{ name }}/get/{{ name }}{{ version[0] }}_{{ version }}.tar.gz
-    sha256: bd4787ead49360b5435a456ebcf37ba1cbf009f4a4e88821c3ee7b88306a5477
+
+  - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version[0] }}_{{ version }}.tar.gz
+    sha256: 3c724a79fa3cf3e2bf5026e81fd02664ecf0b62937944fda6dd675ed4626d9b1
     patches:
       - use-external-libs-config.patch
       - qwt-fix.patch
       - normalize-ogre-path.patch
+      - fix_build.patch  # [unix]
 
 build:
   number: 0
-  skip: true  # [not win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 
 requirements:
   build:
-    - {{ compiler('cxx') }}              # [not win]
-    - {{ compiler('c') }}                # [not win]
-    - vs2017_win-64                      # [win64]
-    - vs2017_win-32                      # [win32]
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
     - ninja
     - cmake
     - pkg-config
+
+    # x11 stuff
+    - {{ cdt('mesa-libgl-devel') }}  # [unix]
+    - {{ cdt('mesa-dri-drivers') }}  # [unix]
+    - {{ cdt('libselinux') }}        # [linux]
+    - {{ cdt('libxcb') }}            # [linux]
+    - {{ cdt('libxdamage') }}        # [linux]
+    - {{ cdt('libxfixes') }}         # [linux]
+    - {{ cdt('libxxf86vm') }}        # [linux]
+    - {{ cdt('libxext') }}           # [linux]
+    - {{ cdt('libxau') }}            # [linux]
+    - {{ cdt('expat-devel') }}       # [linux]
   host:
     - libsdformat 6.*
     - libignition-transport4
-    - qt
-    - ogre
+    - qt 5.12.5
+    - ogre 1.10.12
     - freeimage
     - curl
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.71
+    - boost-cpp >=1.72
+    - bzip2    # [osx]
+    - zlib     # [osx]
+    - libtar   # [unix]
+    - libccd   # [unix]
   run:
     - libsdformat 6.*
     - libignition-transport4
-    - qt
-    - ogre
+    - qt 5.12.5
+    - ogre 1.10.12
     - freeimage
     - curl
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.71
+    - boost-cpp >=1.72
 
 test:
   commands:

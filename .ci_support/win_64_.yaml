@@ -1,13 +1,15 @@
+c_compiler:
+- vs2017
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
 curl:
-- '7.64'
+- '7'
+cxx_compiler:
+- vs2017
 pin_run_as_build:
   curl:
     max_pin: x
-  qt:
-    max_pin: x.x
-qt:
-- '5.12'
+target_platform:
+- win-64

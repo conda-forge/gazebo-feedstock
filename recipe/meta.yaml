@@ -51,10 +51,11 @@ requirements:
     - qwt
     - dlfcn-win32  # [win]
     - boost-cpp >=1.72
-    - bzip2    # [osx]
-    - zlib     # [osx]
-    - libtar   # [unix]
-    - libccd   # [unix]
+    - bzip2      # [osx]
+    - zlib       # [osx]
+    - tinyxml2
+    - libtar     # [unix]
+    - libccd     # [unix]
     - libspnav   # [unix]
   run:
     - libsdformat 6.*

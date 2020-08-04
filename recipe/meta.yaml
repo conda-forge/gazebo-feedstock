@@ -11,12 +11,13 @@ source:
     sha256: 3c724a79fa3cf3e2bf5026e81fd02664ecf0b62937944fda6dd675ed4626d9b1
     patches:
       - use-external-libs-config.patch
-      - qwt-fix.patch
+      - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch
       - fix_build.patch  # [unix]
 
 build:
-  number: 0
+  number: 1
+  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 

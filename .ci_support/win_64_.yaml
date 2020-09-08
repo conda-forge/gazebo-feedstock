@@ -1,9 +1,7 @@
 boost_cpp:
 - '1.72'
 c_compiler:
-- gcc
-c_compiler_version:
-- '7'
+- vs2017
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -11,17 +9,11 @@ channel_targets:
 curl:
 - '7'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '7'
-docker_image:
-- condaforge/linux-anvil-comp7
+- vs2017
 libcurl:
 - '7'
 libprotobuf:
-- '3.12'
-libuuid:
-- 2.32.1
+- '3.13'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
@@ -29,9 +21,9 @@ pin_run_as_build:
     max_pin: x
   libcurl:
     max_pin: x
-  libuuid:
-    max_pin: x
   qt:
     max_pin: x.x
 qt:
 - '5.12'
+target_platform:
+- win-64

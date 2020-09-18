@@ -15,7 +15,7 @@ source:
       - normalize-ogre-path.patch  # [win]
 
 build:
-  number: 10
+  number: 11
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

@@ -13,6 +13,7 @@ source:
       - use-external-libs-config.patch  # [win]
       - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch  # [win]
+      - fix_boost_include.patch
 
 build:
   number: 11

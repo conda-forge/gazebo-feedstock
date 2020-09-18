@@ -32,3 +32,17 @@ index f7890c0ed0..33bb9cf0ba 100644
  namespace gazebo
  {
 
+diff --git a/gazebo/gui/ConfigWidget.cc b/gazebo/gui/ConfigWidget.cc
+index 5fd736adfc..9128404852 100644
+--- a/gazebo/gui/ConfigWidget.cc
++++ b/gazebo/gui/ConfigWidget.cc
+@@ -15,6 +15,8 @@
+  *
+ */
+ 
++#include <cctype>
++
+ #include <google/protobuf/descriptor.h>
+ #include <google/protobuf/message.h>
+ #include <ignition/math/Helpers.hh>
+

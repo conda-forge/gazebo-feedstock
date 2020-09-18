@@ -21,7 +21,7 @@ cxx_compiler_version:
 libcurl:
 - '7'
 libprotobuf:
-- '3.12'
+- '3.13'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:
@@ -41,5 +41,7 @@ pin_run_as_build:
     max_pin: x.x
 qt:
 - '5.12'
+target_platform:
+- osx-64
 zlib:
 - '1.2'

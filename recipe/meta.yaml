@@ -74,7 +74,7 @@ requirements:
     - libuuid  # [linux]
     - libcurl
     - tinyxml
-    # - gts
+    - gts
     - bzip2  # [osx]
     - zlib  # [osx]
 
@@ -106,7 +106,7 @@ requirements:
     - libccd   # [unix]
     # - hdf5     # [linux]
     # - simbody  # [linux]
-    # - gts
+    - gts
     - dlfcn-win32  # [win]
     - boost-cpp
     - libuuid  # [linux]

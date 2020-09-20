@@ -92,30 +92,6 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
    ########################################
    # Check and find libccd (if needed)
    pkg_check_modules(CCD ccd>=1.4)
-@@ -533,14 +551,15 @@
- 
-   ########################################
-   # Find GNU Triangulation Surface Library
--  pkg_check_modules(gts gts)
--  if (gts_FOUND)
--    message (STATUS "Looking for GTS - found")
--    set (HAVE_GTS TRUE)
--  else ()
--    set (HAVE_GTS FALSE)
--    BUILD_WARNING ("GNU Triangulation Surface library not found - Gazebo will not have CSG support.")
--  endif ()
-+  # pkg_check_modules(gts gts)
-+  # if (gts_FOUND)
-+  #   message (STATUS "Looking for GTS - found")
-+  #   set (HAVE_GTS TRUE)
-+  # else ()
-+  #   set (HAVE_GTS FALSE)
-+  #   BUILD_WARNING ("GNU Triangulation Surface library not found - Gazebo will not have CSG support.")
-+  # endif ()
-+  set (HAVE_GTS FALSE)
- 
-   #################################################
-   # Find bullet
 @@ -661,15 +680,15 @@
  
  ########################################

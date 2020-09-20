@@ -1,0 +1,39 @@
+boost_cpp:
+- 1.72.0
+c_compiler:
+- gcc
+c_compiler_version:
+- '7'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+curl:
+- '7'
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '7'
+docker_image:
+- condaforge/linux-anvil-comp7
+libcurl:
+- '7'
+libprotobuf:
+- '3.13'
+libuuid:
+- 2.32.1
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  curl:
+    max_pin: x
+  libcurl:
+    max_pin: x
+  libuuid:
+    max_pin: x
+  qt:
+    max_pin: x.x
+qt:
+- '5.12'
+target_platform:
+- linux-64

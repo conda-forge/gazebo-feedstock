@@ -13,9 +13,10 @@ source:
       - use-external-libs-config.patch  # [win]
       - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch  # [win]
+      - fix_boost_include.patch
 
 build:
-  number: 10
+  number: 11
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

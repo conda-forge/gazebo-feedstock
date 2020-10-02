@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.0.0" %}
+{% set version = "11.2.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: c038f5e680dde1512ecf80b87fc9fd1e24f4c6575f41a0e432b80da8e299aa17
+    sha256: 4b59b5d43805ca094dfe06027b1cbcb5fb81790c873cdce6ad41e270f0cc7fc4
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
@@ -16,7 +16,7 @@ source:
       - fix_boost_include.patch
 
 build:
-  number: 11
+  number: 0
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
@@ -128,7 +128,7 @@ about:
   home: http://gazebosim.org/
   license: Apache-2.0
   license_file: LICENSE
-  summary: 'Advanced robot simulator for research, design, and development.'
+  summary: Advanced robot simulator for research, design, and development.
 
 extra:
   recipe-maintainers:

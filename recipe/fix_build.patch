@@ -1,7 +1,8 @@
-diff -r 449141632fc3 CMakeLists.txt
---- a/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
-+++ b/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
-@@ -267,7 +267,7 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7322874cdc..4fc5c596c1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -283,7 +283,7 @@ endif()
  
  # Visual Studio enables c++11 support by default
  if (NOT MSVC)
@@ -10,10 +11,11 @@ diff -r 449141632fc3 CMakeLists.txt
  endif()
  
  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${VALID_CXX_FLAGS} ${UNFILTERED_FLAGS}")
-diff -r 449141632fc3 cmake/SearchForStuff.cmake
---- a/cmake/SearchForStuff.cmake	Thu Jan 30 17:57:33 2020 -0800
-+++ b/cmake/SearchForStuff.cmake	Fri Mar 06 12:30:49 2020 +0100
-@@ -199,8 +199,8 @@
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index 2b79fd4be3..d55e8ce8e3 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -199,8 +199,8 @@ if (PKG_CONFIG_FOUND)
    if (USE_EXTERNAL_TINYXML)
      pkg_check_modules(tinyxml tinyxml)
      if (NOT tinyxml_FOUND)
@@ -24,7 +26,7 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
          set (tinyxml_FAIL False)
          if (NOT tinyxml_INCLUDE_DIRS)
            message (STATUS "Looking for tinyxml headers - not found")
-@@ -355,7 +355,7 @@
+@@ -355,7 +355,7 @@ if (PKG_CONFIG_FOUND)
    if (OGRE-RTShaderSystem_FOUND)
      set(ogre_ldflags ${OGRE-RTShaderSystem_LDFLAGS})
      set(ogre_include_dirs ${OGRE-RTShaderSystem_INCLUDE_DIRS})
@@ -33,17 +35,15 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
      set(ogre_library_dirs ${OGRE-RTShaderSystem_LIBRARY_DIRS})
      set(ogre_cflags ${OGRE-RTShaderSystem_CFLAGS})
  
-@@ -384,7 +384,9 @@
+@@ -384,6 +384,7 @@ if (PKG_CONFIG_FOUND)
      list(APPEND OGRE_LIBRARIES ${OGRE_Terrain_LIBRARIES})
      list(APPEND OGRE_LIBRARIES ${OGRE_Overlay_LIBRARIES})
      list(APPEND OGRE_LIBRARIES ${OGRE_Paging_LIBRARIES})
 +    set(OGRE_LINK_LIBRARIES OGRE_LIBRARIES)
-     set(OGRE_PLUGINDIR ${OGRE_PLUGIN_DIR})
-+    set()
-   endif ()
- 
-   if (NOT OGRE_FOUND)
-@@ -392,7 +394,7 @@
+     # Workaround for https://github.com/OGRECave/ogre/issues/1499
+     # On Ogre < 1.13, the definition of OGRE_PLUGIN_DIR in the OGRE CMake
+     # configuration file on Windows is wrong. To avoid problem, on Windows
+@@ -400,7 +401,7 @@ if (PKG_CONFIG_FOUND)
    else ()
      set(ogre_ldflags ${ogre_ldflags} ${OGRE_LDFLAGS})
      set(ogre_include_dirs ${ogre_include_dirs} ${OGRE_INCLUDE_DIRS})
@@ -52,7 +52,7 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE_CFLAGS})
    endif ()
-@@ -401,7 +403,7 @@
+@@ -409,7 +410,7 @@ if (PKG_CONFIG_FOUND)
    if (OGRE-Terrain_FOUND)
      set(ogre_ldflags ${ogre_ldflags} ${OGRE-Terrain_LDFLAGS})
      set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Terrain_INCLUDE_DIRS})
@@ -61,7 +61,7 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Terrain_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE-Terrain_CFLAGS})
    endif()
-@@ -410,7 +412,7 @@
+@@ -418,7 +419,7 @@ if (PKG_CONFIG_FOUND)
    if (OGRE-Overlay_FOUND)
      set(ogre_ldflags ${ogre_ldflags} ${OGRE-Overlay_LDFLAGS})
      set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Overlay_INCLUDE_DIRS})
@@ -70,30 +70,7 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
    endif()
-@@ -433,6 +435,22 @@
-     endif()
-   endif()
- 
-+  # set(ogre_final_libraries "")
-+  # foreach(ogre_lib ${ogre_libraries})
-+  #   message("LOOPED OVER ${ogre_lib}")
-+  #   string(FIND "${ogre_lib}" "Ogre" out)
-+  #   if("${out}" EQUAL 0)
-+  #     find_library(final_ogre_lib ${ogre_lib} HINTS ${ogre_library_dirs})
-+  #     list(APPEND ogre_final_libraries "${final_ogre_lib}")
-+  #   else()
-+  #     list(APPEND ogre_final_libraries "${ogre_lib}")
-+  #   endif()
-+  # endforeach()
-+  # set(ogre_libraries "${ogre_final_libraries}")
-+
-+  # message("LIBS OF OGRE: ${ogre_libraries}")
-+  # message("FINAL OGRE LIBS: ${ogre_final_libraries}")
-+
-   ########################################
-   # Check and find libccd (if needed)
-   pkg_check_modules(CCD ccd>=1.4)
-@@ -533,14 +551,15 @@
+@@ -541,14 +542,15 @@ if (PKG_CONFIG_FOUND)
  
    ########################################
    # Find GNU Triangulation Surface Library
@@ -117,7 +94,7 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
  
    #################################################
    # Find bullet
-@@ -661,15 +680,15 @@
+@@ -669,15 +671,16 @@ add_manpage_target()
  
  ########################################
  # Find Space Navigator header and library
@@ -137,15 +114,17 @@ diff -r 449141632fc3 cmake/SearchForStuff.cmake
 +#   set(HAVE_SPNAV TRUE)
 +# else()
 +#   message(STATUS "Looking for libspnav and spnav.h - not found")
++#   set(HAVE_SPNAV FALSE)
 +# endif()
 +set(HAVE_SPNAV FALSE)
  
  ########################################
  # Find xsltproc, which is used by tools/check_test_ran.py
-diff -r 449141632fc3 cmake/gazebo-config.cmake.in
---- a/cmake/gazebo-config.cmake.in	Thu Jan 30 17:57:33 2020 -0800
-+++ b/cmake/gazebo-config.cmake.in	Fri Mar 06 12:30:49 2020 +0100
-@@ -129,7 +129,7 @@
+diff --git a/cmake/gazebo-config.cmake.in b/cmake/gazebo-config.cmake.in
+index 4fa403cfde..b571840557 100644
+--- a/cmake/gazebo-config.cmake.in
++++ b/cmake/gazebo-config.cmake.in
+@@ -129,7 +129,7 @@ endif()
  
  # Visual Studio enables c++11 support by default
  if (NOT MSVC)
@@ -154,10 +133,11 @@ diff -r 449141632fc3 cmake/gazebo-config.cmake.in
  endif()
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
-diff -r 449141632fc3 deps/opende/CMakeLists.txt
---- a/deps/opende/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
-+++ b/deps/opende/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
-@@ -283,7 +283,7 @@
+diff --git a/deps/opende/CMakeLists.txt b/deps/opende/CMakeLists.txt
+index 90f7ee01ed..0959f3d4c3 100644
+--- a/deps/opende/CMakeLists.txt
++++ b/deps/opende/CMakeLists.txt
+@@ -283,7 +283,7 @@ target_link_libraries(gazebo_ode
    gazebo_opcode
    gazebo_gimpact
    gazebo_opende_ou
@@ -166,9 +146,10 @@ diff -r 449141632fc3 deps/opende/CMakeLists.txt
    ${Boost_LIBRARIES})
  
  if (HAVE_BULLET)
-diff -r 449141632fc3 gazebo/gui/plot/qwt_gazebo.h
---- a/gazebo/gui/plot/qwt_gazebo.h	Thu Jan 30 17:57:33 2020 -0800
-+++ b/gazebo/gui/plot/qwt_gazebo.h	Fri Mar 06 12:30:49 2020 +0100
+diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
+index c548b91249..8063475108 100644
+--- a/gazebo/gui/plot/qwt_gazebo.h
++++ b/gazebo/gui/plot/qwt_gazebo.h
 @@ -23,24 +23,24 @@
  #pragma clang diagnostic push
  #pragma clang diagnostic ignored "-Wfloat-equal"
@@ -212,10 +193,11 @@ diff -r 449141632fc3 gazebo/gui/plot/qwt_gazebo.h
  
  #pragma clang diagnostic pop
  
-diff -r 449141632fc3 gazebo/msgs/CMakeLists.txt
---- a/gazebo/msgs/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
-+++ b/gazebo/msgs/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
-@@ -143,6 +143,13 @@
+diff --git a/gazebo/msgs/CMakeLists.txt b/gazebo/msgs/CMakeLists.txt
+index cc19f5fa1e..32f5d11e04 100644
+--- a/gazebo/msgs/CMakeLists.txt
++++ b/gazebo/msgs/CMakeLists.txt
+@@ -143,6 +143,13 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
  
  add_executable(gazebomsgs_out generator/GazeboGenerator.cc generator/gazebo_generator.cc)
  target_link_libraries(gazebomsgs_out ${GZ_PROTOBUF_LIBRARY} ${GZ_PROTOBUF_PROTOC_LIBRARY})
@@ -229,10 +211,11 @@ diff -r 449141632fc3 gazebo/msgs/CMakeLists.txt
  if (UNIX)
    target_link_libraries(gazebomsgs_out pthread)
  endif()
-diff -r 449141632fc3 gazebo/rendering/CMakeLists.txt
---- a/gazebo/rendering/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
-+++ b/gazebo/rendering/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
-@@ -235,7 +235,9 @@
+diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
+index 6ca1b860f9..9354c9fdb1 100644
+--- a/gazebo/rendering/CMakeLists.txt
++++ b/gazebo/rendering/CMakeLists.txt
+@@ -240,7 +240,9 @@ if (HAVE_OCULUS)
  endif()
  
  if (NOT APPLE AND NOT WIN32)
@@ -243,10 +226,11 @@ diff -r 449141632fc3 gazebo/rendering/CMakeLists.txt
  endif()
  
  if (USE_PCH)
-diff -r 449141632fc3 gazebo/util/CMakeLists.txt
---- a/gazebo/util/CMakeLists.txt	Thu Jan 30 17:57:33 2020 -0800
-+++ b/gazebo/util/CMakeLists.txt	Fri Mar 06 12:30:49 2020 +0100
-@@ -80,7 +80,7 @@
+diff --git a/gazebo/util/CMakeLists.txt b/gazebo/util/CMakeLists.txt
+index 2c69f2b250..93f93a37d1 100644
+--- a/gazebo/util/CMakeLists.txt
++++ b/gazebo/util/CMakeLists.txt
+@@ -80,7 +80,7 @@ target_link_libraries(gazebo_util
    gazebo_common
    gazebo_transport
    gazebo_msgs
@@ -255,9 +239,10 @@ diff -r 449141632fc3 gazebo/util/CMakeLists.txt
    ${IGNITION-TRANSPORT_LIBRARIES}
    ${IGNITION-MSGS_LIBRARIES}
  )
-diff -r 449141632fc3 plugins/rest_web/RestApi.cc
---- a/plugins/rest_web/RestApi.cc	Thu Jan 30 17:57:33 2020 -0800
-+++ b/plugins/rest_web/RestApi.cc	Fri Mar 06 12:30:49 2020 +0100
+diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
+index 06790ae3b5..0f5cd85a90 100644
+--- a/plugins/rest_web/RestApi.cc
++++ b/plugins/rest_web/RestApi.cc
 @@ -18,7 +18,7 @@
  #include <cstring>
  #include <stdlib.h>
@@ -267,9 +252,11 @@ diff -r 449141632fc3 plugins/rest_web/RestApi.cc
  
  #include "RestApi.hh"
  
---- a/tools/CMakeLists.txt	2020-01-31 11:57:33.000000000 +1000
-+++ b/tools/CMakeLists.txt	2020-05-29 11:55:11.000000000 +1000
-@@ -67,6 +67,12 @@
+diff --git a/tools/CMakeLists.txt b/tools/CMakeLists.txt
+index 2209d57990..d151103e40 100644
+--- a/tools/CMakeLists.txt
++++ b/tools/CMakeLists.txt
+@@ -67,6 +67,12 @@ if (UNIX)
    target_link_libraries(gz pthread)
  endif()
  
@@ -282,4 +269,3 @@ diff -r 449141632fc3 plugins/rest_web/RestApi.cc
  gz_install_executable(gz)
  
  if (NOT WIN32)
-

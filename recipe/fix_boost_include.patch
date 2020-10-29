@@ -1,16 +1,3 @@
-diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
-index 860b930a5f..c8504e0ef1 100644
---- a/gazebo/gui/model/ModelTreeWidget.cc
-+++ b/gazebo/gui/model/ModelTreeWidget.cc
-@@ -14,6 +14,7 @@
-  * limitations under the License.
-  *
- */
-+#include <boost/bind.hpp>
- 
- #include "gazebo/common/Events.hh"
- 
-
 diff --git a/plugins/SimpleTrackedVehiclePlugin.cc b/plugins/SimpleTrackedVehiclePlugin.cc
 index f7890c0ed0..33bb9cf0ba 100644
 --- a/plugins/SimpleTrackedVehiclePlugin.cc

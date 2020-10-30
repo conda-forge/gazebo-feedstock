@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "9.13.1" %}
+{% set version = "9.15.0" %}
 
 package:
   name: {{ name }}
@@ -8,7 +8,7 @@ package:
 source:
 
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version[0] }}_{{ version }}.tar.gz
-    sha256: 3c724a79fa3cf3e2bf5026e81fd02664ecf0b62937944fda6dd675ed4626d9b1
+    sha256: 8a616a83b7dd0d919adbceaa3bef22e051186fe6e9698dd245a9a29a0c97502e
     patches:
       - use-external-libs-config.patch
       - qwt-fix.patch  # [win]
@@ -50,13 +50,13 @@ requirements:
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.72
+    - boost-cpp
     - bzip2      # [osx]
     - zlib       # [osx]
     - tinyxml2
     - libtar     # [unix]
     - libccd     # [unix]
-    - libspnav   # [unix]
+    # - libspnav   # [unix]
   run:
     - libsdformat 6.*
     - libignition-transport4
@@ -67,8 +67,8 @@ requirements:
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp >=1.72
-    - libspnav   # [unix]
+    - boost-cpp
+    # - libspnav   # [unix]
 
 
 test:

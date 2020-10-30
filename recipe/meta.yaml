@@ -50,7 +50,7 @@ requirements:
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp
+    - boost-cpp 1.72
     - bzip2      # [osx]
     - zlib       # [osx]
     - tinyxml2
@@ -67,7 +67,7 @@ requirements:
     - tbb-devel
     - qwt
     - dlfcn-win32  # [win]
-    - boost-cpp
+    - boost-cpp 1.72
     # - libspnav   # [unix]
 
 

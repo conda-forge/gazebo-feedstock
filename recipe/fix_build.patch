@@ -57,6 +57,32 @@ index ec11ca17a5..91b9d08e6e 100644
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
    endif()
+@@ -643,15 +643,16 @@ add_manpage_target()
+ 
+ ########################################
+ # Find Space Navigator header and library
+-find_library(SPNAV_LIBRARY NAMES spnav)
+-find_file(SPNAV_HEADER NAMES spnav.h)
+-if (SPNAV_LIBRARY AND SPNAV_HEADER)
+-  message(STATUS "Looking for libspnav and spnav.h - found")
+-  set(HAVE_SPNAV TRUE)
+-else()
+-  message(STATUS "Looking for libspnav and spnav.h - not found")
+-  set(HAVE_SPNAV FALSE)
+-endif()
++# find_library(SPNAV_LIBRARY NAMES spnav)
++# find_file(SPNAV_HEADER NAMES spnav.h)
++# if (SPNAV_LIBRARY AND SPNAV_HEADER)
++#   message(STATUS "Looking for libspnav and spnav.h - found")
++#   set(HAVE_SPNAV TRUE)
++# else()
++#   message(STATUS "Looking for libspnav and spnav.h - not found")
++#   set(HAVE_SPNAV FALSE)
++# endif()
++set(HAVE_SPNAV FALSE)
+ 
+ ########################################
+ # Find xsltproc, which is used by tools/check_test_ran.py
 diff --git a/cmake/gazebo-config.cmake.in b/cmake/gazebo-config.cmake.in
 index 330c4f9da2..64be2bc458 100644
 --- a/cmake/gazebo-config.cmake.in

@@ -14,6 +14,7 @@ source:
       - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch
       - fix_build.patch  # [unix]
+      - fix_tbb.patch
 
 build:
   number: 1

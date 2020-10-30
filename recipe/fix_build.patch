@@ -57,6 +57,21 @@ index ec11ca17a5..91b9d08e6e 100644
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
    endif()
+@@ -417,13 +417,7 @@ if (PKG_CONFIG_FOUND)
+ 
+   ########################################
+   # Check and find libccd (if needed)
+-  pkg_check_modules(CCD ccd>=1.4)
+-  if (NOT CCD_FOUND)
+-    message(STATUS "Using internal copy of libccd")
+-    set(CCD_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/libccd/include")
+-    set(CCD_LIBRARY_DIRS "${CMAKE_BINARY_DIR}/deps/libccd")
+-    set(CCD_LIBRARIES gazebo_ccd)
+-  endif()
++  find_package(ccd)
+ 
+   ########################################
+   # Find OpenAL
 @@ -643,15 +643,16 @@ add_manpage_target()
  
  ########################################
@@ -96,19 +111,6 @@ index 330c4f9da2..64be2bc458 100644
  endif()
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
-diff --git a/deps/opende/CMakeLists.txt b/deps/opende/CMakeLists.txt
-index 8fb85de321..67304f36c2 100644
---- a/deps/opende/CMakeLists.txt
-+++ b/deps/opende/CMakeLists.txt
-@@ -283,7 +283,7 @@ target_link_libraries(gazebo_ode
-   gazebo_opcode
-   gazebo_gimpact
-   gazebo_opende_ou
--  ${CCD_LIBRARIES}
-+  ${CCD_LINK_LIBRARIES}
-   ${Boost_LIBRARIES})
- 
- if (HAVE_DART)
 diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
 index c548b91249..8063475108 100644
 --- a/gazebo/gui/plot/qwt_gazebo.h
@@ -232,3 +234,17 @@ index 2209d57990..d151103e40 100644
  gz_install_executable(gz)
  
  if (NOT WIN32)
+diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
+index 860b930a5f..f8175e1e98 100644
+--- a/gazebo/gui/model/ModelTreeWidget.cc
++++ b/gazebo/gui/model/ModelTreeWidget.cc
+@@ -15,6 +15,8 @@
+  *
+ */
+ 
++#include <boost/bind.hpp>
++
+ #include "gazebo/common/Events.hh"
+ 
+ #include "gazebo/gui/GuiEvents.hh"
+

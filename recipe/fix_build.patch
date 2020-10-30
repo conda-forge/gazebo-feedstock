@@ -1,5 +1,58 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1a1b233509..eaaa1cd4ed 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.6 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+ 
+ if(COMMAND CMAKE_POLICY)
+   CMAKE_POLICY(SET CMP0003 NEW)
+@@ -131,7 +131,6 @@ set (build_warnings "" CACHE INTERNAL "build warnings" FORCE)
+ 
+ 
+ set (MIN_OGRE_VERSION 1.7.4 CACHE INTERNAL "Ogre version requirement" FORCE)
+-set (MIN_BOOST_VERSION 1.40.0 CACHE INTERNAL "Boost min version requirement" FORCE)
+ 
+ set (FREEIMAGE_MAJOR_VERSION 3 CACHE INTERNAL "FreeImage major version requirement" FORCE)
+ set (FREEIMAGE_MINOR_VERSION 9 CACHE INTERNAL "FreeImage minor version requirement" FORCE)
+@@ -375,34 +374,6 @@ else (build_errors)
+   # Make the package config files
+   set (pkgconfig_files gazebo_ode gazebo_transport gazebo)
+ 
+-  # set boost pkgconfig cflags
+-  set (Boost_PKGCONFIG_CFLAGS ${Boost_INCLUDE_DIRS})
+-  if (NOT "${Boost_PKGCONFIG_CFLAGS}" STREQUAL "")
+-    set (Boost_PKGCONFIG_CFLAGS "-I${Boost_PKGCONFIG_CFLAGS}")
+-  endif (NOT "${Boost_PKGCONFIG_CFLAGS}" STREQUAL "")
+-  string (REPLACE ";" " -I" Boost_PKGCONFIG_CFLAGS "${Boost_PKGCONFIG_CFLAGS}")
+-
+-  # set boost pkgconfig libs
+-  set (Boost_PKGCONFIG_LIBS ${Boost_LIBRARY_DIRS})
+-  if (NOT "${Boost_PKGCONFIG_LIBS}" STREQUAL "")
+-    set (Boost_PKGCONFIG_LIBS "-L${Boost_PKGCONFIG_LIBS}")
+-  endif(NOT "${Boost_PKGCONFIG_LIBS}" STREQUAL "")
+-  string (REPLACE ";" " -L" Boost_PKGCONFIG_LIBS "${Boost_PKGCONFIG_LIBS}")
+-
+-  foreach (b ${Boost_LIBRARIES})
+-    get_filename_component(bname ${b} NAME_WE)
+-    # Prefix -l if not already prefixed
+-    string(FIND ${bname} "-l" lprefix)
+-    if (NOT ${lprefix} EQUAL 0 )
+-      set (bname "-l${bname}")
+-    endif()
+-    # Remove the prefix lib (not always present, like in pthread)
+-    string (REPLACE "lib" "" bname "${bname}")
+-    # Some boost versions add the Boost:: component to cmake, need to change that to boost_ prefix
+-    string (REPLACE "Boost::" "boost_" bname "${bname}")
+-    set (Boost_PKGCONFIG_LIBS "${Boost_PKGCONFIG_LIBS} ${bname}")
+-  endforeach(b)
+-
+   include(${gazebo_cmake_dir}/JoinPaths.cmake)
+   join_paths(pkgconfig_libdir "\${prefix}" "${CMAKE_INSTALL_LIBDIR}")
+   join_paths(pkgconfig_includedir "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
 diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
-index ec11ca17a5..c8119d05fb 100644
+index ec11ca17a5..5e20b94a0f 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
 @@ -196,8 +196,8 @@ if (PKG_CONFIG_FOUND)
@@ -72,6 +125,17 @@ index ec11ca17a5..c8119d05fb 100644
  
    ########################################
    # Find OpenAL
+@@ -595,8 +590,8 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Test REQUIRED)
+ 
+ ########################################
+ # Find Boost, if not specified manually
+-include(FindBoost)
+-find_package(Boost ${MIN_BOOST_VERSION} REQUIRED thread system filesystem program_options regex iostreams date_time)
++# include(FindBoost)
++find_package(Boost REQUIRED COMPONENTS thread system filesystem program_options regex iostreams date_time)
+ 
+ if (NOT Boost_FOUND)
+   set (BUILD_GAZEBO OFF CACHE INTERNAL "Build Gazebo" FORCE)
 @@ -643,15 +638,16 @@ add_manpage_target()
  
  ########################################
@@ -99,7 +163,7 @@ index ec11ca17a5..c8119d05fb 100644
  ########################################
  # Find xsltproc, which is used by tools/check_test_ran.py
 diff --git a/cmake/gazebo-config.cmake.in b/cmake/gazebo-config.cmake.in
-index 330c4f9da2..64be2bc458 100644
+index b046db6194..07f3f7b2c8 100644
 --- a/cmake/gazebo-config.cmake.in
 +++ b/cmake/gazebo-config.cmake.in
 @@ -128,7 +128,7 @@ endif()
@@ -184,10 +248,10 @@ index c548b91249..8063475108 100644
  #pragma clang diagnostic pop
  
 diff --git a/gazebo/msgs/CMakeLists.txt b/gazebo/msgs/CMakeLists.txt
-index cc19f5fa1e..f69aee5276 100644
+index c12584da96..90f202508b 100644
 --- a/gazebo/msgs/CMakeLists.txt
 +++ b/gazebo/msgs/CMakeLists.txt
-@@ -142,6 +142,13 @@ gz_build_tests(${msgs_tests_sources} EXTRA_LIBS gazebo_msgs)
+@@ -143,6 +143,13 @@ gz_build_tests(${msgs_tests_sources} EXTRA_LIBS gazebo_msgs)
  include_directories(${CMAKE_CURRENT_BINARY_DIR})
  
  add_executable(gazebomsgs_out generator/GazeboGenerator.cc generator/gazebo_generator.cc)
@@ -217,7 +281,7 @@ index 6c98d22f35..6d7ee9c7b0 100644
  
  if (USE_PCH)
 diff --git a/gazebo/util/CMakeLists.txt b/gazebo/util/CMakeLists.txt
-index 2c69f2b250..93f93a37d1 100644
+index d2cef4e1fe..589351fdec 100644
 --- a/gazebo/util/CMakeLists.txt
 +++ b/gazebo/util/CMakeLists.txt
 @@ -80,7 +80,7 @@ target_link_libraries(gazebo_util

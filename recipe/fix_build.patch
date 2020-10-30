@@ -125,18 +125,17 @@ index 8fb85de321..d8d2368644 100644
  
  if (HAVE_DART)
 diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
-index 860b930a5f..f8175e1e98 100644
+index 14f52ca4cb..15f9dbb620 100644
 --- a/gazebo/gui/model/ModelTreeWidget.cc
 +++ b/gazebo/gui/model/ModelTreeWidget.cc
-@@ -15,6 +15,8 @@
-  *
+@@ -16,6 +16,7 @@
  */
  
+ #include <boost/version.hpp>
 +#include <boost/bind.hpp>
-+
+ 
  #include "gazebo/common/Events.hh"
  
- #include "gazebo/gui/GuiEvents.hh"
 diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
 index c548b91249..8063475108 100644
 --- a/gazebo/gui/plot/qwt_gazebo.h

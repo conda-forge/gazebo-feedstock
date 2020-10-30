@@ -1,5 +1,5 @@
 diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
-index ec11ca17a5..91b9d08e6e 100644
+index ec11ca17a5..c8119d05fb 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
 @@ -196,8 +196,8 @@ if (PKG_CONFIG_FOUND)
@@ -57,7 +57,7 @@ index ec11ca17a5..91b9d08e6e 100644
      set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
      set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
    endif()
-@@ -417,13 +417,7 @@ if (PKG_CONFIG_FOUND)
+@@ -417,13 +418,7 @@ if (PKG_CONFIG_FOUND)
  
    ########################################
    # Check and find libccd (if needed)
@@ -72,7 +72,7 @@ index ec11ca17a5..91b9d08e6e 100644
  
    ########################################
    # Find OpenAL
-@@ -643,15 +643,16 @@ add_manpage_target()
+@@ -643,15 +638,16 @@ add_manpage_target()
  
  ########################################
  # Find Space Navigator header and library
@@ -111,6 +111,32 @@ index 330c4f9da2..64be2bc458 100644
  endif()
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
+diff --git a/deps/opende/CMakeLists.txt b/deps/opende/CMakeLists.txt
+index 8fb85de321..d8d2368644 100644
+--- a/deps/opende/CMakeLists.txt
++++ b/deps/opende/CMakeLists.txt
+@@ -16,7 +16,7 @@ include_directories(SYSTEM
+ 
+ link_directories(  
+   ${CCD_LIBRARY_DIRS} 
+-  ${Boost_LIBRARY_DIR}
++  ${Boost_LIBRARY_DIRS}
+ )
+ 
+ if (HAVE_DART)
+diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
+index 860b930a5f..f8175e1e98 100644
+--- a/gazebo/gui/model/ModelTreeWidget.cc
++++ b/gazebo/gui/model/ModelTreeWidget.cc
+@@ -15,6 +15,8 @@
+  *
+ */
+ 
++#include <boost/bind.hpp>
++
+ #include "gazebo/common/Events.hh"
+ 
+ #include "gazebo/gui/GuiEvents.hh"
 diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
 index c548b91249..8063475108 100644
 --- a/gazebo/gui/plot/qwt_gazebo.h
@@ -234,17 +260,3 @@ index 2209d57990..d151103e40 100644
  gz_install_executable(gz)
  
  if (NOT WIN32)
-diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
-index 860b930a5f..f8175e1e98 100644
---- a/gazebo/gui/model/ModelTreeWidget.cc
-+++ b/gazebo/gui/model/ModelTreeWidget.cc
-@@ -15,6 +15,8 @@
-  *
- */
- 
-+#include <boost/bind.hpp>
-+
- #include "gazebo/common/Events.hh"
- 
- #include "gazebo/gui/GuiEvents.hh"
-

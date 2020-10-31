@@ -15,10 +15,11 @@ source:
       - normalize-ogre-path.patch
       - fix_build.patch  # [unix]
       - fix_tbb.patch
+      - disable_profiler_osx.patch  # [osx]
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 

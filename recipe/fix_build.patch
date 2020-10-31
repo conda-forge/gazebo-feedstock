@@ -326,17 +326,36 @@ index 2209d57990..d151103e40 100644
  
  if (NOT WIN32)
 diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
-index bc447dec47..b20a0f516b 100644
+index bc447dec47..43a0863e87 100644
 --- a/gazebo/common/CMakeLists.txt
 +++ b/gazebo/common/CMakeLists.txt
-@@ -321,6 +321,10 @@ target_link_libraries(gazebo_common
-   ${PROFILER_LIBRARIES}
+@@ -216,6 +216,7 @@ if (HAVE_IGNITION_FUEL_TOOLS)
+ endif()
+ 
+ # Start profiler
++if (ENABLE_PROFILER)
+ set (sources ${sources}
+   Profiler.cc
+ )
+@@ -269,6 +270,7 @@ install(PROGRAMS
+ 
+ install(DIRECTORY Remotery/vis/
+         DESTINATION ${CMAKE_INSTALL_PREFIX}/${GZ_PROFILER_VIS_PATH})
++endif ()
+ # End profiler
+ 
+ gz_build_tests(${gtest_sources} EXTRA_LIBS gazebo_common ${tinyxml_LIBRARIES})
+@@ -318,10 +320,12 @@ target_link_libraries(gazebo_common
+   ${TBB_LIBRARIES}
+   ${SDFormat_LIBRARIES}
+   ${IGNITION-FUEL_TOOLS_LIBRARIES}
+-  ${PROFILER_LIBRARIES}
  )
  
-+if(APPLE)
-+  target_link_libraries(gazebo_common "-framework Metal")
-+endif()
-+
  if(ENABLE_PROFILER)
++  target_link_libraries(gazebo_common
++      ${PROFILER_LIBRARIES}
++  )
    target_compile_definitions(gazebo_common
      PRIVATE BUILDING_DLL_GZ_PROFILER
+   )

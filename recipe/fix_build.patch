@@ -52,7 +52,7 @@ index 1a1b233509..eaaa1cd4ed 100644
    join_paths(pkgconfig_libdir "\${prefix}" "${CMAKE_INSTALL_LIBDIR}")
    join_paths(pkgconfig_includedir "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
 diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
-index ec11ca17a5..5e20b94a0f 100644
+index ec11ca17a5..60eea30954 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
 @@ -196,8 +196,8 @@ if (PKG_CONFIG_FOUND)
@@ -125,18 +125,20 @@ index ec11ca17a5..5e20b94a0f 100644
  
    ########################################
    # Find OpenAL
-@@ -595,8 +590,8 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Test REQUIRED)
+@@ -595,8 +590,10 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Test REQUIRED)
  
  ########################################
  # Find Boost, if not specified manually
 -include(FindBoost)
 -find_package(Boost ${MIN_BOOST_VERSION} REQUIRED thread system filesystem program_options regex iostreams date_time)
 +# include(FindBoost)
++
++set (Boost_DEBUG ON)
 +find_package(Boost REQUIRED COMPONENTS thread system filesystem program_options regex iostreams date_time)
  
  if (NOT Boost_FOUND)
    set (BUILD_GAZEBO OFF CACHE INTERNAL "Build Gazebo" FORCE)
-@@ -643,15 +638,16 @@ add_manpage_target()
+@@ -643,15 +640,16 @@ add_manpage_target()
  
  ########################################
  # Find Space Navigator header and library
@@ -323,3 +325,18 @@ index 2209d57990..d151103e40 100644
  gz_install_executable(gz)
  
  if (NOT WIN32)
+diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
+index bc447dec47..b20a0f516b 100644
+--- a/gazebo/common/CMakeLists.txt
++++ b/gazebo/common/CMakeLists.txt
+@@ -321,6 +321,10 @@ target_link_libraries(gazebo_common
+   ${PROFILER_LIBRARIES}
+ )
+ 
++if(APPLE)
++  target_link_libraries(gazebo_common "-framework Metal")
++endif()
++
+ if(ENABLE_PROFILER)
+   target_compile_definitions(gazebo_common
+     PRIVATE BUILDING_DLL_GZ_PROFILER

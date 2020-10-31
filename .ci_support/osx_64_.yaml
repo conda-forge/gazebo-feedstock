@@ -1,5 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
+boost_cpp:
+- 1.72.0
 bzip2:
 - '1'
 c_compiler:
@@ -19,6 +21,8 @@ cxx_compiler_version:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
   bzip2:
     max_pin: x
   curl:

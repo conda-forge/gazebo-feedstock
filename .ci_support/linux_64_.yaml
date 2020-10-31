@@ -1,3 +1,5 @@
+boost_cpp:
+- 1.72.0
 c_compiler:
 - gcc
 c_compiler_version:
@@ -17,6 +19,8 @@ cxx_compiler_version:
 docker_image:
 - condaforge/linux-anvil-comp7
 pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
   curl:
     max_pin: x
 target_platform:

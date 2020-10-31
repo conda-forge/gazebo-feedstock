@@ -19,7 +19,7 @@ source:
 
 build:
   number: 0
-  skip: false
+  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}
 

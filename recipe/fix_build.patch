@@ -1,0 +1,327 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1a1b233509..eaaa1cd4ed 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.6 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
+ 
+ if(COMMAND CMAKE_POLICY)
+   CMAKE_POLICY(SET CMP0003 NEW)
+@@ -131,7 +131,6 @@ set (build_warnings "" CACHE INTERNAL "build warnings" FORCE)
+ 
+ 
+ set (MIN_OGRE_VERSION 1.7.4 CACHE INTERNAL "Ogre version requirement" FORCE)
+-set (MIN_BOOST_VERSION 1.40.0 CACHE INTERNAL "Boost min version requirement" FORCE)
+ 
+ set (FREEIMAGE_MAJOR_VERSION 3 CACHE INTERNAL "FreeImage major version requirement" FORCE)
+ set (FREEIMAGE_MINOR_VERSION 9 CACHE INTERNAL "FreeImage minor version requirement" FORCE)
+@@ -375,34 +374,6 @@ else (build_errors)
+   # Make the package config files
+   set (pkgconfig_files gazebo_ode gazebo_transport gazebo)
+ 
+-  # set boost pkgconfig cflags
+-  set (Boost_PKGCONFIG_CFLAGS ${Boost_INCLUDE_DIRS})
+-  if (NOT "${Boost_PKGCONFIG_CFLAGS}" STREQUAL "")
+-    set (Boost_PKGCONFIG_CFLAGS "-I${Boost_PKGCONFIG_CFLAGS}")
+-  endif (NOT "${Boost_PKGCONFIG_CFLAGS}" STREQUAL "")
+-  string (REPLACE ";" " -I" Boost_PKGCONFIG_CFLAGS "${Boost_PKGCONFIG_CFLAGS}")
+-
+-  # set boost pkgconfig libs
+-  set (Boost_PKGCONFIG_LIBS ${Boost_LIBRARY_DIRS})
+-  if (NOT "${Boost_PKGCONFIG_LIBS}" STREQUAL "")
+-    set (Boost_PKGCONFIG_LIBS "-L${Boost_PKGCONFIG_LIBS}")
+-  endif(NOT "${Boost_PKGCONFIG_LIBS}" STREQUAL "")
+-  string (REPLACE ";" " -L" Boost_PKGCONFIG_LIBS "${Boost_PKGCONFIG_LIBS}")
+-
+-  foreach (b ${Boost_LIBRARIES})
+-    get_filename_component(bname ${b} NAME_WE)
+-    # Prefix -l if not already prefixed
+-    string(FIND ${bname} "-l" lprefix)
+-    if (NOT ${lprefix} EQUAL 0 )
+-      set (bname "-l${bname}")
+-    endif()
+-    # Remove the prefix lib (not always present, like in pthread)
+-    string (REPLACE "lib" "" bname "${bname}")
+-    # Some boost versions add the Boost:: component to cmake, need to change that to boost_ prefix
+-    string (REPLACE "Boost::" "boost_" bname "${bname}")
+-    set (Boost_PKGCONFIG_LIBS "${Boost_PKGCONFIG_LIBS} ${bname}")
+-  endforeach(b)
+-
+   include(${gazebo_cmake_dir}/JoinPaths.cmake)
+   join_paths(pkgconfig_libdir "\${prefix}" "${CMAKE_INSTALL_LIBDIR}")
+   join_paths(pkgconfig_includedir "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index ec11ca17a5..60eea30954 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -196,8 +196,8 @@ if (PKG_CONFIG_FOUND)
+   if (USE_EXTERNAL_TINYXML)
+     pkg_check_modules(tinyxml tinyxml)
+     if (NOT tinyxml_FOUND)
+-        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH)
+-        find_library(tinyxml_LIBRARIES NAMES tinyxml)
++        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH HINTS "${CMAKE_PREFIX_PATH}/include/")
++        find_library(tinyxml_LIBRARIES NAMES tinyxml HINTS "${CMAKE_PREFIX_PATH}/lib/")
+         set (tinyxml_FAIL False)
+         if (NOT tinyxml_INCLUDE_DIRS)
+           message (STATUS "Looking for tinyxml headers - not found")
+@@ -342,7 +342,7 @@ if (PKG_CONFIG_FOUND)
+   if (OGRE-RTShaderSystem_FOUND)
+     set(ogre_ldflags ${OGRE-RTShaderSystem_LDFLAGS})
+     set(ogre_include_dirs ${OGRE-RTShaderSystem_INCLUDE_DIRS})
+-    set(ogre_libraries ${OGRE-RTShaderSystem_LIBRARIES})
++    set(ogre_libraries ${OGRE-RTShaderSystem_LINK_LIBRARIES})
+     set(ogre_library_dirs ${OGRE-RTShaderSystem_LIBRARY_DIRS})
+     set(ogre_cflags ${OGRE-RTShaderSystem_CFLAGS})
+ 
+@@ -367,6 +367,7 @@ if (PKG_CONFIG_FOUND)
+     list(APPEND OGRE_LIBRARIES ${OGRE_Terrain_LIBRARIES})
+     list(APPEND OGRE_LIBRARIES ${OGRE_Overlay_LIBRARIES})
+     list(APPEND OGRE_LIBRARIES ${OGRE_Paging_LIBRARIES})
++    set(OGRE_LINK_LIBRARIES OGRE_LIBRARIES)
+   endif ()
+ 
+   if (NOT OGRE_FOUND)
+@@ -374,7 +375,7 @@ if (PKG_CONFIG_FOUND)
+   else ()
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE_CFLAGS})
+   endif ()
+@@ -383,7 +384,7 @@ if (PKG_CONFIG_FOUND)
+   if (OGRE-Terrain_FOUND)
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Terrain_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Terrain_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Terrain_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE-Terrain_CFLAGS})
+   endif()
+@@ -392,7 +393,7 @@ if (PKG_CONFIG_FOUND)
+   if (OGRE-Overlay_FOUND)
+     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Overlay_LDFLAGS})
+     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Overlay_INCLUDE_DIRS})
+-    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LIBRARIES})
++    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LINK_LIBRARIES})
+     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
+     set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
+   endif()
+@@ -417,13 +418,7 @@ if (PKG_CONFIG_FOUND)
+ 
+   ########################################
+   # Check and find libccd (if needed)
+-  pkg_check_modules(CCD ccd>=1.4)
+-  if (NOT CCD_FOUND)
+-    message(STATUS "Using internal copy of libccd")
+-    set(CCD_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/libccd/include")
+-    set(CCD_LIBRARY_DIRS "${CMAKE_BINARY_DIR}/deps/libccd")
+-    set(CCD_LIBRARIES gazebo_ccd)
+-  endif()
++  find_package(ccd)
+ 
+   ########################################
+   # Find OpenAL
+@@ -595,8 +590,10 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Test REQUIRED)
+ 
+ ########################################
+ # Find Boost, if not specified manually
+-include(FindBoost)
+-find_package(Boost ${MIN_BOOST_VERSION} REQUIRED thread system filesystem program_options regex iostreams date_time)
++# include(FindBoost)
++
++set (Boost_DEBUG ON)
++find_package(Boost REQUIRED COMPONENTS thread system filesystem program_options regex iostreams date_time)
+ 
+ if (NOT Boost_FOUND)
+   set (BUILD_GAZEBO OFF CACHE INTERNAL "Build Gazebo" FORCE)
+@@ -643,15 +640,16 @@ add_manpage_target()
+ 
+ ########################################
+ # Find Space Navigator header and library
+-find_library(SPNAV_LIBRARY NAMES spnav)
+-find_file(SPNAV_HEADER NAMES spnav.h)
+-if (SPNAV_LIBRARY AND SPNAV_HEADER)
+-  message(STATUS "Looking for libspnav and spnav.h - found")
+-  set(HAVE_SPNAV TRUE)
+-else()
+-  message(STATUS "Looking for libspnav and spnav.h - not found")
+-  set(HAVE_SPNAV FALSE)
+-endif()
++# find_library(SPNAV_LIBRARY NAMES spnav)
++# find_file(SPNAV_HEADER NAMES spnav.h)
++# if (SPNAV_LIBRARY AND SPNAV_HEADER)
++#   message(STATUS "Looking for libspnav and spnav.h - found")
++#   set(HAVE_SPNAV TRUE)
++# else()
++#   message(STATUS "Looking for libspnav and spnav.h - not found")
++#   set(HAVE_SPNAV FALSE)
++# endif()
++set(HAVE_SPNAV FALSE)
+ 
+ ########################################
+ # Find xsltproc, which is used by tools/check_test_ran.py
+diff --git a/cmake/gazebo-config.cmake.in b/cmake/gazebo-config.cmake.in
+index b046db6194..07f3f7b2c8 100644
+--- a/cmake/gazebo-config.cmake.in
++++ b/cmake/gazebo-config.cmake.in
+@@ -128,7 +128,7 @@ endif()
+ 
+ # Visual Studio enables c++11 support by default
+ if (NOT MSVC)
+-  list(APPEND @PKG_NAME@_CXX_FLAGS -std=c++11)
++  list(APPEND @PKG_NAME@_CXX_FLAGS)
+ endif()
+ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
+     "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
+diff --git a/deps/opende/CMakeLists.txt b/deps/opende/CMakeLists.txt
+index 8fb85de321..d8d2368644 100644
+--- a/deps/opende/CMakeLists.txt
++++ b/deps/opende/CMakeLists.txt
+@@ -16,7 +16,7 @@ include_directories(SYSTEM
+ 
+ link_directories(  
+   ${CCD_LIBRARY_DIRS} 
+-  ${Boost_LIBRARY_DIR}
++  ${Boost_LIBRARY_DIRS}
+ )
+ 
+ if (HAVE_DART)
+diff --git a/gazebo/gui/model/ModelTreeWidget.cc b/gazebo/gui/model/ModelTreeWidget.cc
+index 14f52ca4cb..15f9dbb620 100644
+--- a/gazebo/gui/model/ModelTreeWidget.cc
++++ b/gazebo/gui/model/ModelTreeWidget.cc
+@@ -16,6 +16,7 @@
+ */
+ 
+ #include <boost/version.hpp>
++#include <boost/bind.hpp>
+ 
+ #include "gazebo/common/Events.hh"
+ 
+diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
+index c548b91249..8063475108 100644
+--- a/gazebo/gui/plot/qwt_gazebo.h
++++ b/gazebo/gui/plot/qwt_gazebo.h
+@@ -23,24 +23,24 @@
+ #pragma clang diagnostic push
+ #pragma clang diagnostic ignored "-Wfloat-equal"
+ 
+-#include <qwt/qwt_curve_fitter.h>
+-#include <qwt/qwt_legend.h>
+-#include <qwt/qwt_painter.h>
+-#include <qwt/qwt_picker_machine.h>
+-#include <qwt/qwt_plot.h>
+-#include <qwt/qwt_plot_canvas.h>
+-#include <qwt/qwt_plot_curve.h>
+-#include <qwt/qwt_plot_directpainter.h>
+-#include <qwt/qwt_plot_grid.h>
+-#include <qwt/qwt_plot_layout.h>
+-#include <qwt/qwt_plot_magnifier.h>
+-#include <qwt/qwt_plot_marker.h>
+-#include <qwt/qwt_plot_panner.h>
+-#include <qwt/qwt_plot_zoomer.h>
+-#include <qwt/qwt_scale_engine.h>
+-#include <qwt/qwt_scale_widget.h>
+-#include <qwt/qwt_symbol.h>
+-#include <qwt/qwt_plot_renderer.h>
++#include <qwt_curve_fitter.h>
++#include <qwt_legend.h>
++#include <qwt_painter.h>
++#include <qwt_picker_machine.h>
++#include <qwt_plot.h>
++#include <qwt_plot_canvas.h>
++#include <qwt_plot_curve.h>
++#include <qwt_plot_directpainter.h>
++#include <qwt_plot_grid.h>
++#include <qwt_plot_layout.h>
++#include <qwt_plot_magnifier.h>
++#include <qwt_plot_marker.h>
++#include <qwt_plot_panner.h>
++#include <qwt_plot_zoomer.h>
++#include <qwt_scale_engine.h>
++#include <qwt_scale_widget.h>
++#include <qwt_symbol.h>
++#include <qwt_plot_renderer.h>
+ 
+ #pragma clang diagnostic pop
+ 
+diff --git a/gazebo/msgs/CMakeLists.txt b/gazebo/msgs/CMakeLists.txt
+index c12584da96..90f202508b 100644
+--- a/gazebo/msgs/CMakeLists.txt
++++ b/gazebo/msgs/CMakeLists.txt
+@@ -143,6 +143,13 @@ gz_build_tests(${msgs_tests_sources} EXTRA_LIBS gazebo_msgs)
+ include_directories(${CMAKE_CURRENT_BINARY_DIR})
+ 
+ add_executable(gazebomsgs_out generator/GazeboGenerator.cc generator/gazebo_generator.cc)
++set_target_properties(gazebomsgs_out
++  PROPERTIES
++    BUILD_WITH_INSTALL_RPATH TRUE
++    SKIP_BUILD_RPATH FALSE
++    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
++)
++
+ target_link_libraries(gazebomsgs_out ${GZ_PROTOBUF_LIBRARY} ${GZ_PROTOBUF_PROTOC_LIBRARY})
+ if (UNIX)
+   target_link_libraries(gazebomsgs_out pthread)
+diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
+index 6c98d22f35..6d7ee9c7b0 100644
+--- a/gazebo/rendering/CMakeLists.txt
++++ b/gazebo/rendering/CMakeLists.txt
+@@ -235,7 +235,9 @@ if (HAVE_OCULUS)
+ endif()
+ 
+ if (NOT APPLE AND NOT WIN32)
+-  target_link_libraries(gazebo_rendering X11)
++  find_package(X11 REQUIRED)
++  include_directories(${X11_INCLUDE_DIR})
++  target_link_libraries(gazebo_rendering ${X11_LIBRARIES})
+ endif()
+ 
+ if (USE_PCH)
+diff --git a/gazebo/util/CMakeLists.txt b/gazebo/util/CMakeLists.txt
+index d2cef4e1fe..589351fdec 100644
+--- a/gazebo/util/CMakeLists.txt
++++ b/gazebo/util/CMakeLists.txt
+@@ -80,7 +80,7 @@ target_link_libraries(gazebo_util
+   gazebo_common
+   gazebo_transport
+   gazebo_msgs
+-  ${tinyxml2_LIBRARIES}
++  ${tinyxml2_LINK_LIBRARIES}
+   ${IGNITION-TRANSPORT_LIBRARIES}
+   ${IGNITION-MSGS_LIBRARIES}
+ )
+diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
+index f1852f0c13..f4b7546c5f 100644
+--- a/plugins/rest_web/RestApi.cc
++++ b/plugins/rest_web/RestApi.cc
+@@ -18,7 +18,7 @@
+ #include <cstring>
+ #include <stdlib.h>
+ #include <curl/curl.h>
+-#include <inttypes.h>
++#include <cinttypes>
+ 
+ #include "RestApi.hh"
+ 
+diff --git a/tools/CMakeLists.txt b/tools/CMakeLists.txt
+index 2209d57990..d151103e40 100644
+--- a/tools/CMakeLists.txt
++++ b/tools/CMakeLists.txt
+@@ -67,6 +67,12 @@ if (UNIX)
+   target_link_libraries(gz pthread)
+ endif()
+ 
++if (APPLE)
++  find_package(BZip2 REQUIRED)
++  find_package(ZLIB REQUIRED)
++  target_link_libraries(gz ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES})
++endif()
++
+ gz_install_executable(gz)
+ 
+ if (NOT WIN32)

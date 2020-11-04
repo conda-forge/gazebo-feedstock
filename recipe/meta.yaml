@@ -55,7 +55,7 @@ requirements:
     - libprotobuf
     - libsdformat 9.3
     - libignition-transport8
-    - libignition-common3
+    - libignition-common3 3.6
     - libignition-fuel-tools4
     - qt
     - ogre 1.10.*

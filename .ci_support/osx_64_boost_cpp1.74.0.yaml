@@ -7,7 +7,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '10'
+- '11'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -17,7 +17,7 @@ curl:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '10'
+- '11'
 libcurl:
 - '7'
 libprotobuf:

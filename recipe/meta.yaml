@@ -9,6 +9,7 @@ source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
     sha256: b3c14fc1a123be2992b880efa11d362d3d06c77d8c9624a14c487357ec7623f1
     patches:
+      - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
       - normalize-ogre-path.patch  # [win]
 

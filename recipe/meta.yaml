@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.2.0" %}
+{% set version = "11.3.0" %}
 
 package:
   name: {{ name }}
@@ -7,13 +7,11 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 4b59b5d43805ca094dfe06027b1cbcb5fb81790c873cdce6ad41e270f0cc7fc4
+    sha256: b3c14fc1a123be2992b880efa11d362d3d06c77d8c9624a14c487357ec7623f1
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
-      - qwt-fix.patch  # [win]
       - normalize-ogre-path.patch  # [win]
-      - fix_boost_include.patch
 
 build:
   number: 0
@@ -77,6 +75,7 @@ requirements:
     # - gts
     - bzip2  # [osx]
     - zlib  # [osx]
+    - tiny-process-library  # [win]
 
   run:
     - xorg-libxext      # [unix]

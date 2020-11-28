@@ -76,6 +76,7 @@ requirements:
     - bzip2  # [osx]
     - zlib  # [osx]
     - tiny-process-library  # [win]
+    - ffmpeg
 
   run:
     - xorg-libxext      # [unix]
@@ -114,7 +115,7 @@ test:
   commands:
     - if exist %PREFIX%\\Library\\bin\\gzserver.exe (exit 0) else (exit 1)  # [win]
     - if exist %PREFIX%\\Library\\bin\\gzclient.exe (exit 0) else (exit 1)  # [win]
-    - if exist %PREFIX%\\Library\\bin\\gazebo.dll (exit 0) else (exit 1)  # [win]
+    - if exist %PREFIX%\\Library\\bin\\gazebo.exe (exit 0) else (exit 1)  # [win]
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]

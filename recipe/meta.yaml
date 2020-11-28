@@ -17,7 +17,7 @@ build:
   number: 0
   skip: false
   run_exports:
-    - {{ pin_subpackage('gazebo', max_pin='x.x') }}
+    - {{ pin_subpackage('gazebo', max_pin='x') }}
 
 requirements:
   build:
@@ -51,9 +51,9 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.3
+    - libsdformat
     - libignition-transport8
-    - libignition-common3 3.6
+    - libignition-common3 
     - libignition-fuel-tools4
     - qt
     - ogre 1.10.*
@@ -90,10 +90,6 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.3
-    - libignition-transport8
-    - libignition-common3
-    - libignition-fuel-tools4
     - qt
     - ogre
     - freeimage

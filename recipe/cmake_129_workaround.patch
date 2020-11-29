@@ -1,24 +1,29 @@
-From 5c94221ac3556ae5c90440d60a61913fa54d1335 Mon Sep 17 00:00:00 2001
+From dfea6a5a16660177af31884c5ffa13d2009bbd5a Mon Sep 17 00:00:00 2001
 From: Silvio Traversaro <silvio@traversaro.it>
-Date: Sun, 29 Nov 2020 19:03:49 +0100
-Subject: [PATCH] Update GazeboUtils.cmake
+Date: Sun, 29 Nov 2020 19:24:43 +0100
+Subject: [PATCH] Do not overwrite default linker flags
 
 ---
- cmake/GazeboUtils.cmake | 4 ++++
- 1 file changed, 4 insertions(+)
+ cmake/DefaultCFlags.cmake | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/cmake/GazeboUtils.cmake b/cmake/GazeboUtils.cmake
-index 6842ae7c91..f0f66776ba 100644
---- a/cmake/GazeboUtils.cmake
-+++ b/cmake/GazeboUtils.cmake
-@@ -147,6 +147,10 @@ endmacro ()
- macro (gz_setup_unix)
-     # Using dynamic linking in UNIX by default
-     set(BUILD_SHARED_LIBS TRUE)
-+    # Workaround for https://github.com/conda-forge/cmake-feedstock/issues/129
-+    add_link_options("-L${CMAKE_INSTALL_PREFIX}/lib")
-+    add_link_options("-Wl,-rpath,${CMAKE_INSTALL_PREFIX}/lib")
-+    add_link_options("-Wl,-rpath-link,${CMAKE_INSTALL_PREFIX}/lib")
- endmacro()
+diff --git a/cmake/DefaultCFlags.cmake b/cmake/DefaultCFlags.cmake
+index ca02ba295d..a6a11b5fd8 100644
+--- a/cmake/DefaultCFlags.cmake
++++ b/cmake/DefaultCFlags.cmake
+@@ -37,10 +37,10 @@ endif()
  
- #################################################
+ #####################################
+ # Set all the global build flags
+-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
+-set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
+-set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
+-set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
++set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
++set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
++set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
++set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${CMAKE_LINK_FLAGS_${CMAKE_BUILD_TYPE_UPPERCASE}}")
+ 
+ # Compiler-specific C++11 activation.
+ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+ 

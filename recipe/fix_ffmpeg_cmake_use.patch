@@ -1,0 +1,205 @@
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index 3d87f4305d..335d37ddb9 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -461,64 +461,57 @@ if (PKG_CONFIG_FOUND)
+   # else (NOT OAL_FOUND)
+   #   set (HAVE_OPENAL TRUE)
+   # endif ()
++  
++  ########################################
++  # Find ignition math library
++  find_package(ignition-cmake2 QUIET)
++  if (NOT ignition-cmake2_FOUND)
++    message(STATUS "Looking for ignition-cmake2-config.cmake - not found")
++    BUILD_ERROR ("Missing: Ignition CMake 2")
++  else()
++    message(STATUS "Looking for ignition-cmake2-config.cmake - found")
++  endif()
+ 
+   ########################################
+   # Find libswscale format
+-  pkg_check_modules(libswscale libswscale)
+-  if (NOT libswscale_FOUND)
++  find_package(SWSCALE QUIET)
++  if (NOT SWSCALE_FOUND)
+     BUILD_WARNING ("libswscale not found. Audio-video capabilities will be disabled.")
+-  else()
+-    include_directories(${libswscale_INCLUDE_DIRS})
+-    link_directories(${libswscale_LIBRARY_DIRS})
+   endif ()
+ 
+   ########################################
+-  # Find AV device. Only check for this on linux.
+-  if (UNIX)
+-    pkg_check_modules(libavdevice libavdevice>=56.4.100)
+-    if (NOT libavdevice_FOUND)
+-      BUILD_WARNING ("libavdevice not found. Recording to a video device will be disabled.")
+-    else()
+-      include_directories(${libavdevice_INCLUDE_DIRS})
+-      link_directories(${libavdevice_LIBRARY_DIRS})
+-    endif ()
+-  endif ()
+-
+-  if (NOT libavdevice_FOUND)
+-    set (HAVE_AVDEVICE False)
++  # Find AV device.
++  find_package(AVDEVICE QUIET)
++  if(NOT AVDEVICE_FOUND)  
++    BUILD_WARNING ("libavdevice not found. Recording to a video device will be disabled.")
++    set(HAVE_AVDEVICE False)
+   else()
+-    set (HAVE_AVDEVICE True)
+-  endif()
+-
++    set(HAVE_AVDEVICE True)
++  endif ()
++  
+   ########################################
+   # Find AV format
+-  pkg_check_modules(libavformat libavformat)
+-  if (NOT libavformat_FOUND)
++  find_package(AVFORMAT QUIET)
++  if (NOT AVFORMAT_FOUND)
+     BUILD_WARNING ("libavformat not found. Audio-video capabilities will be disabled.")
+-  else()
+-    include_directories(${libavformat_INCLUDE_DIRS})
+-    link_directories(${libavformat_LIBRARY_DIRS})
+   endif ()
+ 
+   ########################################
+   # Find avcodec
+-  pkg_check_modules(libavcodec libavcodec)
+-  if (NOT libavcodec_FOUND)
++  find_package(AVCODEC QUIET)
++  if (NOT AVCODEC_FOUND)
+     BUILD_WARNING ("libavcodec not found. Audio-video capabilities will be disabled.")
+-  else()
+-    include_directories(${libavcodec_INCLUDE_DIRS})
+-    link_directories(${libavcodec_LIBRARY_DIRS})
+   endif ()
+ 
+   ########################################
+   # Find avutil
+-  pkg_check_modules(libavutil libavutil)
+-  if (NOT libavutil_FOUND)
++  find_package(AVUTIL QUIET)
++  if (NOT AVUTIL_FOUND)
+     BUILD_WARNING ("libavutil not found. Audio-video capabilities will be disabled.")
+   endif ()
+ 
+-  if (libavutil_FOUND AND libavformat_FOUND AND libavcodec_FOUND AND
+-      libswscale_FOUND)
++  if (AVUTIL_FOUND AND AVFORMAT_FOUND AND AVCODEC_FOUND AND
++      SWSCALE_FOUND)
+     set (HAVE_FFMPEG TRUE)
+   else ()
+     set (HAVE_FFMPEG FALSE)
+@@ -745,18 +738,6 @@ else()
+   link_directories(${ignition-msgs5_LIBRARY_DIRS})
+ endif()
+ 
+-########################################
+-# Find ignition math library
+-find_package(ignition-math6 QUIET)
+-if (NOT ignition-math6_FOUND)
+-    message(STATUS "Looking for ignition-math6-config.cmake - not found")
+-    BUILD_ERROR ("Missing: Ignition math (libignition-math6-dev)")
+-else()
+-  message(STATUS "Looking for ignition-math6-config.cmake - found")
+-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ignition-math6_CXX_FLAGS}")
+-  include_directories(${ignition-math6_INCLUDE_DIRS})
+-  link_directories(${ignition-math6_LIBRARY_DIRS})
+-endif()
+ 
+ ########################################
+ # Find the Ignition_Transport library
+
+
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index 335d37ddb9..05c512a440 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -463,7 +463,7 @@ if (PKG_CONFIG_FOUND)
+   # endif ()
+   
+   ########################################
+-  # Find ignition math library
++  # Find ignition cmake library
+   find_package(ignition-cmake2 QUIET)
+   if (NOT ignition-cmake2_FOUND)
+     message(STATUS "Looking for ignition-cmake2-config.cmake - not found")
+@@ -488,7 +488,7 @@ if (PKG_CONFIG_FOUND)
+   else()
+     set(HAVE_AVDEVICE True)
+   endif ()
+-  
++
+   ########################################
+   # Find AV format
+   find_package(AVFORMAT QUIET)
+@@ -738,6 +738,18 @@ else()
+   link_directories(${ignition-msgs5_LIBRARY_DIRS})
+ endif()
+ 
++########################################
++# Find ignition math library
++find_package(ignition-math6 QUIET)
++if (NOT ignition-math6_FOUND)
++    message(STATUS "Looking for ignition-math6-config.cmake - not found")
++    BUILD_ERROR ("Missing: Ignition math (libignition-math6-dev)")
++else()
++  message(STATUS "Looking for ignition-math6-config.cmake - found")
++  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ignition-math6_CXX_FLAGS}")
++  include_directories(${ignition-math6_INCLUDE_DIRS})
++  link_directories(${ignition-math6_LIBRARY_DIRS})
++endif()
+ 
+ ########################################
+ # Find the Ignition_Transport library
+
+From b73e695dfba755fbe62b5fd2d267e64971519ae8 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Sun, 29 Nov 2020 10:12:28 +0100
+Subject: [PATCH 3/3] Update CMakeLists.txt
+
+---
+ gazebo/common/CMakeLists.txt | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
+index 6e32435d61..ed4094b3c6 100644
+--- a/gazebo/common/CMakeLists.txt
++++ b/gazebo/common/CMakeLists.txt
+@@ -249,14 +249,26 @@ target_link_libraries(gazebo_common
+     ${tinyxml_LIBRARIES}
+   PRIVATE
+     ${libtool_library}
+-    ${libavcodec_LIBRARIES}
+-    ${libavformat_LIBRARIES}
+-    ${libavutil_LIBRARIES}
+-    ${libavdevice_LIBRARIES}
+-    ${libswscale_LIBRARIES}
+     ${TBB_LIBRARIES}
+ )
+ 
++if (HAVE_FFMPEG)
++  target_link_libraries(gazebo_common
++    PRIVATE
++      SWSCALE::SWSCALE
++      AVDEVICE::AVDEVICE
++      AVFORMAT::AVFORMAT
++      AVUTIL::AVUTIL
++  ) 
++endif()
++
++if (HAVE_AVCODEC)
++  target_link_libraries(gazebo_common
++    PRIVATE
++      AVCODEC::AVCODEC
++  ) 
++endif()
++
+ if (UNIX)
+   target_link_libraries(gazebo_common PRIVATE pthread)
+ endif()

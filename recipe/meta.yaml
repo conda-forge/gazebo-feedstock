@@ -12,12 +12,13 @@ source:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
       - normalize-ogre-path.patch  # [win]
+      - cmake_129_workaround.patch  # [unix]
 
 build:
-  number: 0
+  number: 1
   skip: false
   run_exports:
-    - {{ pin_subpackage('gazebo', max_pin='x.x') }}
+    - {{ pin_subpackage('gazebo', max_pin='x') }}
 
 requirements:
   build:
@@ -51,9 +52,11 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.3
+    - libsdformat
+    - libignition-cmake2
+    - libignition-math6
     - libignition-transport8
-    - libignition-common3 3.6
+    - libignition-common3 
     - libignition-fuel-tools4
     - qt
     - ogre 1.10.*
@@ -76,6 +79,7 @@ requirements:
     - bzip2  # [osx]
     - zlib  # [osx]
     - tiny-process-library  # [win]
+    - ffmpeg
 
   run:
     - xorg-libxext      # [unix]
@@ -90,10 +94,6 @@ requirements:
     - libglu            # [linux]
     # deps
     - libprotobuf
-    - libsdformat 9.3
-    - libignition-transport8
-    - libignition-common3
-    - libignition-fuel-tools4
     - qt
     - ogre
     - freeimage
@@ -118,7 +118,7 @@ test:
   commands:
     - if exist %PREFIX%\\Library\\bin\\gzserver.exe (exit 0) else (exit 1)  # [win]
     - if exist %PREFIX%\\Library\\bin\\gzclient.exe (exit 0) else (exit 1)  # [win]
-    - if exist %PREFIX%\\Library\\bin\\gazebo.dll (exit 0) else (exit 1)  # [win]
+    - if exist %PREFIX%\\Library\\bin\\gazebo.exe (exit 0) else (exit 1)  # [win]
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]

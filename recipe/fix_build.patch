@@ -164,6 +164,23 @@ index cc19f5fa1e..32f5d11e04 100644
  if (UNIX)
    target_link_libraries(gazebomsgs_out pthread)
  endif()
+diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
+index 6e32435d61..fc5ad81f17 100644
+--- a/gazebo/common/CMakeLists.txt
++++ b/gazebo/common/CMakeLists.txt
+@@ -283,6 +283,12 @@ if (USE_PCH)
+   add_pch(gazebo_common common_pch.hh ${MORE_FLAGS})
+ endif()
+ 
++set_target_properties(gazebo_common
++  PROPERTIES
++    BUILD_WITH_INSTALL_RPATH TRUE
++    SKIP_BUILD_RPATH FALSE
++    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
++)
+ 
+ gz_install_library(gazebo_common)
+ gz_install_includes("common" ${headers_install} ${CMAKE_CURRENT_BINARY_DIR}/common.hh)
 diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
 index 6ca1b860f9..9354c9fdb1 100644
 --- a/gazebo/rendering/CMakeLists.txt

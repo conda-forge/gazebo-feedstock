@@ -1,0 +1,23 @@
+From 697657345809846a5143279bc83d1b56994bbe7e Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Sun, 29 Nov 2020 12:17:09 +0100
+Subject: [PATCH] Add workaround for
+ https://github.com/conda-forge/cmake-feedstock/issues/129
+
+---
+ cmake/GazeboUtils.cmake | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/cmake/GazeboUtils.cmake b/cmake/GazeboUtils.cmake
+index 6842ae7c91..251902d87e 100644
+--- a/cmake/GazeboUtils.cmake
++++ b/cmake/GazeboUtils.cmake
+@@ -147,6 +147,8 @@ endmacro ()
+ macro (gz_setup_unix)
+     # Using dynamic linking in UNIX by default
+     set(BUILD_SHARED_LIBS TRUE)
++    # Workaround for https://github.com/conda-forge/cmake-feedstock/issues/129
++    add_link_options("-L${CMAKE_INSTALL_PREFIX}/lib")
+ endmacro()
+ 
+ #################################################

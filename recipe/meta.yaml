@@ -12,7 +12,7 @@ source:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch  # [win]
       - normalize-ogre-path.patch  # [win]
-      - cmake_129_workaround.patch  # [linux]
+      - cmake_129_workaround.patch  # [unix]
 
 build:
   number: 1

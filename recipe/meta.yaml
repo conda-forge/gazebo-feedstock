@@ -53,6 +53,8 @@ requirements:
     # deps
     - libprotobuf
     - libsdformat
+    - libignition-cmake2
+    - libignition-math6
     - libignition-transport8
     - libignition-common3 
     - libignition-fuel-tools4

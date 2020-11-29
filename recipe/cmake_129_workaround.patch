@@ -17,7 +17,7 @@ index 6842ae7c91..251902d87e 100644
      # Using dynamic linking in UNIX by default
      set(BUILD_SHARED_LIBS TRUE)
 +    # Workaround for https://github.com/conda-forge/cmake-feedstock/issues/129
-+    add_link_options("-L${CMAKE_INSTALL_PREFIX}/lib")
++    add_link_options($ENV{LDFLAGS})
  endmacro()
  
  #################################################

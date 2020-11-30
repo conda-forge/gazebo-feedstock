@@ -18,7 +18,7 @@ source:
       - disable_profiler_osx.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

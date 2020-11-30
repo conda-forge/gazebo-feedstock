@@ -10,12 +10,12 @@ source:
     sha256: b3c14fc1a123be2992b880efa11d362d3d06c77d8c9624a14c487357ec7623f1
     patches:
       - fix_build.patch  # [unix]
-      - use-external-libs-config.patch  # [win]
-      - normalize-ogre-path.patch  # [win]
+      - use-external-libs-config.patch
+      - normalize-ogre-path.patch
       - cmake_129_workaround.patch  # [unix]
 
 build:
-  number: 1
+  number: 2
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

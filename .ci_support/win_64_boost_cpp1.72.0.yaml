@@ -10,6 +10,8 @@ curl:
 - '7'
 cxx_compiler:
 - vs2017
+ffmpeg:
+- '4.3'
 libcurl:
 - '7'
 libprotobuf:
@@ -19,6 +21,8 @@ pin_run_as_build:
     max_pin: x.x.x
   curl:
     max_pin: x
+  ffmpeg:
+    max_pin: x.x
   libcurl:
     max_pin: x
   qt:

@@ -18,6 +18,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '11'
+ffmpeg:
+- '4.3'
 libcurl:
 - '7'
 libprotobuf:
@@ -33,6 +35,8 @@ pin_run_as_build:
     max_pin: x
   curl:
     max_pin: x
+  ffmpeg:
+    max_pin: x.x
   libcurl:
     max_pin: x
   qt:

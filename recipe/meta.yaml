@@ -16,7 +16,7 @@ source:
       - 2906.patch
 
 build:
-  number: 3
+  number: 4
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -114,6 +114,7 @@ requirements:
     - tinyxml
     - bzip2  # [osx]
     - zlib  # [osx]
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:

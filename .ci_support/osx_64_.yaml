@@ -23,7 +23,7 @@ ffmpeg:
 libcurl:
 - '7'
 libprotobuf:
-- '3.13'
+- '3.14'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:
@@ -35,8 +35,6 @@ pin_run_as_build:
     max_pin: x
   curl:
     max_pin: x
-  ffmpeg:
-    max_pin: x.x
   libcurl:
     max_pin: x
   qt:

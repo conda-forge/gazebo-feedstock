@@ -1,5 +1,5 @@
 boost_cpp:
-- 1.72.0
+- 1.74.0
 c_compiler:
 - vs2017
 channel_sources:
@@ -15,14 +15,12 @@ ffmpeg:
 libcurl:
 - '7'
 libprotobuf:
-- '3.13'
+- '3.14'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
   curl:
     max_pin: x
-  ffmpeg:
-    max_pin: x.x
   libcurl:
     max_pin: x
   qt:

@@ -64,7 +64,7 @@ requirements:
     - freeimage
     - curl
     - tbb-devel  # [not win]
-    - tbb-devel 2020.1  # [win]
+    - tbb-devel 2019.9  # [win]
     - qwt
     - tinyxml2
     - libtar   # [unix]

@@ -35,8 +35,6 @@ pin_run_as_build:
     max_pin: x
   curl:
     max_pin: x
-  ffmpeg:
-    max_pin: x.x
   libcurl:
     max_pin: x
   qt:

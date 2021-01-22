@@ -16,7 +16,7 @@ source:
       - 2906.patch
 
 build:
-  number: 3
+  number: 4
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -63,7 +63,8 @@ requirements:
     - ogre 1.10.*
     - freeimage
     - curl
-    - tbb-devel
+    - tbb-devel  # [not win]
+    - tbb-devel 2019.9  # [win]
     - qwt
     - tinyxml2
     - libtar   # [unix]
@@ -114,6 +115,7 @@ requirements:
     - tinyxml
     - bzip2  # [osx]
     - zlib  # [osx]
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:

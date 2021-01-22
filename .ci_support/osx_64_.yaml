@@ -23,7 +23,7 @@ ffmpeg:
 libcurl:
 - '7'
 libprotobuf:
-- '3.13'
+- '3.14'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

@@ -63,7 +63,8 @@ requirements:
     - ogre 1.10.*
     - freeimage
     - curl
-    - tbb-devel
+    - tbb-devel  # [not win]
+    - tbb-devel 2020.1  # [win]
     - qwt
     - tinyxml2
     - libtar   # [unix]

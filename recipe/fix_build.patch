@@ -15,61 +15,6 @@ diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
 index 2b79fd4be3..d55e8ce8e3 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
-@@ -199,8 +199,8 @@ if (PKG_CONFIG_FOUND)
-   if (USE_EXTERNAL_TINYXML)
-     pkg_check_modules(tinyxml tinyxml)
-     if (NOT tinyxml_FOUND)
--        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH)
--        find_library(tinyxml_LIBRARIES NAMES tinyxml)
-+        find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH HINTS "${CMAKE_PREFIX_PATH}/include/")
-+        find_library(tinyxml_LIBRARIES NAMES tinyxml HINTS "${CMAKE_PREFIX_PATH}/lib/")
-         set (tinyxml_FAIL False)
-         if (NOT tinyxml_INCLUDE_DIRS)
-           message (STATUS "Looking for tinyxml headers - not found")
-@@ -355,7 +355,7 @@ if (PKG_CONFIG_FOUND)
-   if (OGRE-RTShaderSystem_FOUND)
-     set(ogre_ldflags ${OGRE-RTShaderSystem_LDFLAGS})
-     set(ogre_include_dirs ${OGRE-RTShaderSystem_INCLUDE_DIRS})
--    set(ogre_libraries ${OGRE-RTShaderSystem_LIBRARIES})
-+    set(ogre_libraries ${OGRE-RTShaderSystem_LINK_LIBRARIES})
-     set(ogre_library_dirs ${OGRE-RTShaderSystem_LIBRARY_DIRS})
-     set(ogre_cflags ${OGRE-RTShaderSystem_CFLAGS})
- 
-@@ -384,6 +384,7 @@ if (PKG_CONFIG_FOUND)
-     list(APPEND OGRE_LIBRARIES ${OGRE_Terrain_LIBRARIES})
-     list(APPEND OGRE_LIBRARIES ${OGRE_Overlay_LIBRARIES})
-     list(APPEND OGRE_LIBRARIES ${OGRE_Paging_LIBRARIES})
-+    set(OGRE_LINK_LIBRARIES OGRE_LIBRARIES)
-     # Workaround for https://github.com/OGRECave/ogre/issues/1499
-     # On Ogre < 1.13, the definition of OGRE_PLUGIN_DIR in the OGRE CMake
-     # configuration file on Windows is wrong. To avoid problem, on Windows
-@@ -400,7 +401,7 @@ if (PKG_CONFIG_FOUND)
-   else ()
-     set(ogre_ldflags ${ogre_ldflags} ${OGRE_LDFLAGS})
-     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE_INCLUDE_DIRS})
--    set(ogre_libraries ${ogre_libraries};${OGRE_LIBRARIES})
-+    set(ogre_libraries ${ogre_libraries};${OGRE_LINK_LIBRARIES})
-     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE_LIBRARY_DIRS})
-     set(ogre_cflags ${ogre_cflags} ${OGRE_CFLAGS})
-   endif ()
-@@ -409,7 +410,7 @@ if (PKG_CONFIG_FOUND)
-   if (OGRE-Terrain_FOUND)
-     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Terrain_LDFLAGS})
-     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Terrain_INCLUDE_DIRS})
--    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LIBRARIES})
-+    set(ogre_libraries ${ogre_libraries};${OGRE-Terrain_LINK_LIBRARIES})
-     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Terrain_LIBRARY_DIRS})
-     set(ogre_cflags ${ogre_cflags} ${OGRE-Terrain_CFLAGS})
-   endif()
-@@ -418,7 +419,7 @@ if (PKG_CONFIG_FOUND)
-   if (OGRE-Overlay_FOUND)
-     set(ogre_ldflags ${ogre_ldflags} ${OGRE-Overlay_LDFLAGS})
-     set(ogre_include_dirs ${ogre_include_dirs} ${OGRE-Overlay_INCLUDE_DIRS})
--    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LIBRARIES})
-+    set(ogre_libraries ${ogre_libraries};${OGRE-Overlay_LINK_LIBRARIES})
-     set(ogre_library_dirs ${ogre_library_dirs} ${OGRE-Overlay_LIBRARY_DIRS})
-     set(ogre_cflags ${ogre_cflags} ${OGRE-Overlay_CFLAGS})
-   endif()
 @@ -541,14 +542,15 @@ if (PKG_CONFIG_FOUND)
  
    ########################################
@@ -133,54 +78,6 @@ index 4fa403cfde..b571840557 100644
  endif()
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
-diff --git a/deps/opende/CMakeLists.txt b/deps/opende/CMakeLists.txt
-index 90f7ee01ed..0959f3d4c3 100644
---- a/deps/opende/CMakeLists.txt
-+++ b/deps/opende/CMakeLists.txt
-@@ -283,7 +283,7 @@ target_link_libraries(gazebo_ode
-   gazebo_opcode
-   gazebo_gimpact
-   gazebo_opende_ou
--  ${CCD_LIBRARIES}
-+  ${CCD_LINK_LIBRARIES}
-   ${Boost_LIBRARIES})
- 
- if (HAVE_BULLET)
-diff --git a/gazebo/msgs/CMakeLists.txt b/gazebo/msgs/CMakeLists.txt
-index cc19f5fa1e..32f5d11e04 100644
---- a/gazebo/msgs/CMakeLists.txt
-+++ b/gazebo/msgs/CMakeLists.txt
-@@ -143,6 +143,13 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
- 
- add_executable(gazebomsgs_out generator/GazeboGenerator.cc generator/gazebo_generator.cc)
- target_link_libraries(gazebomsgs_out ${GZ_PROTOBUF_LIBRARY} ${GZ_PROTOBUF_PROTOC_LIBRARY})
-+set_target_properties(gazebomsgs_out
-+  PROPERTIES
-+    BUILD_WITH_INSTALL_RPATH TRUE
-+    SKIP_BUILD_RPATH FALSE
-+    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
-+)
-+
- if (UNIX)
-   target_link_libraries(gazebomsgs_out pthread)
- endif()
-diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
-index 6e32435d61..fc5ad81f17 100644
---- a/gazebo/common/CMakeLists.txt
-+++ b/gazebo/common/CMakeLists.txt
-@@ -283,6 +283,12 @@ if (USE_PCH)
-   add_pch(gazebo_common common_pch.hh ${MORE_FLAGS})
- endif()
- 
-+set_target_properties(gazebo_common
-+  PROPERTIES
-+    BUILD_WITH_INSTALL_RPATH TRUE
-+    SKIP_BUILD_RPATH FALSE
-+    INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib"
-+)
- 
- gz_install_library(gazebo_common)
- gz_install_includes("common" ${headers_install} ${CMAKE_CURRENT_BINARY_DIR}/common.hh)
 diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
 index 6ca1b860f9..9354c9fdb1 100644
 --- a/gazebo/rendering/CMakeLists.txt
@@ -196,19 +93,6 @@ index 6ca1b860f9..9354c9fdb1 100644
  endif()
  
  if (USE_PCH)
-diff --git a/gazebo/util/CMakeLists.txt b/gazebo/util/CMakeLists.txt
-index 2c69f2b250..93f93a37d1 100644
---- a/gazebo/util/CMakeLists.txt
-+++ b/gazebo/util/CMakeLists.txt
-@@ -80,7 +80,7 @@ target_link_libraries(gazebo_util
-   gazebo_common
-   gazebo_transport
-   gazebo_msgs
--  ${tinyxml2_LIBRARIES}
-+  ${tinyxml2_LINK_LIBRARIES}
-   ${IGNITION-TRANSPORT_LIBRARIES}
-   ${IGNITION-MSGS_LIBRARIES}
- )
 diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
 index 06790ae3b5..0f5cd85a90 100644
 --- a/plugins/rest_web/RestApi.cc

@@ -78,48 +78,4 @@ index 4fa403cfde..b571840557 100644
  endif()
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
-diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
-index 6ca1b860f9..9354c9fdb1 100644
---- a/gazebo/rendering/CMakeLists.txt
-+++ b/gazebo/rendering/CMakeLists.txt
-@@ -240,7 +240,9 @@ if (HAVE_OCULUS)
- endif()
  
- if (NOT APPLE AND NOT WIN32)
--  target_link_libraries(gazebo_rendering X11)
-+  find_package(X11 REQUIRED)
-+  include_directories(${X11_INCLUDE_DIR})
-+  target_link_libraries(gazebo_rendering ${X11_LIBRARIES})
- endif()
- 
- if (USE_PCH)
-diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
-index 06790ae3b5..0f5cd85a90 100644
---- a/plugins/rest_web/RestApi.cc
-+++ b/plugins/rest_web/RestApi.cc
-@@ -18,7 +18,7 @@
- #include <cstring>
- #include <stdlib.h>
- #include <curl/curl.h>
--#include <inttypes.h>
-+#include <cinttypes>
- 
- #include "RestApi.hh"
- 
-diff --git a/tools/CMakeLists.txt b/tools/CMakeLists.txt
-index 2209d57990..d151103e40 100644
---- a/tools/CMakeLists.txt
-+++ b/tools/CMakeLists.txt
-@@ -67,6 +67,12 @@ if (UNIX)
-   target_link_libraries(gz pthread)
- endif()
- 
-+if (APPLE)
-+  find_package(BZip2 REQUIRED)
-+  find_package(ZLIB REQUIRED)
-+  target_link_libraries(gz ${BZIP2_LIBRARIES} ${ZLIB_LIBRARIES})
-+endif()
-+
- gz_install_executable(gz)
- 
- if (NOT WIN32)

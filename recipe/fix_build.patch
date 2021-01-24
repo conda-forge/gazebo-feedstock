@@ -79,3 +79,15 @@ index 4fa403cfde..b571840557 100644
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
  
+diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
+index 06790ae3b5..0f5cd85a90 100644
+--- a/plugins/rest_web/RestApi.cc
++++ b/plugins/rest_web/RestApi.cc
+@@ -18,7 +18,7 @@
+ #include <cstring>
+ #include <stdlib.h>
+ #include <curl/curl.h>
+-#include <inttypes.h>
++#include <cinttypes>
+
+ #include "RestApi.hh"

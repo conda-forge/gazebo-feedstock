@@ -52,6 +52,7 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
+    - protobuf
     - libprotobuf
     - libsdformat
     - libignition-cmake2

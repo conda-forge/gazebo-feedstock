@@ -14,7 +14,7 @@ source:
       - normalize-ogre-path.patch
       - cmake_129_workaround.patch  # [unix]
       - 2906.patch
-      - link_openal.patch
+      - disable-openal.patch
 
 build:
   number: 8

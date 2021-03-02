@@ -125,6 +125,9 @@ test:
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]
+    - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
+    - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
+    - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]
 
 about:
   home: http://gazebosim.org/

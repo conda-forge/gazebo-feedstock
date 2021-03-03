@@ -14,9 +14,10 @@ source:
       - normalize-ogre-path.patch
       - cmake_129_workaround.patch  # [unix]
       - 2906.patch
+      - disable-openal.patch
 
 build:
-  number: 7
+  number: 8
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -125,6 +126,9 @@ test:
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]
+    - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
+    - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
+    - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]
 
 about:
   home: http://gazebosim.org/

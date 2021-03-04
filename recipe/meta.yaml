@@ -17,7 +17,7 @@ source:
       - disable-openal.patch
 
 build:
-  number: 9
+  number: 10
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

@@ -106,7 +106,7 @@ requirements:
     # Explicit run dependency is required only on Windows, 
     # as on Unix we use 2020.2 that has a correct run_export
     - tbb-devel >=2019.9,<2021.0.0a0  # [win]
-    - tbb-devel  # [no win]
+    - tbb-devel  # [not win]
     - qwt
     - tinyxml2
     - libtar   # [unix]

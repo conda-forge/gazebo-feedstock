@@ -17,7 +17,7 @@ source:
       - disable-openal.patch
 
 build:
-  number: 11
+  number: 12
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -53,6 +53,7 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
+    - protobuf
     - libprotobuf
     - libsdformat
     - libignition-cmake2

@@ -1,16 +1,3 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 7322874cdc..4fc5c596c1 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -283,7 +283,7 @@ endif()
- 
- # Visual Studio enables c++11 support by default
- if (NOT MSVC)
--  set(UNFILTERED_FLAGS "-std=c++11")
-+  set(UNFILTERED_FLAGS "-std=c++17")
- endif()
- 
- set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${VALID_CXX_FLAGS} ${UNFILTERED_FLAGS}")
 diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
 index 2b79fd4be3..d55e8ce8e3 100644
 --- a/cmake/SearchForStuff.cmake
@@ -79,15 +66,3 @@ index 4fa403cfde..b571840557 100644
  if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
      "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
  
-diff --git a/plugins/rest_web/RestApi.cc b/plugins/rest_web/RestApi.cc
-index 06790ae3b5..0f5cd85a90 100644
---- a/plugins/rest_web/RestApi.cc
-+++ b/plugins/rest_web/RestApi.cc
-@@ -18,7 +18,7 @@
- #include <cstring>
- #include <stdlib.h>
- #include <curl/curl.h>
--#include <inttypes.h>
-+#include <cinttypes>
-
- #include "RestApi.hh"

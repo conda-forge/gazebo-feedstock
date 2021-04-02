@@ -13,7 +13,6 @@ source:
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - cmake_129_workaround.patch  # [unix]
-      - 2906.patch
       - disable-openal.patch
 
 build:

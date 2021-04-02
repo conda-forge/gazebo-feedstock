@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.3.0" %}
+{% set version = "11.4.0" %}
 
 package:
   name: {{ name }}
@@ -7,17 +7,14 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: b3c14fc1a123be2992b880efa11d362d3d06c77d8c9624a14c487357ec7623f1
+    sha256: 7ea73e73115a27092ed502351c00ef43413ffc0cf53970a49605dabf5b3c0c62
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
-      - cmake_129_workaround.patch  # [unix]
-      - 2906.patch
-      - disable-openal.patch
 
 build:
-  number: 11
+  number: 0
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -58,7 +55,7 @@ requirements:
     - libignition-cmake2
     - libignition-math6
     - libignition-transport8
-    - libignition-common3 
+    - libignition-common3
     - libignition-fuel-tools4
     - qt
     - ogre 1.10.*

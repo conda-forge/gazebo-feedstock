@@ -17,6 +17,7 @@ cmake ^
     -DTBB_INCLUDEDIR=%LIBRARY_PREFIX%\include ^
     -DTBB_LIBRARY_DIR=%LIBRARY_PREFIX%\lib ^
     -DUSE_EXTERNAL_TINY_PROCESS_LIBRARY=ON ^
+    -DHAVE_OPENAL:BOOL=OFF ^
     %SRC_DIR%
 if errorlevel 1 exit 1
 

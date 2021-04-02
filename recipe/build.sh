@@ -8,7 +8,8 @@ cmake .. \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DBoost_NO_BOOST_CMAKE=OFF \
-      -DBoost_DEBUG=OFF
+      -DBoost_DEBUG=OFF \
+      -DHAVE_OPENAL:BOOL=OFF 
 
 cmake --build . --config $BUILD_TYPE -- -j$CPU_COUNT
 cmake --build . --config $BUILD_TYPE --target install

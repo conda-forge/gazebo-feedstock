@@ -18,6 +18,7 @@ cmake ^
     -DTBB_LIBRARY_DIR=%LIBRARY_PREFIX%\lib ^
     -DUSE_EXTERNAL_TINY_PROCESS_LIBRARY=ON ^
     -DHAVE_OPENAL:BOOL=OFF ^
+    -DCMAKE_CXX_FLAGS="%CMAKE_CXX_FLAGS% /EHsc /permissive- /Zc:twoPhase-" ^
     %SRC_DIR%
 if errorlevel 1 exit 1
 

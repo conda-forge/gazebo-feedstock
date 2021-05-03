@@ -20,8 +20,14 @@ docker_image:
 - quay.io/condaforge/linux-anvil-comp7
 ffmpeg:
 - '4.3'
+graphviz:
+- '2.40'
+hdf5:
+- 1.10.6
 libcurl:
 - '7'
+libgdal:
+- '3.1'
 libprotobuf:
 - '3.15'
 libuuid:
@@ -31,8 +37,12 @@ pin_run_as_build:
     max_pin: x.x.x
   curl:
     max_pin: x
+  graphviz:
+    max_pin: x
   libcurl:
     max_pin: x
+  libgdal:
+    max_pin: x.x
   libuuid:
     max_pin: x
   qt:

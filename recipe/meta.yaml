@@ -87,7 +87,8 @@ requirements:
     - libgdal
     - libusb
     - bullet
-    - dartsim
+    # A few compile errors on Win when trying to include dartsim
+    - dartsim  # [not win]
     - simbody
     - hdf5
     - openal-soft

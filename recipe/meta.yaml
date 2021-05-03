@@ -12,9 +12,10 @@ source:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
+      - fix-windows-model-insert.patch
 
 build:
-  number: 0
+  number: 1
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

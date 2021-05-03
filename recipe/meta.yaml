@@ -82,7 +82,7 @@ requirements:
     - tiny-process-library  # [win]
     - ffmpeg
     # graphviz is not found on win
-    - graphviz
+    - graphviz  # [not win]
     - libgdal
     - libusb
     # Bullet is not detected on win for some reason

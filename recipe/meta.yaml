@@ -70,8 +70,6 @@ requirements:
     - tinyxml2
     - libtar   # [unix]
     - libccd   # [unix]
-    # - hdf5     # [linux]
-    # - simbody  # [linux]
     - dlfcn-win32  # [win]
     - boost-cpp
     # additional deps
@@ -83,10 +81,12 @@ requirements:
     - zlib  # [osx]
     - tiny-process-library  # [win]
     - ffmpeg
+    # graphviz is not found on win
     - graphviz
     - libgdal
     - libusb
-    - bullet
+    # Bullet is not detected on win for some reason
+    - bullet  # [not win]
     # A few compile errors on Win when trying to include dartsim
     - dartsim  # [not win]
     - simbody
@@ -119,8 +119,6 @@ requirements:
     - tinyxml2
     - libtar   # [unix]
     - libccd   # [unix]
-    # - hdf5     # [linux]
-    # - simbody  # [linux]
     # - gts
     - dlfcn-win32  # [win]
     - boost-cpp
@@ -129,8 +127,10 @@ requirements:
     - tinyxml
     - bzip2  # [osx]
     - zlib  # [osx]
-    - graphviz
+    # graphviz is not found on win
+    - graphviz  # [not win]
     - openal-soft
+    - libode
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:

@@ -91,6 +91,7 @@ requirements:
     - simbody
     - hdf5
     - openal-soft
+    - libode
 
   run:
     - xorg-libxext      # [unix]

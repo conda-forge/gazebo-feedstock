@@ -15,7 +15,7 @@ source:
       - fix-windows-model-insert.patch
 
 build:
-  number: 2
+  number: 3
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

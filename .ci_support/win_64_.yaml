@@ -12,8 +12,6 @@ cxx_compiler:
 - vs2017
 ffmpeg:
 - '4.3'
-graphviz:
-- '2.46'
 hdf5:
 - 1.10.6
 libcurl:
@@ -26,8 +24,6 @@ pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
   curl:
-    max_pin: x
-  graphviz:
     max_pin: x
   libcurl:
     max_pin: x

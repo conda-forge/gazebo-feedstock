@@ -13,9 +13,10 @@ source:
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-windows-model-insert.patch
+      - fix-invisible-meshes.patch
 
 build:
-  number: 0
+  number: 1
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

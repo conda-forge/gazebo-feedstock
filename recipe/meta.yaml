@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.5.1" %}
+{% set version = "11.6.0" %}
 
 package:
   name: {{ name }}
@@ -7,16 +7,17 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: f3dfb06ea99a654ca26b9457a132ca9ed579cdc2c3e2f86870719144031836b6
+    sha256: c5a4953f18a21f5984596a31018dbf9cc377a2715b9881d7ef76deb37bfd805d
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-windows-model-insert.patch
       - fix-invisible-meshes.patch
+      - fix-windows-build.patch
 
 build:
-  number: 2
+  number: 0
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}

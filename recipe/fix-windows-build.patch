@@ -1,0 +1,13 @@
+diff --git a/gazebo/Server.cc b/gazebo/Server.cc
+index 596a79ce6c..5b4fe9c4f6 100644
+--- a/gazebo/Server.cc
++++ b/gazebo/Server.cc
+@@ -94,7 +94,7 @@ namespace gazebo
+       else
+         result = sdf::recursiveSameTypeUniqueNames(_elem);
+ 
+-      if (not result)
++      if (!result)
+         gzerr << "SDF is not valid, see errors above. "
+               << "This can lead to an unexpected behaviour." << "\n";
+     }

@@ -1,0 +1,190 @@
+From c13a3805da95a99a99b546e52d9af78b51536ed4 Mon Sep 17 00:00:00 2001
+From: acxz <17132214+acxz@users.noreply.github.com>
+Date: Sat, 19 Jun 2021 13:49:05 -0400
+Subject: [PATCH] replace deprecated tbb functionality
+
+---
+ gazebo/transport/Connection.hh        | 15 ++++++---------
+ gazebo/transport/ConnectionManager.cc | 24 ++++++++++--------------
+ gazebo/transport/Node.hh              | 16 ++++++----------
+ gazebo/transport/transport_pch.hh     |  2 +-
+ 4 files changed, 23 insertions(+), 34 deletions(-)
+
+diff --git a/gazebo/transport/Connection.hh b/gazebo/transport/Connection.hh
+index bb48a73bfc..e7ecddb6a8 100644
+--- a/gazebo/transport/Connection.hh
++++ b/gazebo/transport/Connection.hh
+@@ -17,7 +17,7 @@
+ #ifndef _CONNECTION_HH_
+ #define _CONNECTION_HH_
+ 
+-#include <tbb/task.h>
++#include <tbb/task_group.h>
+ #include <google/protobuf/message.h>
+ 
+ #include <boost/asio.hpp>
+@@ -54,7 +54,7 @@ namespace gazebo
+     /// \cond
+     /// \brief A task instance that is created when data is read from
+     /// a socket and used by TBB
+-    class GZ_TRANSPORT_VISIBLE ConnectionReadTask : public tbb::task
++    class GZ_TRANSPORT_VISIBLE ConnectionReadTask
+     {
+       /// \brief Constructor
+       /// \param[_in] _func Boost function pointer, which is the function
+@@ -68,12 +68,10 @@ namespace gazebo
+               {
+               }
+ 
+-      /// \bried Overridden function from tbb::task that exectues the data
+-      /// callback.
+-      public: tbb::task *execute()
++      /// \bried Functor function that executes the data callback.
++      public: void operator()() const
+               {
+                 this->func(this->data);
+-                return NULL;
+               }
+ 
+       /// \brief The boost function pointer
+@@ -310,9 +308,8 @@ namespace gazebo
+ 
+                 if (!_e && !transport::is_stopped())
+                 {
+-                  ConnectionReadTask *task = new(tbb::task::allocate_root())
+-                        ConnectionReadTask(boost::get<0>(_handler), data);
+-                  tbb::task::enqueue(*task);
++                  tbb::task_group tg;
++                  tg.run(ConnectionReadTask(boost::get<0>(_handler), data));
+ 
+                   // Non-tbb version:
+                   // boost::get<0>(_handler)(data);
+diff --git a/gazebo/transport/ConnectionManager.cc b/gazebo/transport/ConnectionManager.cc
+index 116c71b279..cfcadb0699 100644
+--- a/gazebo/transport/ConnectionManager.cc
++++ b/gazebo/transport/ConnectionManager.cc
+@@ -28,28 +28,26 @@ using namespace gazebo;
+ using namespace transport;
+ 
+ /// TBB task to process nodes.
+-class TopicManagerProcessTask : public tbb::task
++class TopicManagerProcessTask
+ {
+-  /// Implements the necessary execute function
+-  public: tbb::task *execute()
++  /// Implements the necessary operator function
++  public: void operator()() const
+           {
+             TopicManager::Instance()->ProcessNodes();
+-            return NULL;
+           }
+ };
+ 
+ /// TBB task to establish subscriber to publisher connection.
+-class TopicManagerConnectionTask : public tbb::task
++class TopicManagerConnectionTask
+ {
+   /// \brief Constructor.
+   /// \param[in] _pub Publish message
+   public: explicit TopicManagerConnectionTask(msgs::Publish _pub) : pub(_pub) {}
+ 
+-  /// Implements the necessary execute function
+-  public: tbb::task *execute()
++  /// Implements the necessary operator function
++  public: void operator()() const
+           {
+             TopicManager::Instance()->ConnectSubToPub(pub);
+-            return NULL;
+           }
+ 
+   /// \brief Publish message
+@@ -274,9 +272,8 @@ void ConnectionManager::RunUpdate()
+ 
+   // Use TBB to process nodes. Need more testing to see if this makes
+   // a difference.
+-  // TopicManagerProcessTask *task = new(tbb::task::allocate_root())
+-  //   TopicManagerProcessTask();
+-  // tbb::task::enqueue(*task);
++  // tbb::task_group tg;
++  // tg.run(TopicManagerProcessTask());
+   boost::recursive_mutex::scoped_lock lock(this->connectionMutex);
+ 
+   TopicManager::Instance()->ProcessNodes();
+@@ -401,9 +398,8 @@ void ConnectionManager::ProcessMessage(const std::string &_data)
+     if (pub.host() != this->serverConn->GetLocalAddress() ||
+         pub.port() != this->serverConn->GetLocalPort())
+     {
+-      TopicManagerConnectionTask *task = new(tbb::task::allocate_root())
+-      TopicManagerConnectionTask(pub);
+-      tbb::task::enqueue(*task);
++      tbb::task_group tg;
++      tg.run(TopicManagerConnectionTask(pub));
+     }
+   }
+   // publisher_subscribe. This occurs when we try to subscribe to a topic, and
+diff --git a/gazebo/transport/Node.hh b/gazebo/transport/Node.hh
+index b381781fe6..aaaade11a2 100644
+--- a/gazebo/transport/Node.hh
++++ b/gazebo/transport/Node.hh
+@@ -18,7 +18,7 @@
+ #ifndef GAZEBO_TRANSPORT_NODE_HH_
+ #define GAZEBO_TRANSPORT_NODE_HH_
+ 
+-#include <tbb/task.h>
++#include <tbb/task_group.h>
+ #include <boost/bind.hpp>
+ #include <boost/enable_shared_from_this.hpp>
+ #include <map>
+@@ -36,7 +36,7 @@ namespace gazebo
+   {
+     /// \cond
+     /// \brief Task used by Node::Publish to publish on a one-time publisher
+-    class GZ_TRANSPORT_VISIBLE PublishTask : public tbb::task
++    class GZ_TRANSPORT_VISIBLE PublishTask
+     {
+       /// \brief Constructor
+       /// \param[in] _pub Publisher to publish the message on.
+@@ -49,16 +49,14 @@ namespace gazebo
+         this->msg->CopyFrom(_message);
+       }
+ 
+-      /// \brief Overridden function from tbb::task that exectues the
+-      /// publish task.
+-      public: tbb::task *execute()
++      /// \brief Functor function that executes the publish task.
++      public: void operator()() const
+               {
+                 this->pub->WaitForConnection();
+                 this->pub->Publish(*this->msg, true);
+                 this->pub->SendMessage();
+                 delete this->msg;
+                 this->pub.reset();
+-                return NULL;
+               }
+ 
+       /// \brief Pointer to the publisher.
+@@ -159,10 +157,8 @@ namespace gazebo
+                   const google::protobuf::Message &_message)
+               {
+                 transport::PublisherPtr pub = this->Advertise<M>(_topic);
+-                PublishTask *task = new(tbb::task::allocate_root())
+-                  PublishTask(pub, _message);
+-
+-                tbb::task::enqueue(*task);
++                tbb::task_group tg;
++                tg.run(PublishTask(pub, _message));
+                 return;
+               }
+ 
+diff --git a/gazebo/transport/transport_pch.hh b/gazebo/transport/transport_pch.hh
+index 77f4094741..2200110e97 100644
+--- a/gazebo/transport/transport_pch.hh
++++ b/gazebo/transport/transport_pch.hh
+@@ -46,6 +46,6 @@
+ #include <string>
+ #include <tbb/blocked_range.h>
+ #include <tbb/parallel_for.h>
+-#include <tbb/task.h>
++#include <tbb/task_group.h>
+ #include <utility>
+ #include <vector>

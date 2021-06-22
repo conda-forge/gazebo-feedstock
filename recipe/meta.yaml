@@ -65,6 +65,7 @@ requirements:
     - ogre 1.10.*
     - freeimage
     - curl
+    - tbb-devel
     - qwt
     - tinyxml2
     - libtar   # [unix]

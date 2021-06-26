@@ -69,7 +69,7 @@ requirements:
     # tbb pinned on Unix due to https://github.com/conda-forge/gazebo-feedstock/issues/57
     - tbb-devel 2020.2  # [not win]
     - qwt
-    - tinyxml2 9.*
+    - tinyxml2
     - libtar   # [unix]
     - libccd   # [unix]
     - dlfcn-win32  # [win]

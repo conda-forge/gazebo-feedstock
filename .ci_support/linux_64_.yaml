@@ -54,7 +54,7 @@ target_platform:
 tbb_devel:
 - '2020'
 tinyxml2:
-- '8'
+- '9'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

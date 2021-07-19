@@ -77,7 +77,7 @@ requirements:
     - tbb-devel 2019.9  # [win]
     # tbb pinned on Unix due to https://github.com/conda-forge/gazebo-feedstock/issues/57
     - tbb-devel 2020.2  # [not win]
-    - qwt
+    - qwt 6.1.*
     - tinyxml2
     - libtar   # [unix]
     - libccd   # [unix]

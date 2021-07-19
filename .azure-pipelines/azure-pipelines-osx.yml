@@ -8,11 +8,8 @@ jobs:
     vmImage: macOS-10.15
   strategy:
     matrix:
-      osx_64_ogre1.10:
-        CONFIG: osx_64_ogre1.10
-        UPLOAD_PACKAGES: 'True'
-      osx_64_ogre1.12:
-        CONFIG: osx_64_ogre1.12
+      osx_64_:
+        CONFIG: osx_64_
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 

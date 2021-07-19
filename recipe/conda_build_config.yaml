@@ -3,3 +3,6 @@ macos_min_version:             # [osx]
 MACOSX_DEPLOYMENT_TARGET:      # [osx]
   - 10.14                      # [osx]
 
+ogre:
+  - 1.10
+  - 1.12

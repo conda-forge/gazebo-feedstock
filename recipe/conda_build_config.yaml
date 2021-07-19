@@ -7,3 +7,10 @@ MACOSX_DEPLOYMENT_TARGET:      # [osx]
 OGRE_VERSION:
   - "1.10"
   - "1.12"
+  
+ogre:
+  {% if OGRE_VERSION == "1.10" %}
+  - 1.10
+  {% else %}
+  - 1.12
+  {% endif %}

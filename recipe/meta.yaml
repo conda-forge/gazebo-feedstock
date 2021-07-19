@@ -21,6 +21,11 @@ build:
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
+  {% if OGRE_VERSION == "1.12" %}
+  track_features:
+    - gazebo_classic_with_ogre_1_12
+  {% endif %}
+
 requirements:
   build:
     - {{ compiler('cxx') }}

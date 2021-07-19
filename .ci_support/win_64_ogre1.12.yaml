@@ -20,6 +20,8 @@ libgdal:
 - '3.3'
 libprotobuf:
 - '3.16'
+ogre:
+- '1.12'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

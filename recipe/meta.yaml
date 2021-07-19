@@ -16,7 +16,7 @@ source:
       - fix-invisible-meshes.patch
 
 build:
-  number: 0
+  number: 1
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
@@ -60,7 +60,7 @@ requirements:
     - libignition-common3
     - libignition-fuel-tools4
     - qt
-    - ogre 1.10.*
+    - ogre
     - freeimage
     - curl
     # tbb pinned on Windows due to https://stackoverflow.com/questions/64510477/error-c2061-syntax-error-identifier-concurrent-vectortemplate-type-paramet

@@ -16,10 +16,15 @@ source:
       - fix-invisible-meshes.patch
 
 build:
-  number: 0
+  number: 1
   skip: false
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
+
+  {% if OGRE_VERSION == "1.12" %}
+  track_features:
+    - gazebo_classic_with_ogre_1_12
+  {% endif %}
 
 requirements:
   build:
@@ -60,14 +65,19 @@ requirements:
     - libignition-common3
     - libignition-fuel-tools4
     - qt
+    {% if OGRE_VERSION == "1.10" %}
     - ogre 1.10.*
+    {% else %}
+    - ogre 1.12.*
+    {% endif %}
+
     - freeimage
     - curl
     # tbb pinned on Windows due to https://stackoverflow.com/questions/64510477/error-c2061-syntax-error-identifier-concurrent-vectortemplate-type-paramet
     - tbb-devel 2019.9  # [win]
     # tbb pinned on Unix due to https://github.com/conda-forge/gazebo-feedstock/issues/57
     - tbb-devel 2020.2  # [not win]
-    - qwt
+    - qwt 6.1.*
     - tinyxml2
     - libtar   # [unix]
     - libccd   # [unix]

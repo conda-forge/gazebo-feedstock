@@ -1,46 +1,17 @@
-From 70f013777b9d93f1e4c8d7a6b1cbcf23ff9692cc Mon Sep 17 00:00:00 2001
+From a7bcf255ca885bcb53a03bfaeb09273648656ea8 Mon Sep 17 00:00:00 2001
 From: Steven Peters <scpeters@openrobotics.org>
 Date: Tue, 20 Jul 2021 04:12:00 -0700
-Subject: [PATCH 1/4] IncrementalPlot.cc: include qwt_scale_map.h
+Subject: [PATCH] IncrementalPlot.cc: include qwt_scale_map.h
 
 Compilation is broken with qwt 6.2 without this fix.
 
 Signed-off-by: Steven Peters <scpeters@openrobotics.org>
 ---
- gazebo/gui/plot/qwt_gazebo.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
-index 9dbb79b1c4..918ce761a5 100644
---- a/gazebo/gui/plot/qwt_gazebo.h
-+++ b/gazebo/gui/plot/qwt_gazebo.h
-@@ -40,6 +40,7 @@
-     #include <qwt_plot_panner.h>
-     #include <qwt_plot_zoomer.h>
-     #include <qwt_scale_engine.h>
-+    #include <qwt_scale_map.h>
-     #include <qwt_scale_widget.h>
-     #include <qwt_symbol.h>
-     #include <qwt_plot_renderer.h>
-@@ -63,6 +64,7 @@
-   #include <qwt/qwt_plot_panner.h>
-   #include <qwt/qwt_plot_zoomer.h>
-   #include <qwt/qwt_scale_engine.h>
-+  #include <qwt/qwt_scale_map.h>
-   #include <qwt/qwt_scale_widget.h>
-   #include <qwt/qwt_symbol.h>
-   #include <qwt/qwt_plot_renderer.h>
-
-From 45164a700df4fb19bb32bd9885e272300a3c10bb Mon Sep 17 00:00:00 2001
-From: Steven Peters <scpeters@openrobotics.org>
-Date: Tue, 20 Jul 2021 04:12:43 -0700
-Subject: [PATCH 2/4] Use Qt::MiddleButton to fix deprecation warning
-
-Signed-off-by: Steven Peters <scpeters@openrobotics.org>
----
- gazebo/gui/GLWidget.cc             | 4 ++--
- gazebo/gui/plot/IncrementalPlot.cc | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ gazebo/gui/GLWidget.cc             |  4 +-
+ gazebo/gui/plot/IncrementalPlot.cc |  2 +-
+ gazebo/gui/plot/PlotCurve.cc       | 99 +++++++++++++++++++++++-------
+ gazebo/gui/plot/qwt_gazebo.h       |  4 ++
+ 4 files changed, 83 insertions(+), 26 deletions(-)
 
 diff --git a/gazebo/gui/GLWidget.cc b/gazebo/gui/GLWidget.cc
 index 2f748b35ac..0da51b5a8a 100644
@@ -76,48 +47,61 @@ index d5c6ec5acb..90a72a7ef3 100644
    this->dataPtr->zoomer->setMousePattern(QwtEventPattern::MouseSelect2,
        Qt::RightButton, Qt::ControlModifier);
    this->dataPtr->zoomer->setMousePattern(QwtEventPattern::MouseSelect3,
-
-From 8fe222ea4cfc582be1ee04db02ca4e90bfad4fcd Mon Sep 17 00:00:00 2001
-From: Steven Peters <scpeters@openrobotics.org>
-Date: Tue, 20 Jul 2021 11:45:46 -0700
-Subject: [PATCH 3/4] PlotCurve: add private helper for renamed members
-
-In qwt 6.2, they have renamed all member variables from d_* to m_*,
-so create a helper function to minimize the ifdefs we will need
-to support both versions.
-
-Signed-off-by: Steven Peters <scpeters@openrobotics.org>
----
- gazebo/gui/plot/PlotCurve.cc | 67 +++++++++++++++++++++++-------------
- 1 file changed, 44 insertions(+), 23 deletions(-)
-
 diff --git a/gazebo/gui/plot/PlotCurve.cc b/gazebo/gui/plot/PlotCurve.cc
-index 3f31a024bb..b9d5bb73a4 100644
+index 3f31a024bb..b59dbdfb83 100644
 --- a/gazebo/gui/plot/PlotCurve.cc
 +++ b/gazebo/gui/plot/PlotCurve.cc
-@@ -51,75 +51,96 @@ namespace gazebo
+@@ -24,6 +24,11 @@
+ #include "gazebo/gui/plot/IncrementalPlot.hh"
+ #include "gazebo/gui/plot/PlotCurve.hh"
+ 
++// member variables in qwt_series_data were renamed in 6.2.0
++#if QWT_VERSION < 0x060200
++#define QWT_VERSION_LT_620
++#endif
++
+ using namespace gazebo;
+ using namespace gui;
+ 
+@@ -51,75 +56,123 @@ namespace gazebo
        public: CurveData()
                {}
  
 -      /// \brief Add a point to the sample.
 +      private: inline const QRectF& BoundingRect() const
 +               {
++#ifdef QWT_VERSION_LT_620
 +                 return this->d_boundingRect;
++#else
++                 return this->m_boundingRect;
++#endif
 +               }
 +
 +      private: inline QRectF& BoundingRect()
 +               {
++#ifdef QWT_VERSION_LT_620
 +                 return this->d_boundingRect;
++#else
++                 return this->m_boundingRect;
++#endif
 +               }
 +
 +      private: inline const QVector<QPointF>& SamplesRef() const
 +               {
++#ifdef QWT_VERSION_LT_620
 +                 return this->d_samples;
++#else
++                 return this->m_samples;
++#endif
 +               }
 +
 +      private: inline QVector<QPointF>& SamplesRef()
 +               {
++#ifdef QWT_VERSION_LT_620
 +                 return this->d_samples;
++#else
++                 return this->m_samples;
++#endif
 +               }
 +
 +      /// \brief Bounding rectangle accessor. This create the object
@@ -127,7 +111,13 @@ index 3f31a024bb..b9d5bb73a4 100644
                {
 -                if (this->d_boundingRect.width() < 0.0)
 +                if (this->BoundingRect().width() < 0.0)
++                {
++#ifdef QWT_VERSION_LT_620
                    this->d_boundingRect = qwtBoundingRect(*this);
++#else
++                  this->m_boundingRect = qwtBoundingRect(*this);
++#endif
++                }
  
                  // set a minimum bounding box height
                  // this prevents plot's auto scale to zoom in on near-zero
@@ -141,8 +131,13 @@ index 3f31a024bb..b9d5bb73a4 100644
 -                  double mid = this->d_boundingRect.top() +
 +                  double mid = this->BoundingRect().top() +
                        (absHeight * 0.5);
++#ifdef QWT_VERSION_LT_620
                    this->d_boundingRect.setTop(mid - halfMinHeight);
                    this->d_boundingRect.setBottom(mid + halfMinHeight);
++#else
++                  this->m_boundingRect.setTop(mid - halfMinHeight);
++                  this->m_boundingRect.setBottom(mid + halfMinHeight);
++#endif
                  }
  
 -                return this->d_boundingRect;
@@ -215,105 +210,8 @@ index 3f31a024bb..b9d5bb73a4 100644
                }
  
        /// \brief maxium sample size of this curve.
-
-From b1f100cff74a3fa013826a4941e0dca5e55393a5 Mon Sep 17 00:00:00 2001
-From: Steven Peters <scpeters@openrobotics.org>
-Date: Tue, 20 Jul 2021 16:54:34 -0700
-Subject: [PATCH 4/4] PlotCurve: add ifdefs to support qwt 6.2.0
-
-Some member variables in qwt_series_data were renamed in 6.2.0
-
-Signed-off-by: Steven Peters <scpeters@openrobotics.org>
----
- gazebo/gui/plot/PlotCurve.cc | 32 ++++++++++++++++++++++++++++++++
- gazebo/gui/plot/qwt_gazebo.h |  2 ++
- 2 files changed, 34 insertions(+)
-
-diff --git a/gazebo/gui/plot/PlotCurve.cc b/gazebo/gui/plot/PlotCurve.cc
-index b9d5bb73a4..b59dbdfb83 100644
---- a/gazebo/gui/plot/PlotCurve.cc
-+++ b/gazebo/gui/plot/PlotCurve.cc
-@@ -24,6 +24,11 @@
- #include "gazebo/gui/plot/IncrementalPlot.hh"
- #include "gazebo/gui/plot/PlotCurve.hh"
- 
-+// member variables in qwt_series_data were renamed in 6.2.0
-+#if QWT_VERSION < 0x060200
-+#define QWT_VERSION_LT_620
-+#endif
-+
- using namespace gazebo;
- using namespace gui;
- 
-@@ -53,22 +58,38 @@ namespace gazebo
- 
-       private: inline const QRectF& BoundingRect() const
-                {
-+#ifdef QWT_VERSION_LT_620
-                  return this->d_boundingRect;
-+#else
-+                 return this->m_boundingRect;
-+#endif
-                }
- 
-       private: inline QRectF& BoundingRect()
-                {
-+#ifdef QWT_VERSION_LT_620
-                  return this->d_boundingRect;
-+#else
-+                 return this->m_boundingRect;
-+#endif
-                }
- 
-       private: inline const QVector<QPointF>& SamplesRef() const
-                {
-+#ifdef QWT_VERSION_LT_620
-                  return this->d_samples;
-+#else
-+                 return this->m_samples;
-+#endif
-                }
- 
-       private: inline QVector<QPointF>& SamplesRef()
-                {
-+#ifdef QWT_VERSION_LT_620
-                  return this->d_samples;
-+#else
-+                 return this->m_samples;
-+#endif
-                }
- 
-       /// \brief Bounding rectangle accessor. This create the object
-@@ -77,7 +98,13 @@ namespace gazebo
-       public: virtual QRectF boundingRect() const
-               {
-                 if (this->BoundingRect().width() < 0.0)
-+                {
-+#ifdef QWT_VERSION_LT_620
-                   this->d_boundingRect = qwtBoundingRect(*this);
-+#else
-+                  this->m_boundingRect = qwtBoundingRect(*this);
-+#endif
-+                }
- 
-                 // set a minimum bounding box height
-                 // this prevents plot's auto scale to zoom in on near-zero
-@@ -89,8 +116,13 @@ namespace gazebo
-                   double halfMinHeight = minHeight * 0.5;
-                   double mid = this->BoundingRect().top() +
-                       (absHeight * 0.5);
-+#ifdef QWT_VERSION_LT_620
-                   this->d_boundingRect.setTop(mid - halfMinHeight);
-                   this->d_boundingRect.setBottom(mid + halfMinHeight);
-+#else
-+                  this->m_boundingRect.setTop(mid - halfMinHeight);
-+                  this->m_boundingRect.setBottom(mid + halfMinHeight);
-+#endif
-                 }
- 
-                 return this->BoundingRect();
 diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
-index 918ce761a5..5209bee359 100644
+index 9dbb79b1c4..5209bee359 100644
 --- a/gazebo/gui/plot/qwt_gazebo.h
 +++ b/gazebo/gui/plot/qwt_gazebo.h
 @@ -26,6 +26,7 @@
@@ -324,7 +222,15 @@ index 918ce761a5..5209bee359 100644
      #include <qwt_legend.h>
      #include <qwt_painter.h>
      #include <qwt_picker_machine.h>
-@@ -50,6 +51,7 @@
+@@ -40,6 +41,7 @@
+     #include <qwt_plot_panner.h>
+     #include <qwt_plot_zoomer.h>
+     #include <qwt_scale_engine.h>
++    #include <qwt_scale_map.h>
+     #include <qwt_scale_widget.h>
+     #include <qwt_symbol.h>
+     #include <qwt_plot_renderer.h>
+@@ -49,6 +51,7 @@
  
  #ifndef GAZEBO_GUI_QWT_IS_INCLUDED
    #include <qwt/qwt_curve_fitter.h>
@@ -332,3 +238,11 @@ index 918ce761a5..5209bee359 100644
    #include <qwt/qwt_legend.h>
    #include <qwt/qwt_painter.h>
    #include <qwt/qwt_picker_machine.h>
+@@ -63,6 +66,7 @@
+   #include <qwt/qwt_plot_panner.h>
+   #include <qwt/qwt_plot_zoomer.h>
+   #include <qwt/qwt_scale_engine.h>
++  #include <qwt/qwt_scale_map.h>
+   #include <qwt/qwt_scale_widget.h>
+   #include <qwt/qwt_symbol.h>
+   #include <qwt/qwt_plot_renderer.h>

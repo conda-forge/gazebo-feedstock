@@ -1,0 +1,248 @@
+From a7bcf255ca885bcb53a03bfaeb09273648656ea8 Mon Sep 17 00:00:00 2001
+From: Steven Peters <scpeters@openrobotics.org>
+Date: Tue, 20 Jul 2021 04:12:00 -0700
+Subject: [PATCH] IncrementalPlot.cc: include qwt_scale_map.h
+
+Compilation is broken with qwt 6.2 without this fix.
+
+Signed-off-by: Steven Peters <scpeters@openrobotics.org>
+---
+ gazebo/gui/GLWidget.cc             |  4 +-
+ gazebo/gui/plot/IncrementalPlot.cc |  2 +-
+ gazebo/gui/plot/PlotCurve.cc       | 99 +++++++++++++++++++++++-------
+ gazebo/gui/plot/qwt_gazebo.h       |  4 ++
+ 4 files changed, 83 insertions(+), 26 deletions(-)
+
+diff --git a/gazebo/gui/GLWidget.cc b/gazebo/gui/GLWidget.cc
+index 2f748b35ac..0da51b5a8a 100644
+--- a/gazebo/gui/GLWidget.cc
++++ b/gazebo/gui/GLWidget.cc
+@@ -1378,7 +1378,7 @@ void GLWidget::SetMouseEventButtons(const Qt::MouseButtons &_buttons)
+         this->dataPtr->mouseEvent.Buttons() | 0x0);
+   }
+ 
+-  if (_buttons & Qt::MidButton)
++  if (_buttons & Qt::MiddleButton)
+   {
+     this->dataPtr->mouseEvent.SetButtons(
+         this->dataPtr->mouseEvent.Buttons() | common::MouseEvent::MIDDLE);
+@@ -1397,6 +1397,6 @@ void GLWidget::SetMouseEventButton(const Qt::MouseButton &_button)
+     this->dataPtr->mouseEvent.SetButton(common::MouseEvent::LEFT);
+   else if (_button == Qt::RightButton)
+     this->dataPtr->mouseEvent.SetButton(common::MouseEvent::RIGHT);
+-  else if (_button == Qt::MidButton)
++  else if (_button == Qt::MiddleButton)
+     this->dataPtr->mouseEvent.SetButton(common::MouseEvent::MIDDLE);
+ }
+diff --git a/gazebo/gui/plot/IncrementalPlot.cc b/gazebo/gui/plot/IncrementalPlot.cc
+index d5c6ec5acb..90a72a7ef3 100644
+--- a/gazebo/gui/plot/IncrementalPlot.cc
++++ b/gazebo/gui/plot/IncrementalPlot.cc
+@@ -195,7 +195,7 @@ IncrementalPlot::IncrementalPlot(QWidget *_parent)
+   // box zoom
+   this->dataPtr->zoomer = new QwtPlotZoomer(this->canvas());
+   this->dataPtr->zoomer->setMousePattern(QwtEventPattern::MouseSelect1,
+-      Qt::MidButton);
++      Qt::MiddleButton);
+   this->dataPtr->zoomer->setMousePattern(QwtEventPattern::MouseSelect2,
+       Qt::RightButton, Qt::ControlModifier);
+   this->dataPtr->zoomer->setMousePattern(QwtEventPattern::MouseSelect3,
+diff --git a/gazebo/gui/plot/PlotCurve.cc b/gazebo/gui/plot/PlotCurve.cc
+index 3f31a024bb..b59dbdfb83 100644
+--- a/gazebo/gui/plot/PlotCurve.cc
++++ b/gazebo/gui/plot/PlotCurve.cc
+@@ -24,6 +24,11 @@
+ #include "gazebo/gui/plot/IncrementalPlot.hh"
+ #include "gazebo/gui/plot/PlotCurve.hh"
+ 
++// member variables in qwt_series_data were renamed in 6.2.0
++#if QWT_VERSION < 0x060200
++#define QWT_VERSION_LT_620
++#endif
++
+ using namespace gazebo;
+ using namespace gui;
+ 
+@@ -51,75 +56,123 @@ namespace gazebo
+       public: CurveData()
+               {}
+ 
+-      /// \brief Add a point to the sample.
++      private: inline const QRectF& BoundingRect() const
++               {
++#ifdef QWT_VERSION_LT_620
++                 return this->d_boundingRect;
++#else
++                 return this->cachedBoundingRect;
++#endif
++               }
++
++      private: inline QRectF& BoundingRect()
++               {
++#ifdef QWT_VERSION_LT_620
++                 return this->d_boundingRect;
++#else
++                 return this->cachedBoundingRect;
++#endif
++               }
++
++      private: inline const QVector<QPointF>& SamplesRef() const
++               {
++#ifdef QWT_VERSION_LT_620
++                 return this->d_samples;
++#else
++                 return this->m_samples;
++#endif
++               }
++
++      private: inline QVector<QPointF>& SamplesRef()
++               {
++#ifdef QWT_VERSION_LT_620
++                 return this->d_samples;
++#else
++                 return this->m_samples;
++#endif
++               }
++
++      /// \brief Bounding rectangle accessor. This create the object
++      /// if it does not already exist or is too small.
+       /// \return Bounding box of the sample.
+       public: virtual QRectF boundingRect() const
+               {
+-                if (this->d_boundingRect.width() < 0.0)
++                if (this->BoundingRect().width() < 0.0)
++                {
++#ifdef QWT_VERSION_LT_620
+                   this->d_boundingRect = qwtBoundingRect(*this);
++#else
++                  this->cachedBoundingRect = qwtBoundingRect(*this);
++#endif
++                }
+ 
+                 // set a minimum bounding box height
+                 // this prevents plot's auto scale to zoom in on near-zero
+                 // floating point noise.
+                 double minHeight = 1e-3;
+-                double absHeight = std::fabs(this->d_boundingRect.height());
++                double absHeight = std::fabs(this->BoundingRect().height());
+                 if (absHeight < minHeight)
+                 {
+                   double halfMinHeight = minHeight * 0.5;
+-                  double mid = this->d_boundingRect.top() +
++                  double mid = this->BoundingRect().top() +
+                       (absHeight * 0.5);
++#ifdef QWT_VERSION_LT_620
+                   this->d_boundingRect.setTop(mid - halfMinHeight);
+                   this->d_boundingRect.setBottom(mid + halfMinHeight);
++#else
++                  this->cachedBoundingRect.setTop(mid - halfMinHeight);
++                  this->cachedBoundingRect.setBottom(mid + halfMinHeight);
++#endif
+                 }
+ 
+-                return this->d_boundingRect;
++                return this->BoundingRect();
+               }
+ 
+       /// \brief Add a point to the sample.
+       /// \param[in] _point Point to add.
+       public: inline void Add(const QPointF &_point)
+               {
+-                this->d_samples += _point;
++                this->SamplesRef() += _point;
+ 
+-                if (this->d_samples.size() > maxSampleSize)
++                if (this->SamplesRef().size() > maxSampleSize)
+                 {
+                   // remove sample window
+                   // update bounding rect?
+-                  this->d_samples.remove(0, windowSize);
++                  this->SamplesRef().remove(0, windowSize);
+                 }
+ 
+-                if (this->d_samples.size() == 1)
++                if (this->SamplesRef().size() == 1)
+                 {
+                   // init bounding rect
+-                  this->d_boundingRect.setTopLeft(_point);
+-                  this->d_boundingRect.setBottomRight(_point);
++                  this->BoundingRect().setTopLeft(_point);
++                  this->BoundingRect().setBottomRight(_point);
+                   return;
+                 }
+ 
+                 // expand bounding rect
+-                if (_point.x() < this->d_boundingRect.left())
+-                  this->d_boundingRect.setLeft(_point.x());
+-                else if (_point.x() > this->d_boundingRect.right())
+-                  this->d_boundingRect.setRight(_point.x());
+-                if (_point.y() < this->d_boundingRect.top())
+-                  this->d_boundingRect.setTop(_point.y());
+-                else if (_point.y() > this->d_boundingRect.bottom())
+-                  this->d_boundingRect.setBottom(_point.y());
++                if (_point.x() < this->BoundingRect().left())
++                  this->BoundingRect().setLeft(_point.x());
++                else if (_point.x() > this->BoundingRect().right())
++                  this->BoundingRect().setRight(_point.x());
++                if (_point.y() < this->BoundingRect().top())
++                  this->BoundingRect().setTop(_point.y());
++                else if (_point.y() > this->BoundingRect().bottom())
++                  this->BoundingRect().setBottom(_point.y());
+               }
+ 
+       /// \brief Clear the sample data.
+       public: void Clear()
+               {
+-                this->d_samples.clear();
+-                this->d_samples.squeeze();
+-                this->d_boundingRect = QRectF(0.0, 0.0, -1.0, -1.0);
++                this->SamplesRef().clear();
++                this->SamplesRef().squeeze();
++                this->BoundingRect() = QRectF(0.0, 0.0, -1.0, -1.0);
+               }
+ 
+       /// \brief Get the sample data.
+       /// \return A vector of same points.
+       public: QVector<QPointF> Samples() const
+               {
+-                return this->d_samples;
++                return this->SamplesRef();
+               }
+ 
+       /// \brief maxium sample size of this curve.
+diff --git a/gazebo/gui/plot/qwt_gazebo.h b/gazebo/gui/plot/qwt_gazebo.h
+index 9dbb79b1c4..5209bee359 100644
+--- a/gazebo/gui/plot/qwt_gazebo.h
++++ b/gazebo/gui/plot/qwt_gazebo.h
+@@ -26,6 +26,7 @@
+ #if defined __has_include
+   #if __has_include (<qwt.h>)
+     #include <qwt_curve_fitter.h>
++    #include <qwt_global.h>
+     #include <qwt_legend.h>
+     #include <qwt_painter.h>
+     #include <qwt_picker_machine.h>
+@@ -40,6 +41,7 @@
+     #include <qwt_plot_panner.h>
+     #include <qwt_plot_zoomer.h>
+     #include <qwt_scale_engine.h>
++    #include <qwt_scale_map.h>
+     #include <qwt_scale_widget.h>
+     #include <qwt_symbol.h>
+     #include <qwt_plot_renderer.h>
+@@ -49,6 +51,7 @@
+ 
+ #ifndef GAZEBO_GUI_QWT_IS_INCLUDED
+   #include <qwt/qwt_curve_fitter.h>
++  #include <qwt/qwt_global.h>
+   #include <qwt/qwt_legend.h>
+   #include <qwt/qwt_painter.h>
+   #include <qwt/qwt_picker_machine.h>
+@@ -63,6 +66,7 @@
+   #include <qwt/qwt_plot_panner.h>
+   #include <qwt/qwt_plot_zoomer.h>
+   #include <qwt/qwt_scale_engine.h>
++  #include <qwt/qwt_scale_map.h>
+   #include <qwt/qwt_scale_widget.h>
+   #include <qwt/qwt_symbol.h>
+   #include <qwt/qwt_plot_renderer.h>

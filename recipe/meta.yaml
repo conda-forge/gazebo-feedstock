@@ -14,7 +14,6 @@ source:
       - normalize-ogre-path.patch
       - fix-windows-model-insert.patch
       - fix-invisible-meshes.patch
-      - 3047.patch
 
 build:
   number: 0

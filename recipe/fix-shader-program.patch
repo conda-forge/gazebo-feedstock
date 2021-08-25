@@ -1,3 +1,27 @@
+commit f39c30f105207ec12f3dc9547f4cdfc9f340c014
+Author: William Lew <WilliamMilesLew@gmail.com>
+Date:   Mon Aug 23 14:43:04 2021 -0700
+
+    Fixes for shadow caster shaders (#3070)
+    
+    * Fixed overlapping vertex program
+    * Discard fragments meeting specification
+    
+    Co-authored-by: Steven Peters <scpeters@openrobotics.org>
+
+diff --git a/media/materials/programs/shadow_caster_ignore_heightmap_fp.glsl b/media/materials/programs/shadow_caster_ignore_heightmap_fp.glsl
+index ca110140f2..03b93138e5 100644
+--- a/media/materials/programs/shadow_caster_ignore_heightmap_fp.glsl
++++ b/media/materials/programs/shadow_caster_ignore_heightmap_fp.glsl
+@@ -18,7 +18,7 @@ void main()
+   bool matchingVectors = (magicVector1 == world_matrix[0] && magicVector2 == world_matrix[1] && magicVector3 == world_matrix[2]);
+ 
+   if (length(camera_position.xyz) == 0 && matchingVectors) {
+-    depth = 1.0;
++    discard;
+   }
+ 
+   gl_FragColor = vec4(depth, depth, depth, 1.0);
 diff --git a/media/materials/scripts/shadow_caster_ignore_heightmap.program b/media/materials/scripts/shadow_caster_ignore_heightmap.program
 index 26ab9058ca..6fe04097c8 100644
 --- a/media/materials/scripts/shadow_caster_ignore_heightmap.program

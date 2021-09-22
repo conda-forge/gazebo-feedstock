@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 boost_cpp:
-- 1.72.0
+- 1.74.0
 bzip2:
 - '1'
 c_compiler:
@@ -31,6 +31,10 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - osx-64
+tbb_devel:
+- '2020'
+tinyxml2:
+- '9'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

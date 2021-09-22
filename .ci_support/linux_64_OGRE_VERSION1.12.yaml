@@ -31,7 +31,7 @@ libcurl:
 libgdal:
 - '3.3'
 libprotobuf:
-- '3.16'
+- '3.18'
 libuuid:
 - 2.32.1
 pin_run_as_build:

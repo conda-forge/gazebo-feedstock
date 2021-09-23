@@ -1,0 +1,48 @@
+diff --git a/gazebo/common/CMakeLists.txt b/gazebo/common/CMakeLists.txt
+index bc447dec47..b45801cdda 100644
+--- a/gazebo/common/CMakeLists.txt
++++ b/gazebo/common/CMakeLists.txt
+@@ -271,7 +271,7 @@ install(DIRECTORY Remotery/vis/
+         DESTINATION ${CMAKE_INSTALL_PREFIX}/${GZ_PROFILER_VIS_PATH})
+ # End profiler
+ 
+-gz_build_tests(${gtest_sources} EXTRA_LIBS gazebo_common ${tinyxml_LIBRARIES})
++gz_build_tests(${gtest_sources} EXTRA_LIBS gazebo_common ${tinyxml_LINK_LIBRARIES})
+ 
+ set (common_headers "")
+ foreach (hdr ${headers_install})
+@@ -307,7 +307,7 @@ target_link_libraries(gazebo_common
+   ${libtool_library}
+   ${Boost_LIBRARIES}
+   ${freeimage_LIBRARIES}
+-  ${tinyxml_LIBRARIES}
++  ${tinyxml_LINK_LIBRARIES}
+   ${libavcodec_LIBRARIES}
+   ${libavformat_LIBRARIES}
+   ${libavutil_LIBRARIES}
+diff --git a/gazebo/gui/CMakeLists.txt b/gazebo/gui/CMakeLists.txt
+index 0f9edaa97a..d0cadaa83f 100644
+--- a/gazebo/gui/CMakeLists.txt
++++ b/gazebo/gui/CMakeLists.txt
+@@ -208,7 +208,7 @@ target_link_libraries(gazebo_gui
+   ${Qt5Widgets_LIBRARIES}
+   ${ogre_libraries}
+   ${Boost_LIBRARIES}
+-  ${tinyxml_LIBRARIES}
++  ${tinyxml_LINK_LIBRARIES}
+   ${QWT_LIBRARY}
+   ${IGNITION-MSGS_LIBRARIES}
+   ${IGNITION-TRANSPORT_LIBRARIES}
+diff --git a/gazebo/rendering/CMakeLists.txt b/gazebo/rendering/CMakeLists.txt
+index 6c98d22f35..9929ed8fb5 100644
+--- a/gazebo/rendering/CMakeLists.txt
++++ b/gazebo/rendering/CMakeLists.txt
+@@ -225,7 +225,7 @@ target_link_libraries(gazebo_rendering
+   gazebo_transport
+   ${ogre_libraries}
+   ${OPENGL_LIBRARIES}
+-  ${tinyxml_LIBRARIES}
++  ${tinyxml_LINK_LIBRARIES}
+   ${IGNITION-TRANSPORT_LIBRARIES}
+   ${IGNITION-MSGS_LIBRARIES}
+ )

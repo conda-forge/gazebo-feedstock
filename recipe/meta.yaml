@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "9.15.0" %}
+{% set version = "9.19.0" %}
 
 package:
   name: {{ name }}
@@ -16,9 +16,10 @@ source:
       - fix_build.patch  # [unix]
       - fix_tbb.patch
       - disable_profiler_osx.patch  # [osx]
+      - fix-tinyxml.patch
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x.x') }}

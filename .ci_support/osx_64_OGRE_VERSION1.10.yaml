@@ -31,7 +31,7 @@ libcurl:
 libgdal:
 - '3.3'
 libprotobuf:
-- '3.16'
+- '3.18'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

@@ -12,7 +12,6 @@ source:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
-      - fix-windows-model-insert.patch
       - fix-invisible-meshes.patch
 
 build:

@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.8.1" %}
+{% set version = "11.9.0" %}
 
 package:
   name: {{ name }}
@@ -7,16 +7,15 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 143b507eabbd33c2aed45e040821387ec297b1fdcc20d040870c1f0276b9daeb
+    sha256: 8a185e9edfd5ef78a300cd83ccfb557f221fd21bba92894d9ee7d82a71125bc0
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
-      - fix-windows-model-insert.patch
       - fix-invisible-meshes.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -96,7 +95,7 @@ requirements:
     - libgdal
     - libusb
     # Bullet is not detected on win for some reason
-    - bullet  # [not win]
+    - bullet-cpp  # [not win]
     # A few compile errors on Win when trying to include dartsim
     - dartsim  # [not win]
     - simbody

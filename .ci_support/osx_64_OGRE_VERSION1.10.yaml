@@ -25,7 +25,7 @@ ffmpeg:
 graphviz:
 - '2.47'
 hdf5:
-- 1.10.6
+- 1.12.1
 libcurl:
 - '7'
 libgdal:

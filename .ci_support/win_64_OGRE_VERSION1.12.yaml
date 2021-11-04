@@ -15,7 +15,7 @@ cxx_compiler:
 ffmpeg:
 - '4.3'
 hdf5:
-- 1.10.6
+- 1.12.1
 libcurl:
 - '7'
 libgdal:

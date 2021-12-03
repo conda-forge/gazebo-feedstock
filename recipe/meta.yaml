@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.9.0" %}
+{% set version = "11.9.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 8a185e9edfd5ef78a300cd83ccfb557f221fd21bba92894d9ee7d82a71125bc0
+    sha256: ecadf86d324575b17e4642d1a3e5bb56a2d707f0a460bf8fb53cabbfd7afc7f8
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
@@ -15,7 +15,7 @@ source:
       - fix-invisible-meshes.patch
 
 build:
-  number: 1
+  number: 0
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 

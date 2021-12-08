@@ -15,7 +15,7 @@ source:
       - fix-invisible-meshes.patch
 
 build:
-  number: 1
+  number: 2
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -62,7 +62,7 @@ requirements:
     - libignition-transport8
     - libignition-common3
     - libignition-fuel-tools4
-    - qt
+    - qt-main
     {% if OGRE_VERSION == "1.10" %}
     - ogre 1.10.*
     {% else %}

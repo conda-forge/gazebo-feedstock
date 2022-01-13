@@ -52,17 +52,3 @@ index 2b79fd4be3..d55e8ce8e3 100644
  
  ########################################
  # Find xsltproc, which is used by tools/check_test_ran.py
-diff --git a/cmake/gazebo-config.cmake.in b/cmake/gazebo-config.cmake.in
-index 4fa403cfde..b571840557 100644
---- a/cmake/gazebo-config.cmake.in
-+++ b/cmake/gazebo-config.cmake.in
-@@ -129,7 +129,7 @@ endif()
- 
- # Visual Studio enables c++11 support by default
- if (NOT MSVC)
--  list(APPEND @PKG_NAME@_CXX_FLAGS -std=c++11)
-+  list(APPEND @PKG_NAME@_CXX_FLAGS)
- endif()
- if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND
-     "${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
- 

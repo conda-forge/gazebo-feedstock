@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.10.0" %}
+{% set version = "11.10.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: e248b00ba0f8052b12440da76998c8772a14e929f76990318798929b0bc5e85a
+    sha256: 4988e004952942489c4c011e4a8f86ada0690aa09a5b3c1cd37230c33d69b67c
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch

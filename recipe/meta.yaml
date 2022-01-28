@@ -13,7 +13,6 @@ source:
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-invisible-meshes.patch
-      - 3165.patch
 
 build:
   number: 1

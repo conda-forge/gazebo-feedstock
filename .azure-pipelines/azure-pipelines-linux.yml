@@ -16,6 +16,14 @@ jobs:
         CONFIG: linux_64_OGRE_VERSION1.12
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_aarch64_OGRE_VERSION1.10:
+        CONFIG: linux_aarch64_OGRE_VERSION1.10
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
+      linux_aarch64_OGRE_VERSION1.12:
+        CONFIG: linux_aarch64_OGRE_VERSION1.12
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64
   timeoutInMinutes: 360
 
   steps:

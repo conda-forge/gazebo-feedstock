@@ -1,0 +1,66 @@
+BUILD:
+- aarch64-conda_cos7-linux-gnu
+OGRE_VERSION:
+- '1.12'
+boost_cpp:
+- 1.74.0
+c_compiler:
+- gcc
+c_compiler_version:
+- '9'
+cdt_arch:
+- aarch64
+cdt_name:
+- cos7
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '7'
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '9'
+docker_image:
+- quay.io/condaforge/linux-anvil-aarch64
+ffmpeg:
+- '4.3'
+graphviz:
+- '2.47'
+hdf5:
+- 1.12.1
+libcurl:
+- '7'
+libgdal:
+- '3.4'
+libprotobuf:
+- '3.19'
+libuuid:
+- '2'
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  curl:
+    max_pin: x
+  graphviz:
+    max_pin: x
+  libcurl:
+    max_pin: x
+  libgdal:
+    max_pin: x.x
+  libuuid:
+    max_pin: x
+  qt:
+    max_pin: x.x
+qt:
+- '5.12'
+target_platform:
+- linux-aarch64
+tbb_devel:
+- '2020'
+tinyxml2:
+- '9'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version

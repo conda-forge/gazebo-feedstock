@@ -201,15 +201,16 @@ diff --git a/gazebo/transport/Node.hh b/gazebo/transport/Node.hh
 index b381781fe6..82b0806168 100644
 --- a/gazebo/transport/Node.hh
 +++ b/gazebo/transport/Node.hh
-@@ -18,7 +18,6 @@
+@@ -18,8 +18,6 @@
  #ifndef GAZEBO_TRANSPORT_NODE_HH_
  #define GAZEBO_TRANSPORT_NODE_HH_
  
 -#include <tbb/task.h>
- #include <boost/bind.hpp>
- #include <boost/enable_shared_from_this.hpp>
- #include <map>
-@@ -26,6 +25,7 @@
+-
+ // This fixes compiler warnings, see #3147 and #3160
+ #ifndef BOOST_BIND_GLOBAL_PLACEHOLDERS
+ #define BOOST_BIND_GLOBAL_PLACEHOLDERS
+@@ -31,6 +29,7 @@
  #include <string>
  #include <vector>
  

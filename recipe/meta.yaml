@@ -71,10 +71,7 @@ requirements:
 
     - freeimage
     - curl
-    # tbb pinned on Windows due to https://stackoverflow.com/questions/64510477/error-c2061-syntax-error-identifier-concurrent-vectortemplate-type-paramet
-    - tbb-devel 2019.9  # [win]
-    # tbb pinned on Unix due to https://github.com/conda-forge/gazebo-feedstock/issues/57
-    - tbb-devel 2020.2  # [not win]
+    - tbb-devel
     - qwt
     - tinyxml2
     - libtar   # [unix]
@@ -120,10 +117,7 @@ requirements:
     - ogre
     - freeimage
     - curl
-    # Explicit run dependency is required only on Windows, 
-    # as on Unix we use 2020.2 that has a correct run_export
-    - tbb-devel >=2019.9,<2021.0.0a0  # [win]
-    - tbb-devel  # [not win]
+    - tbb-devel
     - qwt
     - tinyxml2
     - libtar   # [unix]

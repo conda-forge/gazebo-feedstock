@@ -13,6 +13,8 @@ source:
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-invisible-meshes.patch
+      # for tbb2021 compatibility
+      - 3146.patch
 
 build:
   number: 2

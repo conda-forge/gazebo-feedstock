@@ -17,7 +17,7 @@ source:
       - 3146.patch
 
 build:
-  number: 2
+  number: 3
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -85,8 +85,8 @@ requirements:
     - libcurl
     - tinyxml
     # - gts
-    - bzip2  # [osx]
-    - zlib  # [osx]
+    - bzip2
+    - zlib
     - tiny-process-library  # [win]
     - ffmpeg
     # graphviz is not found on win

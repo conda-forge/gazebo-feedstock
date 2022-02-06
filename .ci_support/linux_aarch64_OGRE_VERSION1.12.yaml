@@ -58,7 +58,7 @@ qt:
 target_platform:
 - linux-aarch64
 tbb_devel:
-- '2020'
+- '2021'
 tinyxml2:
 - '9'
 zip_keys:

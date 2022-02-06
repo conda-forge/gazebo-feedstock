@@ -13,6 +13,8 @@ source:
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-invisible-meshes.patch
+      # for tbb2021 compatibility
+      - 3146.patch
 
 build:
   number: 2
@@ -71,10 +73,7 @@ requirements:
 
     - freeimage
     - curl
-    # tbb pinned on Windows due to https://stackoverflow.com/questions/64510477/error-c2061-syntax-error-identifier-concurrent-vectortemplate-type-paramet
-    - tbb-devel 2019.9  # [win]
-    # tbb pinned on Unix due to https://github.com/conda-forge/gazebo-feedstock/issues/57
-    - tbb-devel 2020.2  # [not win]
+    - tbb-devel
     - qwt
     - tinyxml2
     - libtar   # [unix]
@@ -115,31 +114,9 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
-    - libprotobuf
-    - qt
-    - ogre
-    - freeimage
-    - curl
-    # Explicit run dependency is required only on Windows, 
-    # as on Unix we use 2020.2 that has a correct run_export
-    - tbb-devel >=2019.9,<2021.0.0a0  # [win]
-    - tbb-devel  # [not win]
-    - qwt
-    - tinyxml2
-    - libtar   # [unix]
-    - libccd   # [unix]
-    # - gts
-    - dlfcn-win32  # [win]
     - boost-cpp
-    - libuuid  # [linux]
-    - libcurl
-    - tinyxml
-    - bzip2  # [osx]
-    - zlib  # [osx]
     # graphviz is not found on win
     - graphviz  # [not win]
-    - openal-soft
-    - libode
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:

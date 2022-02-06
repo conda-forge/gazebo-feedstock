@@ -2,6 +2,8 @@ OGRE_VERSION:
 - '1.12'
 boost_cpp:
 - 1.74.0
+bzip2:
+- '1'
 c_compiler:
 - vs2017
 channel_sources:
@@ -25,6 +27,8 @@ libprotobuf:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
+  bzip2:
+    max_pin: x
   curl:
     max_pin: x
   libcurl:
@@ -33,9 +37,15 @@ pin_run_as_build:
     max_pin: x.x
   qt:
     max_pin: x.x
+  zlib:
+    max_pin: x.x
 qt:
 - '5.12'
 target_platform:
 - win-64
+tbb_devel:
+- '2021'
 tinyxml2:
 - '9'
+zlib:
+- '1.2'

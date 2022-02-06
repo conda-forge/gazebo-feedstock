@@ -2,6 +2,8 @@ OGRE_VERSION:
 - '1.10'
 boost_cpp:
 - 1.74.0
+bzip2:
+- '1'
 c_compiler:
 - gcc
 c_compiler_version:
@@ -37,6 +39,8 @@ libuuid:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
+  bzip2:
+    max_pin: x
   curl:
     max_pin: x
   graphviz:
@@ -49,6 +53,8 @@ pin_run_as_build:
     max_pin: x
   qt:
     max_pin: x.x
+  zlib:
+    max_pin: x.x
 qt:
 - '5.12'
 target_platform:
@@ -60,3 +66,5 @@ tinyxml2:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+zlib:
+- '1.2'

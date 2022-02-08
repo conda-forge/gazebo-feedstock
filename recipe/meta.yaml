@@ -17,7 +17,7 @@ source:
       - 3146.patch
 
 build:
-  number: 2
+  number: 3
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -115,6 +115,7 @@ requirements:
     - libglu            # [linux]
     # deps
     - boost-cpp
+    - tbb-devel
     # graphviz is not found on win
     - graphviz  # [not win]
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]

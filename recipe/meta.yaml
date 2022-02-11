@@ -64,7 +64,7 @@ requirements:
     - libignition-transport8
     - libignition-common3
     - libignition-fuel-tools4
-    - qt 5.12.9=hda022c4_4
+    - qt 5.12.9*_4
     {% if OGRE_VERSION == "1.10" %}
     - ogre 1.10.*
     {% else %}

@@ -7,3 +7,8 @@ MACOSX_DEPLOYMENT_TARGET:      # [osx and x86_64]
 OGRE_VERSION:
   - "1.10"
   - "1.12"
+
+# Workaround for https://github.com/conda-forge/gazebo-feedstock/issues/119
+QT_VERSION:
+  - "working"
+  - "latest"

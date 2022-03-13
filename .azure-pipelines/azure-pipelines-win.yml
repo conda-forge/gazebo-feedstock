@@ -8,11 +8,17 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_OGRE_VERSION1.10:
-        CONFIG: win_64_OGRE_VERSION1.10
+      win_64_OGRE_VERSION1.10QT_VERSION5.12:
+        CONFIG: win_64_OGRE_VERSION1.10QT_VERSION5.12
         UPLOAD_PACKAGES: 'True'
-      win_64_OGRE_VERSION1.12:
-        CONFIG: win_64_OGRE_VERSION1.12
+      win_64_OGRE_VERSION1.10QT_VERSION5.15:
+        CONFIG: win_64_OGRE_VERSION1.10QT_VERSION5.15
+        UPLOAD_PACKAGES: 'True'
+      win_64_OGRE_VERSION1.12QT_VERSION5.12:
+        CONFIG: win_64_OGRE_VERSION1.12QT_VERSION5.12
+        UPLOAD_PACKAGES: 'True'
+      win_64_OGRE_VERSION1.12QT_VERSION5.15:
+        CONFIG: win_64_OGRE_VERSION1.12QT_VERSION5.15
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
@@ -52,10 +58,9 @@ jobs:
 
       condition: contains(variables['CONFIG'], 'vs2008')
       displayName: Patch vs2008 (if needed)
-
     - task: CondaEnvironment@1
       inputs:
-        packageSpecs: 'python=3.9 conda-build conda "conda-forge-ci-setup=3" pip boa' # Optional
+        packageSpecs: 'python=3.9 conda-build conda pip boa conda-forge-ci-setup=3' # Optional
         installOptions: "-c conda-forge"
         updateConda: true
       displayName: Install conda-build and activate environment

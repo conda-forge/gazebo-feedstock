@@ -1,13 +1,15 @@
 OGRE_VERSION:
-- '1.12'
+- '1.10'
+QT_VERSION:
+- '5.15'
 boost_cpp:
 - 1.74.0
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -17,7 +19,7 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '9'
+- '10'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
@@ -47,10 +49,6 @@ pin_run_as_build:
     max_pin: x.x
   libuuid:
     max_pin: x
-  qt:
-    max_pin: x.x
-qt:
-- '5.12'
 target_platform:
 - linux-64
 tbb_devel:
@@ -60,3 +58,5 @@ tinyxml2:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - cdt_name
+  - QT_VERSION

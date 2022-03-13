@@ -17,24 +17,30 @@ source:
       - 3146.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
-  {% if OGRE_VERSION == "1.12" %}
   track_features:
+  {% if OGRE_VERSION == "1.12" %}
     - gazebo_classic_with_ogre_1_12
+  {% endif %}
+ # Make sure that the default installed version is the one with 5.12
+  {% if QT_VERSION == "5.15" %}
+    - qwt_with_qt_5_15
   {% endif %}
 
 requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
+    - sysroot_linux-64 2.17  # [linux64 and cdt_name == 'cos7']
     - cmake 3.16.*
     - pkg-config
     - ninja
 
     # x11 stuff
+    - {{ cdt('mesa-libgl') }}        # [linux]
     - {{ cdt('mesa-libgl-devel') }}  # [unix]
     - {{ cdt('mesa-dri-drivers') }}  # [unix]
     - {{ cdt('libselinux') }}        # [linux]
@@ -64,13 +70,16 @@ requirements:
     - libignition-transport8
     - libignition-common3
     - libignition-fuel-tools4
-    - qt 5.12.9 *_4
     {% if OGRE_VERSION == "1.10" %}
     - ogre 1.10.*
     {% else %}
     - ogre 1.12.*
     {% endif %}
-
+  {% if QT_VERSION == "5.12" %}
+    - qt 5.12.9 *_4
+  {% else %}
+    - qt-main
+  {% endif %}
     - freeimage
     - curl
     - tbb-devel

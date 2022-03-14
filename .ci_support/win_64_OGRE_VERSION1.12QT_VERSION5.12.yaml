@@ -1,0 +1,41 @@
+OGRE_VERSION:
+- '1.12'
+QT_VERSION:
+- '5.12'
+boost_cpp:
+- 1.74.0
+c_compiler:
+- vs2017
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '7'
+cxx_compiler:
+- vs2017
+ffmpeg:
+- '4.3'
+hdf5:
+- 1.12.1
+libcurl:
+- '7'
+libgdal:
+- '3.4'
+libprotobuf:
+- '3.19'
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  curl:
+    max_pin: x
+  libcurl:
+    max_pin: x
+  libgdal:
+    max_pin: x.x
+target_platform:
+- win-64
+tbb_devel:
+- '2021'
+tinyxml2:
+- '9'

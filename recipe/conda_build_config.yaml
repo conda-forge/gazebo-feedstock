@@ -7,3 +7,18 @@ MACOSX_DEPLOYMENT_TARGET:      # [osx and x86_64]
 OGRE_VERSION:
   - "1.10"
   - "1.12"
+
+zip_keys:  # [linux64]
+  -  # [linux64]
+    - cdt_name  # [linux64]
+    - QT_VERSION  # [linux64]
+
+cdt_name:  # [linux64]
+  - cos6  # [linux64]
+  - cos7  # [linux64]
+
+# This is done to build for both qt (5.12) and qt-main (5.15)
+# until conda-forge as an whole migrate to 5.15 
+QT_VERSION:
+  - "5.12"
+  - "5.15"

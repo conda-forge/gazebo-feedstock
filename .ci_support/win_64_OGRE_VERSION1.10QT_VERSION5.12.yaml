@@ -1,5 +1,7 @@
 OGRE_VERSION:
-- '1.12'
+- '1.10'
+QT_VERSION:
+- '5.12'
 boost_cpp:
 - 1.74.0
 c_compiler:
@@ -31,10 +33,6 @@ pin_run_as_build:
     max_pin: x
   libgdal:
     max_pin: x.x
-  qt:
-    max_pin: x.x
-qt:
-- '5.12'
 target_platform:
 - win-64
 tbb_devel:

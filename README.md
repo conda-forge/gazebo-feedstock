@@ -83,6 +83,20 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>osx_arm64_OGRE_VERSION1.10</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_OGRE_VERSION1.10" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_OGRE_VERSION1.12</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_OGRE_VERSION1.12" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>win_64_OGRE_VERSION1.10QT_VERSION5.12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">

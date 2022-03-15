@@ -27,17 +27,19 @@ fi
 mkdir build
 cd build
 
-cmake .. \
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
+  export CMAKE_ARGS="${CMAKE_ARGS} -DProtobuf_PROTOC_EXECUTABLE=$BUILD_PREFIX/bin/protoc -DGAZEBOMSGS_OUT_EXECUTABLE:STRING=`pwd`/../build-host/gazebo/msgs/gazebomsgs_out"
+fi
+
+cmake ${CMAKE_ARGS} .. \
       -G "Ninja" \
-      ${CMAKE_ARGS} \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_PREFIX_PATH=$PREFIX \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DBoost_NO_BOOST_CMAKE=OFF \
       -DBoost_DEBUG=OFF \
-      -DHAVE_OPENAL:BOOL=OFF \
-      -DGAZEBOMSGS_OUT_EXECUTABLE:STRING=`pwd`/../build-host/gazebo/msgs/gazebomsgs_out
+      -DHAVE_OPENAL:BOOL=OFF
 
 cmake --build . --config Release -- -j$CPU_COUNT
 cmake --build . --config Release --target install

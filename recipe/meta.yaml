@@ -15,6 +15,7 @@ source:
       - fix-invisible-meshes.patch
       # for tbb2021 compatibility
       - 3146.patch
+      - 3190.patch
 
 build:
   number: 5

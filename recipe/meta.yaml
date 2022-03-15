@@ -35,14 +35,14 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - sysroot_linux-64 2.17  # [linux64 and cdt_name == 'cos7']
-    - cmake 3.16.*
+    - cmake
     - pkg-config
     - ninja
 
     # x11 stuff
     - {{ cdt('mesa-libgl') }}        # [linux]
-    - {{ cdt('mesa-libgl-devel') }}  # [unix]
-    - {{ cdt('mesa-dri-drivers') }}  # [unix]
+    - {{ cdt('mesa-libgl-devel') }}  # [unix and not arm64]
+    - {{ cdt('mesa-dri-drivers') }}  # [unix and not arm64]
     - {{ cdt('libselinux') }}        # [linux]
     - {{ cdt('libxcb') }}            # [linux]
     - {{ cdt('libxdamage') }}        # [linux]

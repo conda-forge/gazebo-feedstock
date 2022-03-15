@@ -11,8 +11,8 @@ cmake .. \
       -DBoost_DEBUG=OFF \
       -DHAVE_OPENAL:BOOL=OFF 
 
-cmake --build . --config $BUILD_TYPE -- -j$CPU_COUNT
-cmake --build . --config $BUILD_TYPE --target install
+cmake --build . --config Release -- -j$CPU_COUNT
+cmake --build . --config Release --target install
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.

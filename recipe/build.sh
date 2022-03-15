@@ -1,15 +1,43 @@
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+  (
+    mkdir -p build-host
+    pushd build-host
+
+    export CC=$CC_FOR_BUILD
+    export CXX=$CXX_FOR_BUILD
+    export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
+    export PKG_CONFIG_PATH=${PKG_CONFIG_PATH//$PREFIX/$BUILD_PREFIX}
+
+    # Unset them as we're ok with builds that are either slow or non-portable
+    unset CFLAGS
+    unset CXXFLAGS
+
+    cmake .. \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
+
+    # No need to compile everything, just gazebomsgs_out is sufficient
+    cmake --build gazebomsgs_out --parallel ${CPU_COUNT} --config Release
+  )
+fi
+
+
 mkdir build
 cd build
 
 cmake .. \
       -G "Ninja" \
+      ${CMAKE_ARGS} \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_PREFIX_PATH=$PREFIX \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DBoost_NO_BOOST_CMAKE=OFF \
       -DBoost_DEBUG=OFF \
-      -DHAVE_OPENAL:BOOL=OFF 
+      -DHAVE_OPENAL:BOOL=OFF \
+      -DGAZEBOMSGS_OUT_EXECUTABLE:STRING=`pwd`/../build-host/gazebo/msgs/gazebomsgs_out
 
 cmake --build . --config Release -- -j$CPU_COUNT
 cmake --build . --config Release --target install

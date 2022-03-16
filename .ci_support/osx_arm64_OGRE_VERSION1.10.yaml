@@ -1,0 +1,64 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+OGRE_VERSION:
+- '1.10'
+QT_VERSION:
+- '5.15'
+boost_cpp:
+- 1.74.0
+bzip2:
+- '1'
+c_compiler:
+- clang
+c_compiler_version:
+- '12'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '7'
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '12'
+ffmpeg:
+- '4.3'
+graphviz:
+- '2.47'
+hdf5:
+- 1.12.1
+libcurl:
+- '7'
+libgdal:
+- '3.4'
+libprotobuf:
+- '3.19'
+macos_machine:
+- arm64-apple-darwin20.0.0
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  bzip2:
+    max_pin: x
+  curl:
+    max_pin: x
+  graphviz:
+    max_pin: x
+  libcurl:
+    max_pin: x
+  libgdal:
+    max_pin: x.x
+  zlib:
+    max_pin: x.x
+target_platform:
+- osx-arm64
+tbb_devel:
+- '2021'
+tinyxml2:
+- '9'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+zlib:
+- '1.2'

@@ -15,6 +15,7 @@ source:
       - fix-invisible-meshes.patch
       # for tbb2021 compatibility
       - 3146.patch
+      - 3190.patch
 
 build:
   number: 5
@@ -35,14 +36,14 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - sysroot_linux-64 2.17  # [linux64 and cdt_name == 'cos7']
-    - cmake 3.16.*
+    - cmake
     - pkg-config
     - ninja
 
     # x11 stuff
     - {{ cdt('mesa-libgl') }}        # [linux]
-    - {{ cdt('mesa-libgl-devel') }}  # [unix]
-    - {{ cdt('mesa-dri-drivers') }}  # [unix]
+    - {{ cdt('mesa-libgl-devel') }}  # [unix and not arm64]
+    - {{ cdt('mesa-dri-drivers') }}  # [unix and not arm64]
     - {{ cdt('libselinux') }}        # [linux]
     - {{ cdt('libxcb') }}            # [linux]
     - {{ cdt('libxdamage') }}        # [linux]
@@ -51,6 +52,32 @@ requirements:
     - {{ cdt('libxext') }}           # [linux]
     - {{ cdt('libxau') }}            # [linux]
     - {{ cdt('expat-devel') }}       # [linux]
+    # We need all host deps also in build for cross-compiling gazebomsgs_out
+    - libprotobuf  # [build_platform != target_platform]
+    - libsdformat  # [build_platform != target_platform]
+    - libignition-cmake2  # [build_platform != target_platform]
+    - libignition-math6  # [build_platform != target_platform]
+    - libignition-transport8  # [build_platform != target_platform]
+    - libignition-common3  # [build_platform != target_platform]
+    - libignition-fuel-tools4  # [build_platform != target_platform]
+    {% if OGRE_VERSION == "1.10" %}  # [build_platform != target_platform]
+    - ogre 1.10.*  # [build_platform != target_platform]
+    {% else %}  # [build_platform != target_platform]
+    - ogre 1.12.*  # [build_platform != target_platform]
+    {% endif %}  # [build_platform != target_platform]
+  {% if QT_VERSION == "5.12" %}  # [build_platform != target_platform]
+    - qt 5.12.9 *_4  # [build_platform != target_platform]
+  {% else %}  # [build_platform != target_platform]
+    - qt-main  # [build_platform != target_platform]
+  {% endif %}  # [build_platform != target_platform]
+    - freeimage  # [build_platform != target_platform]
+    - curl  # [build_platform != target_platform]
+    - tbb-devel  # [build_platform != target_platform]
+    - qwt  # [build_platform != target_platform]
+    - tinyxml2  # [build_platform != target_platform]
+    - libtar  # [build_platform != target_platform]
+    - libccd  # [build_platform != target_platform]
+    - boost-cpp  # [build_platform != target_platform]
   host:
     - xorg-libxext      # [unix]
     - xorg-libxdmcp     # [unix]

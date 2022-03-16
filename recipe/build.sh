@@ -19,7 +19,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
 
     # No need to compile everything, just gazebomsgs_out is sufficient
-    cmake --build gazebomsgs_out --parallel ${CPU_COUNT} --config Release
+    cmake --build . --target gazebomsgs_out --parallel ${CPU_COUNT} --config Release
   )
 fi
 

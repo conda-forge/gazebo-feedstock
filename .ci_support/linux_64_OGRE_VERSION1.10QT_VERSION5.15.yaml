@@ -1,7 +1,7 @@
 OGRE_VERSION:
-- '1.12'
+- '1.10'
 QT_VERSION:
-- '5.12'
+- '5.15'
 boost_cpp:
 - 1.74.0
 c_compiler:
@@ -9,7 +9,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -58,5 +58,3 @@ tinyxml2:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - cdt_name
-  - QT_VERSION

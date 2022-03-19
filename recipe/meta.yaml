@@ -1,5 +1,5 @@
 {% set name = "gazebo" %}
-{% set version = "11.10.1" %}
+{% set version = "11.10.2" %}
 
 package:
   name: {{ name }}
@@ -7,18 +7,16 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 4988e004952942489c4c011e4a8f86ada0690aa09a5b3c1cd37230c33d69b67c
+    sha256: 9570454e0341e40881ed8659f8ec9aa45e24d172421e8556d0714cf7b5018511
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - normalize-ogre-path.patch
       - fix-invisible-meshes.patch
-      # for tbb2021 compatibility
-      - 3146.patch
       - 3190.patch
 
 build:
-  number: 5
+  number: 0
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 

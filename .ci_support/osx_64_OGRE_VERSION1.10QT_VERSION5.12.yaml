@@ -23,7 +23,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '12'
 ffmpeg:
-- '4.3'
+- '4.4'
 graphviz:
 - '2.47'
 hdf5:
@@ -32,8 +32,6 @@ libcurl:
 - '7'
 libgdal:
 - '3.4'
-libprotobuf:
-- '3.19'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

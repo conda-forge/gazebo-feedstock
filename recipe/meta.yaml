@@ -101,7 +101,7 @@ requirements:
     - ogre 1.12.*
     {% endif %}
   {% if QT_VERSION == "5.12" %}
-    - qt 5.12
+    - qt 5.12.9 *_4
   {% else %}
     - qt-main
   {% endif %}

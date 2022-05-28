@@ -14,7 +14,6 @@ source:
       - normalize-ogre-path.patch
       - fix-invisible-meshes.patch
       - 3190.patch
-      - 3211.patch
 
 build:
   number: 0

@@ -17,17 +17,13 @@ source:
       - 3146.patch
 
 build:
-  number: 5
+  number: 6
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
   track_features:
   {% if OGRE_VERSION == "1.12" %}
     - gazebo_classic_with_ogre_1_12
-  {% endif %}
- # Make sure that the default installed version is the one with 5.12
-  {% if QT_VERSION == "5.15" %}
-    - qwt_with_qt_5_15
   {% endif %}
 
 requirements:
@@ -75,11 +71,7 @@ requirements:
     {% else %}
     - ogre 1.12.*
     {% endif %}
-  {% if QT_VERSION == "5.12" %}
-    - qt 5.12.9 *_4
-  {% else %}
     - qt-main
-  {% endif %}
     - freeimage
     - curl
     - tbb-devel

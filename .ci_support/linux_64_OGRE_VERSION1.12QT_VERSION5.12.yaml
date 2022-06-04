@@ -9,7 +9,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -23,7 +23,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '4.3'
+- '4.4'
 graphviz:
 - '2.47'
 hdf5:
@@ -33,7 +33,7 @@ libcurl:
 libgdal:
 - '3.4'
 libprotobuf:
-- '3.19'
+- '3.20'
 libuuid:
 - '2'
 pin_run_as_build:
@@ -58,5 +58,3 @@ tinyxml2:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - cdt_name
-  - QT_VERSION

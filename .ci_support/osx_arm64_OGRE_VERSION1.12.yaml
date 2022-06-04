@@ -2,8 +2,6 @@ MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
 OGRE_VERSION:
 - '1.12'
-QT_VERSION:
-- '5.15'
 boost_cpp:
 - 1.74.0
 bzip2:

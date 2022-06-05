@@ -7,7 +7,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -23,7 +23,7 @@ docker_image:
 ffmpeg:
 - '4.4'
 graphviz:
-- '2.47'
+- '3'
 hdf5:
 - 1.12.1
 libcurl:

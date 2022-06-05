@@ -23,7 +23,7 @@ cxx_compiler_version:
 ffmpeg:
 - '4.4'
 graphviz:
-- '2.47'
+- '3'
 hdf5:
 - 1.12.1
 libcurl:

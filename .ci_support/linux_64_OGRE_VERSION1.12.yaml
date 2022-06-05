@@ -47,6 +47,8 @@ pin_run_as_build:
     max_pin: x.x
   libuuid:
     max_pin: x
+qt_main:
+- '5.15'
 target_platform:
 - linux-64
 tbb_devel:

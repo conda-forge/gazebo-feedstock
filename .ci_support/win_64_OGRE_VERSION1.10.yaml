@@ -31,6 +31,8 @@ pin_run_as_build:
     max_pin: x
   libgdal:
     max_pin: x.x
+qt_main:
+- '5.15'
 target_platform:
 - win-64
 tbb_devel:

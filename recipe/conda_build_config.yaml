@@ -12,19 +12,3 @@ c_compiler:  # [win]
 - vs2019  # [win]
 cxx_compiler:  # [win]
 - vs2019  # [win]
-
-# This is done to build for both qt (5.12) and qt-main (5.15)
-# until conda-forge as an whole migrate to 5.15 
-# Disable 5.12 on osx-arm64 (arm64 selector, see
-# https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html)
-QT_VERSION:
-  - "5.12"  # [not arm64]
-  - "5.15"
-cudnn:                                            # [linux64]
-  - undefined                                     # [linux64]
-cuda_compiler_version:                            # [linux64]
-  - None                                          # [linux64]
-docker_image:                                     # [linux64]
-  - quay.io/condaforge/linux-anvil-cos7-x86_64    # [linux64]
-cdt_name:                                         # [linux64]
-  - cos7                                          # [linux64]

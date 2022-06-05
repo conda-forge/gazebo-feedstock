@@ -1,7 +1,5 @@
 OGRE_VERSION:
-- '1.12'
-QT_VERSION:
-- '5.15'
+- '1.10'
 boost_cpp:
 - 1.74.0
 c_compiler:

@@ -15,7 +15,7 @@ source:
       - 3190.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -65,7 +65,7 @@ requirements:
     - qwt  # [build_platform != target_platform]
     - tinyxml2  # [build_platform != target_platform]
     - libtar  # [build_platform != target_platform]
-    - libccd  # [build_platform != target_platform]
+    - libccd-double  # [build_platform != target_platform]
     - boost-cpp  # [build_platform != target_platform]
   host:
     - xorg-libxext      # [unix]
@@ -98,7 +98,7 @@ requirements:
     - qwt
     - tinyxml2
     - libtar   # [unix]
-    - libccd   # [unix]
+    - libccd-double
     - dlfcn-win32  # [win]
     - boost-cpp
     # additional deps

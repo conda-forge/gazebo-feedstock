@@ -126,6 +126,7 @@ requirements:
     - assimp
     - urdfdom
     - libblas
+    - libcblas
 
   run:
     - xorg-libxext      # [unix]

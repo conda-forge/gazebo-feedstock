@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 OGRE_VERSION:
 - '1.12'
 assimp:
-- 5.2.3
+- 5.2.4
 boost_cpp:
 - 1.74.0
 bzip2:

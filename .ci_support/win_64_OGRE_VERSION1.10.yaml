@@ -1,7 +1,7 @@
 OGRE_VERSION:
 - '1.10'
 assimp:
-- 5.2.3
+- 5.2.4
 boost_cpp:
 - 1.74.0
 c_compiler:

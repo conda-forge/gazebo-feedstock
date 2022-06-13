@@ -2,6 +2,8 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.14'
 OGRE_VERSION:
 - '1.10'
+assimp:
+- 5.2.4
 boost_cpp:
 - 1.74.0
 bzip2:
@@ -26,6 +28,10 @@ graphviz:
 - '3'
 hdf5:
 - 1.12.1
+libblas:
+- 3.9 *netlib
+libcblas:
+- 3.9 *netlib
 libcurl:
 - '7'
 libgdal:

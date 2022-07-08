@@ -25,7 +25,7 @@ docker_image:
 ffmpeg:
 - '4.4'
 graphviz:
-- '3'
+- '5'
 hdf5:
 - 1.12.1
 libblas:

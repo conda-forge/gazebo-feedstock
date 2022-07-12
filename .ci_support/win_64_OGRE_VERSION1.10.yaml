@@ -15,7 +15,7 @@ curl:
 cxx_compiler:
 - vs2019
 ffmpeg:
-- '4.3'
+- '4.4'
 hdf5:
 - 1.12.1
 libblas:

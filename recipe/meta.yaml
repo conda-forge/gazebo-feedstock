@@ -42,7 +42,7 @@ requirements:
     - {{ cdt('libxdamage') }}        # [linux]
     - {{ cdt('libxfixes') }}         # [linux]
     - {{ cdt('libxxf86vm') }}        # [linux]
-    - {{ cdt('libxext') }}           # [flinux]
+    - {{ cdt('libxext') }}           # [linux]
     - {{ cdt('libxau') }}            # [linux]
     - {{ cdt('expat-devel') }}       # [linux]
     # We need all host deps also in build for cross-compiling gazebomsgs_out

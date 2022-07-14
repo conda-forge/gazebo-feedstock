@@ -15,7 +15,7 @@ source:
       - 3190.patch
 
 build:
-  number: 8
+  number: 9
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -42,7 +42,7 @@ requirements:
     - {{ cdt('libxdamage') }}        # [linux]
     - {{ cdt('libxfixes') }}         # [linux]
     - {{ cdt('libxxf86vm') }}        # [linux]
-    - {{ cdt('libxext') }}           # [linux]
+    - {{ cdt('libxext') }}           # [flinux]
     - {{ cdt('libxau') }}            # [linux]
     - {{ cdt('expat-devel') }}       # [linux]
     # We need all host deps also in build for cross-compiling gazebomsgs_out
@@ -85,7 +85,8 @@ requirements:
     - libignition-math6
     - libignition-transport8
     - libignition-common3
-    - libignition-fuel-tools4
+    # Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/143
+    - libignition-fuel-tools4 >=4.4
     - libignition-msgs5
     {% if OGRE_VERSION == "1.10" %}
     - ogre 1.10.*

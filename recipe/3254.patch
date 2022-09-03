@@ -1,7 +1,7 @@
 From dfc8e46d9c66f9c2267a160cf285eecb9bb3f829 Mon Sep 17 00:00:00 2001
 From: Silvio Traversaro <silvio@traversaro.it>
 Date: Sat, 3 Sep 2022 12:52:26 +0200
-Subject: [PATCH] Permit users to override USE_EXTERNAL_TINYXML2 and
+Subject: [PATCH 1/2] Permit users to override USE_EXTERNAL_TINYXML2 and
  USE_EXTERNAL_TINYXML
 
 ---
@@ -68,3 +68,57 @@ index 75130604fd..deea99603e 100644
      # Needed in WIN32 since in UNIX the flag is added in the code installed
      message (STATUS "Skipping search for tinyxml2")
      set (tinyxml2_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/tinyxml2")
+
+From 39e113228a35611244cb3246699bffee8611c54d Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Sat, 3 Sep 2022 14:43:55 +0200
+Subject: [PATCH 2/2] Update SearchForStuff.cmake
+
+---
+ cmake/SearchForStuff.cmake | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
+index deea99603e..f5f95a90e0 100644
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -180,14 +180,17 @@ if (PKG_CONFIG_FOUND)
+ 
+   # Use system installation on UNIX and Apple, and internal copy on Windows
+   if (UNIX OR APPLE)
+-    set (USE_EXTERNAL_TINYXML True)
++    set (USE_EXTERNAL_TINYXML_DEFAULT_VALUE ON)
+   elseif(WIN32)
+-    set (USE_EXTERNAL_TINYXML False)
++    set (USE_EXTERNAL_TINYXML_DEFAULT_VALUE OFF)
+   else()
+     message (STATUS "Unknown platform, unable to configure tinyxml.")
+     BUILD_ERROR("Unknown platform")
+   endif()
+-
++  
++  option(USE_EXTERNAL_TINYXML "Use an externally provided tinyxml library" ${USE_EXTERNAL_TINYXML_DEFAULT_VALUE})
++  mark_as_advanced(USE_EXTERNAL_TINYXML)
++  
+   if (USE_EXTERNAL_TINYXML)
+     message (STATUS "Using system tinyxml.")
+     pkg_check_modules(tinyxml tinyxml)
+@@ -226,13 +229,16 @@ if (PKG_CONFIG_FOUND)
+ 
+   # Use system installation on UNIX and Apple, and internal copy on Windows
+   if (UNIX OR APPLE)
+-    set (USE_EXTERNAL_TINYXML2 True)
++    set (USE_EXTERNAL_TINYXML2_DEFAULT_VALUE ON)
+   elseif(WIN32)
+-    set (USE_EXTERNAL_TINYXML2 False)
++    set (USE_EXTERNAL_TINYXML2_DEFAULT_VALUE OFF)
+   else()
+     message (STATUS "Unknown platform, unable to configure tinyxml2.")
+     BUILD_ERROR("Unknown platform")
+   endif()
++  
++  option(USE_EXTERNAL_TINYXML2 "Use an externally provided tinyxml2 library" ${USE_EXTERNAL_TINYXML2_DEFAULT_VALUE})
++  mark_as_advanced(USE_EXTERNAL_TINYXML2)
+ 
+   if (USE_EXTERNAL_TINYXML2)
+     message (STATUS "Using system tinyxml2.")

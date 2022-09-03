@@ -1,95 +1,28 @@
-From dfc8e46d9c66f9c2267a160cf285eecb9bb3f829 Mon Sep 17 00:00:00 2001
+From 6e86dff6589187a92d379a71ca3b1a86b12a573f Mon Sep 17 00:00:00 2001
 From: Silvio Traversaro <silvio@traversaro.it>
 Date: Sat, 3 Sep 2022 12:52:26 +0200
-Subject: [PATCH 1/2] Permit users to override USE_EXTERNAL_TINYXML2 and
+Subject: [PATCH] Permit users to override USE_EXTERNAL_TINYXML2 and
  USE_EXTERNAL_TINYXML
 
 ---
- cmake/SearchForStuff.cmake | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ cmake/SearchForStuff.cmake | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
 diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
-index 75130604fd..deea99603e 100644
+index 75130604fd..f5f95a90e0 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
-@@ -180,18 +180,16 @@ if (PKG_CONFIG_FOUND)
+@@ -180,18 +180,19 @@ if (PKG_CONFIG_FOUND)
  
    # Use system installation on UNIX and Apple, and internal copy on Windows
    if (UNIX OR APPLE)
 -    message (STATUS "Using system tinyxml.")
-     set (USE_EXTERNAL_TINYXML True)
-   elseif(WIN32)
--    message (STATUS "Using internal tinyxml.")
-     set (USE_EXTERNAL_TINYXML False)
--    add_definitions(-DTIXML_USE_STL)
-   else()
-     message (STATUS "Unknown platform, unable to configure tinyxml.")
-     BUILD_ERROR("Unknown platform")
-   endif()
- 
-   if (USE_EXTERNAL_TINYXML)
-+    message (STATUS "Using system tinyxml.")
-     pkg_check_modules(tinyxml tinyxml)
-     if (NOT tinyxml_FOUND)
-         find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH)
-@@ -212,6 +210,8 @@ if (PKG_CONFIG_FOUND)
-       BUILD_ERROR("Missing: tinyxml")
-     endif()
-   else()
-+    message (STATUS "Using internal tinyxml.")
-+    add_definitions(-DTIXML_USE_STL)
-     # Needed in WIN32 since in UNIX the flag is added in the code installed
-     message (STATUS "Skipping search for tinyxml")
-     set (tinyxml_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/win/tinyxml")
-@@ -226,10 +226,8 @@ if (PKG_CONFIG_FOUND)
- 
-   # Use system installation on UNIX and Apple, and internal copy on Windows
-   if (UNIX OR APPLE)
--    message (STATUS "Using system tinyxml2.")
-     set (USE_EXTERNAL_TINYXML2 True)
-   elseif(WIN32)
--    message (STATUS "Using internal tinyxml2.")
-     set (USE_EXTERNAL_TINYXML2 False)
-   else()
-     message (STATUS "Unknown platform, unable to configure tinyxml2.")
-@@ -237,6 +235,7 @@ if (PKG_CONFIG_FOUND)
-   endif()
- 
-   if (USE_EXTERNAL_TINYXML2)
-+    message (STATUS "Using system tinyxml2.")
-     pkg_check_modules(tinyxml2 tinyxml2)
-     if (NOT tinyxml2_FOUND)
-         find_path (tinyxml2_INCLUDE_DIRS tinyxml2.h ${tinyxml2_INCLUDE_DIRS} ENV CPATH)
-@@ -264,6 +263,7 @@ if (PKG_CONFIG_FOUND)
-       link_directories(${tinyxml2_LIBRARY_DIRS})
-     endif()
-   else()
-+    message (STATUS "Using internal tinyxml2.")
-     # Needed in WIN32 since in UNIX the flag is added in the code installed
-     message (STATUS "Skipping search for tinyxml2")
-     set (tinyxml2_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/tinyxml2")
-
-From 39e113228a35611244cb3246699bffee8611c54d Mon Sep 17 00:00:00 2001
-From: Silvio Traversaro <silvio@traversaro.it>
-Date: Sat, 3 Sep 2022 14:43:55 +0200
-Subject: [PATCH 2/2] Update SearchForStuff.cmake
-
----
- cmake/SearchForStuff.cmake | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
-index deea99603e..f5f95a90e0 100644
---- a/cmake/SearchForStuff.cmake
-+++ b/cmake/SearchForStuff.cmake
-@@ -180,14 +180,17 @@ if (PKG_CONFIG_FOUND)
- 
-   # Use system installation on UNIX and Apple, and internal copy on Windows
-   if (UNIX OR APPLE)
 -    set (USE_EXTERNAL_TINYXML True)
 +    set (USE_EXTERNAL_TINYXML_DEFAULT_VALUE ON)
    elseif(WIN32)
+-    message (STATUS "Using internal tinyxml.")
 -    set (USE_EXTERNAL_TINYXML False)
+-    add_definitions(-DTIXML_USE_STL)
 +    set (USE_EXTERNAL_TINYXML_DEFAULT_VALUE OFF)
    else()
      message (STATUS "Unknown platform, unable to configure tinyxml.")
@@ -101,15 +34,28 @@ index deea99603e..f5f95a90e0 100644
 +  mark_as_advanced(USE_EXTERNAL_TINYXML)
 +  
    if (USE_EXTERNAL_TINYXML)
-     message (STATUS "Using system tinyxml.")
++    message (STATUS "Using system tinyxml.")
      pkg_check_modules(tinyxml tinyxml)
-@@ -226,13 +229,16 @@ if (PKG_CONFIG_FOUND)
+     if (NOT tinyxml_FOUND)
+         find_path (tinyxml_INCLUDE_DIRS tinyxml.h ${tinyxml_INCLUDE_DIRS} ENV CPATH)
+@@ -212,6 +213,8 @@ if (PKG_CONFIG_FOUND)
+       BUILD_ERROR("Missing: tinyxml")
+     endif()
+   else()
++    message (STATUS "Using internal tinyxml.")
++    add_definitions(-DTIXML_USE_STL)
+     # Needed in WIN32 since in UNIX the flag is added in the code installed
+     message (STATUS "Skipping search for tinyxml")
+     set (tinyxml_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/win/tinyxml")
+@@ -226,17 +229,19 @@ if (PKG_CONFIG_FOUND)
  
    # Use system installation on UNIX and Apple, and internal copy on Windows
    if (UNIX OR APPLE)
+-    message (STATUS "Using system tinyxml2.")
 -    set (USE_EXTERNAL_TINYXML2 True)
 +    set (USE_EXTERNAL_TINYXML2_DEFAULT_VALUE ON)
    elseif(WIN32)
+-    message (STATUS "Using internal tinyxml2.")
 -    set (USE_EXTERNAL_TINYXML2 False)
 +    set (USE_EXTERNAL_TINYXML2_DEFAULT_VALUE OFF)
    else()
@@ -121,4 +67,15 @@ index deea99603e..f5f95a90e0 100644
 +  mark_as_advanced(USE_EXTERNAL_TINYXML2)
  
    if (USE_EXTERNAL_TINYXML2)
-     message (STATUS "Using system tinyxml2.")
++    message (STATUS "Using system tinyxml2.")
+     pkg_check_modules(tinyxml2 tinyxml2)
+     if (NOT tinyxml2_FOUND)
+         find_path (tinyxml2_INCLUDE_DIRS tinyxml2.h ${tinyxml2_INCLUDE_DIRS} ENV CPATH)
+@@ -264,6 +269,7 @@ if (PKG_CONFIG_FOUND)
+       link_directories(${tinyxml2_LIBRARY_DIRS})
+     endif()
+   else()
++    message (STATUS "Using internal tinyxml2.")
+     # Needed in WIN32 since in UNIX the flag is added in the code installed
+     message (STATUS "Skipping search for tinyxml2")
+     set (tinyxml2_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/deps/tinyxml2")

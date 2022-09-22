@@ -53,9 +53,9 @@ cmake --build . --config Release --target install
 
 # Regression test for https://github.com/conda-forge/gazebo-feedstock/issues/148
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
-  cmake -DBUILD_TESTING:BOOL=ON .
-  ninja INTEGRATION_transport INTEGRATION_transporter INTEGRATION_transport_msg_count 
-  ctest --output-on-failure -C Release -R INTEGRATION_transport
+  cmake ${CMAKE_ARGS} -DBUILD_TESTING:BOOL=ON .
+  ninja INTEGRATION_transport_msg_count 
+  ctest --output-on-failure -C Release -R INTEGRATION_transport_msg_count
 fi
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.

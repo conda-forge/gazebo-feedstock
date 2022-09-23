@@ -1,7 +1,7 @@
 macos_min_version:             # [osx]
-  - 12.1                       # [osx]
+  - 11.3                       # [osx]
 MACOSX_DEPLOYMENT_TARGET:      # [osx]
-  - 12.1                       # [osx]
+  - 11.3                       # [osx]
 
 # This is done to de-prioritize 1.12
 OGRE_VERSION:

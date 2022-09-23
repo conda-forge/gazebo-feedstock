@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '12.0'
+- '12.1'
 OGRE_VERSION:
 - '1.12'
 assimp:
@@ -41,7 +41,7 @@ libprotobuf:
 macos_machine:
 - arm64-apple-darwin20.0.0
 macos_min_version:
-- '12.0'
+- '12.1'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

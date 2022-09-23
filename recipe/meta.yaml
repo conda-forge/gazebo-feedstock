@@ -145,7 +145,7 @@ requirements:
     - tbb-devel
     # graphviz is not found on win
     - graphviz  # [not win]
-     __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
   commands:

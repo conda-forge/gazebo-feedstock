@@ -8,3 +8,7 @@ github:
 provider:
   linux_aarch64: default
 test_on_native_only: true
+azure:
+  settings_osx:
+    pool:
+      vmImage: macos-12

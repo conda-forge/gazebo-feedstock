@@ -1,5 +1,5 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '12.3'
+- '11.0'
 OGRE_VERSION:
 - '1.10'
 assimp:
@@ -40,23 +40,11 @@ libprotobuf:
 - '3.21'
 macos_machine:
 - arm64-apple-darwin20.0.0
-macos_min_version:
-- '12.3'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  bzip2:
-    max_pin: x
-  curl:
-    max_pin: x
   graphviz:
     max_pin: x
-  libcurl:
-    max_pin: x
-  libgdal:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 qt_main:
 - '5.15'
 target_platform:

@@ -31,12 +31,6 @@ libprotobuf:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  curl:
-    max_pin: x
-  libcurl:
-    max_pin: x
-  libgdal:
-    max_pin: x.x
 qt_main:
 - '5.15'
 target_platform:

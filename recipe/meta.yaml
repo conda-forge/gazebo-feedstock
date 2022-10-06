@@ -13,6 +13,7 @@ source:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
       - 3190.patch
+      - add_explicit_template_instantiation_on_clang.patch
 
 build:
   number: 1

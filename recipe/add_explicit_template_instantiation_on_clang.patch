@@ -1,0 +1,462 @@
+diff --git a/gazebo/common/FuelModelDatabase.hh b/gazebo/common/FuelModelDatabase.hh
+index 81daafbefc..5bf760b6c6 100644
+--- a/gazebo/common/FuelModelDatabase.hh
++++ b/gazebo/common/FuelModelDatabase.hh
+@@ -38,9 +38,6 @@
+ /// \brief The file name of model database XML configuration.
+ #define GZ_MODEL_DB_MANIFEST_FILENAME "database.config"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_COMMON_VISIBLE, gazebo, common, FuelModelDatabase)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -134,4 +131,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_COMMON_VISIBLE ::SingletonT<gazebo::common::FuelModelDatabase>;
++
+ #endif
+diff --git a/gazebo/common/MeshManager.hh b/gazebo/common/MeshManager.hh
+index a6778cc07d..92846a65c8 100644
+--- a/gazebo/common/MeshManager.hh
++++ b/gazebo/common/MeshManager.hh
+@@ -30,9 +30,6 @@
+ #include "gazebo/common/CommonTypes.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_COMMON_VISIBLE, gazebo, common, MeshManager)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -271,4 +268,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_COMMON_VISIBLE ::SingletonT<gazebo::common::MeshManager>;
++
+ #endif
+diff --git a/gazebo/common/ModelDatabase.hh b/gazebo/common/ModelDatabase.hh
+index 0821abad8d..698475ea42 100644
+--- a/gazebo/common/ModelDatabase.hh
++++ b/gazebo/common/ModelDatabase.hh
+@@ -33,9 +33,6 @@
+ /// \brief The file name of model database XML configuration.
+ #define GZ_MODEL_DB_MANIFEST_FILENAME "database.config"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_COMMON_VISIBLE, gazebo, common, ModelDatabase)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -162,4 +159,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_COMMON_VISIBLE ::SingletonT<gazebo::common::ModelDatabase>;
++
+ #endif
+diff --git a/gazebo/common/SystemPaths.hh b/gazebo/common/SystemPaths.hh
+index 3c62d28c07..e315747d60 100644
+--- a/gazebo/common/SystemPaths.hh
++++ b/gazebo/common/SystemPaths.hh
+@@ -37,9 +37,6 @@
+ #include "gazebo/common/SingletonT.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_COMMON_VISIBLE, gazebo, common, SystemPaths)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -223,4 +220,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_COMMON_VISIBLE ::SingletonT<gazebo::common::SystemPaths>;
++
+ #endif
+diff --git a/gazebo/gui/KeyEventHandler.hh b/gazebo/gui/KeyEventHandler.hh
+index 61e4d9046e..05bcd125c6 100644
+--- a/gazebo/gui/KeyEventHandler.hh
++++ b/gazebo/gui/KeyEventHandler.hh
+@@ -25,9 +25,6 @@
+ #include "gazebo/common/SingletonT.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, KeyEventHandler)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -154,4 +151,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::KeyEventHandler>;
++
+ #endif
+diff --git a/gazebo/gui/ModelAlign.hh b/gazebo/gui/ModelAlign.hh
+index 2b38a6a355..392257564a 100644
+--- a/gazebo/gui/ModelAlign.hh
++++ b/gazebo/gui/ModelAlign.hh
+@@ -33,9 +33,6 @@
+ 
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, ModelAlign)
+-
+ namespace gazebo
+ {
+   namespace gui
+@@ -106,4 +103,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::ModelAlign>;
++
+ #endif
+diff --git a/gazebo/gui/ModelManipulator.hh b/gazebo/gui/ModelManipulator.hh
+index ecd06954b7..403b06ff7e 100644
+--- a/gazebo/gui/ModelManipulator.hh
++++ b/gazebo/gui/ModelManipulator.hh
+@@ -31,9 +31,6 @@
+ #include "gazebo/common/SingletonT.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, ModelManipulator)
+-
+ namespace gazebo
+ {
+   namespace gui
+@@ -188,4 +185,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::ModelManipulator>;
++
+ #endif
+diff --git a/gazebo/gui/ModelSnap.hh b/gazebo/gui/ModelSnap.hh
+index e942a256c6..166400fd24 100644
+--- a/gazebo/gui/ModelSnap.hh
++++ b/gazebo/gui/ModelSnap.hh
+@@ -26,9 +26,6 @@
+ #include "gazebo/rendering/RenderTypes.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, ModelSnap)
+-
+ namespace gazebo
+ {
+   namespace common
+@@ -120,4 +117,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::ModelSnap>;
++
+ #endif
+diff --git a/gazebo/gui/MouseEventHandler.hh b/gazebo/gui/MouseEventHandler.hh
+index 42c09c3042..5239661f84 100644
+--- a/gazebo/gui/MouseEventHandler.hh
++++ b/gazebo/gui/MouseEventHandler.hh
+@@ -25,9 +25,6 @@
+ #include "gazebo/common/MouseEvent.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, MouseEventHandler)
+-
+ namespace gazebo
+ {
+   namespace gui
+@@ -173,4 +170,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::MouseEventHandler>;
++
+ #endif
+diff --git a/gazebo/gui/plot/PlotManager.hh b/gazebo/gui/plot/PlotManager.hh
+index 0a31e7ac3e..fdb6f6c549 100644
+--- a/gazebo/gui/plot/PlotManager.hh
++++ b/gazebo/gui/plot/PlotManager.hh
+@@ -25,9 +25,6 @@
+ #include "gazebo/gui/plot/PlottingTypes.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_GUI_VISIBLE, gazebo, gui, PlotManager)
+-
+ namespace gazebo
+ {
+   namespace gui
+@@ -96,4 +93,8 @@ namespace gazebo
+     };
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_GUI_VISIBLE ::SingletonT<gazebo::gui::PlotManager>;
++
+ #endif
+diff --git a/gazebo/rendering/RTShaderSystem.hh b/gazebo/rendering/RTShaderSystem.hh
+index 61da4d25ee..5a380d2f15 100644
+--- a/gazebo/rendering/RTShaderSystem.hh
++++ b/gazebo/rendering/RTShaderSystem.hh
+@@ -28,9 +28,6 @@
+ #include "gazebo/common/SingletonT.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_RENDERING_VISIBLE, gazebo, rendering, RTShaderSystem)
+-
+ namespace gazebo
+ {
+   namespace rendering
+@@ -197,4 +194,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_RENDERING_VISIBLE ::SingletonT<gazebo::rendering::RTShaderSystem>;
++
+ #endif
+diff --git a/gazebo/rendering/RenderEngine.hh b/gazebo/rendering/RenderEngine.hh
+index ae62ae8457..f8857c7dca 100644
+--- a/gazebo/rendering/RenderEngine.hh
++++ b/gazebo/rendering/RenderEngine.hh
+@@ -27,9 +27,6 @@
+ #include "gazebo/rendering/RenderTypes.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_RENDERING_VISIBLE, gazebo, rendering, RenderEngine)
+-
+ namespace Ogre
+ {
+   class Root;
+@@ -188,4 +185,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_RENDERING_VISIBLE ::SingletonT<gazebo::rendering::RenderEngine>;
++
+ #endif
+diff --git a/gazebo/sensors/SensorManager.hh b/gazebo/sensors/SensorManager.hh
+index dea9caee49..10c6f57f4c 100644
+--- a/gazebo/sensors/SensorManager.hh
++++ b/gazebo/sensors/SensorManager.hh
+@@ -33,9 +33,6 @@
+ #include "gazebo/sensors/Sensor.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_SENSORS_VISIBLE, gazebo, sensors, SensorManager)
+-
+ namespace gazebo
+ {
+   /// \ingroup gazebo_sensors
+@@ -344,4 +341,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_SENSORS_VISIBLE ::SingletonT<gazebo::sensors::SensorManager>;
++
+ #endif
+diff --git a/gazebo/transport/ConnectionManager.hh b/gazebo/transport/ConnectionManager.hh
+index 6dc212bc13..9c9e4e0caa 100644
+--- a/gazebo/transport/ConnectionManager.hh
++++ b/gazebo/transport/ConnectionManager.hh
+@@ -34,9 +34,6 @@
+ #endif
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_TRANSPORT_VISIBLE, gazebo, transport, ConnectionManager)
+-
+ namespace gazebo
+ {
+   namespace transport
+@@ -208,4 +205,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::ConnectionManager>;
++
+ #endif
+diff --git a/gazebo/transport/TopicManager.hh b/gazebo/transport/TopicManager.hh
+index b2adc04c8d..a9189aa380 100644
+--- a/gazebo/transport/TopicManager.hh
++++ b/gazebo/transport/TopicManager.hh
+@@ -44,9 +44,6 @@
+ #include "gazebo/transport/Subscriber.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_TRANSPORT_VISIBLE, gazebo, transport, TopicManager)
+-
+ namespace gazebo
+ {
+   namespace transport
+@@ -272,4 +269,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::TopicManager>;
++
+ #endif
+diff --git a/gazebo/util/Diagnostics.hh b/gazebo/util/Diagnostics.hh
+index 1b5782fdb1..d9f7e321c2 100644
+--- a/gazebo/util/Diagnostics.hh
++++ b/gazebo/util/Diagnostics.hh
+@@ -29,9 +29,6 @@
+ #include "gazebo/util/UtilTypes.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_UTIL_VISIBLE, gazebo, util, DiagnosticManager)
+-
+ namespace gazebo
+ {
+   namespace util
+@@ -190,4 +187,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_UTIL_VISIBLE ::SingletonT<gazebo::util::DiagnosticManager>;
++
+ #endif
+diff --git a/gazebo/util/IntrospectionManager.hh b/gazebo/util/IntrospectionManager.hh
+index b471a7a907..6f16f220f7 100644
+--- a/gazebo/util/IntrospectionManager.hh
++++ b/gazebo/util/IntrospectionManager.hh
+@@ -31,9 +31,6 @@
+ #include "gazebo/msgs/param_v.pb.h"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_UTIL_VISIBLE, gazebo, util, IntrospectionManager)
+-
+ namespace gazebo
+ {
+   namespace util
+@@ -203,4 +200,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_UTIL_VISIBLE ::SingletonT<gazebo::util::IntrospectionManager>;
++
+ #endif
+diff --git a/gazebo/util/LogPlay.hh b/gazebo/util/LogPlay.hh
+index d3ba5a31e2..270926d473 100644
+--- a/gazebo/util/LogPlay.hh
++++ b/gazebo/util/LogPlay.hh
+@@ -24,9 +24,6 @@
+ #include "gazebo/common/Time.hh"
+ #include "gazebo/util/system.hh"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_UTIL_VISIBLE, gazebo, util, LogPlay)
+-
+ namespace gazebo
+ {
+   namespace util
+@@ -195,4 +192,7 @@ namespace gazebo
+   }
+ }
+ 
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_UTIL_VISIBLE ::SingletonT<gazebo::util::LogPlay>;
++
+ #endif
+diff --git a/gazebo/util/LogRecord.hh b/gazebo/util/LogRecord.hh
+index 525d6d4e4a..fda4fe2c83 100644
+--- a/gazebo/util/LogRecord.hh
++++ b/gazebo/util/LogRecord.hh
+@@ -27,9 +27,6 @@
+ 
+ #define GZ_LOG_VERSION "1.0"
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_UTIL_VISIBLE, gazebo, util, LogRecord)
+-
+ namespace gazebo
+ {
+   namespace util
+@@ -272,4 +269,8 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_UTIL_VISIBLE ::SingletonT<gazebo::util::LogRecord>;
++
+ #endif
+diff --git a/gazebo/util/OpenAL.hh b/gazebo/util/OpenAL.hh
+index a98c926e31..4ae05db282 100644
+--- a/gazebo/util/OpenAL.hh
++++ b/gazebo/util/OpenAL.hh
+@@ -33,9 +33,6 @@
+ 
+ #ifdef HAVE_OPENAL
+ 
+-/// \brief Explicit instantiation for typed SingletonT.
+-GZ_SINGLETON_DECLARE(GZ_UTIL_VISIBLE, gazebo, util, OpenAL)
+-
+ namespace gazebo
+ {
+   namespace util
+@@ -201,5 +198,10 @@ namespace gazebo
+     /// \}
+   }
+ }
++
++/// \brief Explicit instantiation for typed SingletonT.
++template class GZ_UTIL_VISIBLE ::SingletonT<gazebo::util::OpenAL>;
++
++
+ #endif
+ #endif
+

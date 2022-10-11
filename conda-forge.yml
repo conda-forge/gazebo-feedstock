@@ -8,3 +8,5 @@ github:
 provider:
   linux_aarch64: default
 test_on_native_only: true
+azure:
+  store_build_artifacts: true

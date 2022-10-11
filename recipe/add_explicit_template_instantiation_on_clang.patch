@@ -1,74 +1,63 @@
 diff --git a/gazebo/transport/ConnectionManager.cc b/gazebo/transport/ConnectionManager.cc
-index 17016a4362..8042c9d6fb 100644
+index 17016a4362..4463a258ff 100644
 --- a/gazebo/transport/ConnectionManager.cc
 +++ b/gazebo/transport/ConnectionManager.cc
-@@ -67,6 +67,9 @@ class TopicManagerConnectionTask
-   private: msgs::Publish pub;
- };
+@@ -88,6 +88,12 @@ ConnectionManager::~ConnectionManager()
+   this->Fini();
+ }
  
 +//////////////////////////////////////////////////
-+template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::ConnectionManager>;
++static ConnectionManager* Instance()
++{
++  return SingletonT<ConnectionManager>::Instance();
++}
 +
  //////////////////////////////////////////////////
- ConnectionManager::ConnectionManager()
- {
+ bool ConnectionManager::Init(const std::string &_masterHost,
+                              unsigned int _masterPort,
 diff --git a/gazebo/transport/ConnectionManager.hh b/gazebo/transport/ConnectionManager.hh
-index 6dc212bc13..45ab732661 100644
+index 6dc212bc13..65169d1e69 100644
 --- a/gazebo/transport/ConnectionManager.hh
 +++ b/gazebo/transport/ConnectionManager.hh
-@@ -34,9 +34,6 @@
- #endif
- #include "gazebo/util/system.hh"
+@@ -167,6 +167,9 @@ namespace gazebo
+       /// \brief Run the manager update loop once
+       private: void RunUpdate();
  
--/// \brief Explicit instantiation for typed SingletonT.
--GZ_SINGLETON_DECLARE(GZ_TRANSPORT_VISIBLE, gazebo, transport, ConnectionManager)
--
- namespace gazebo
- {
-   namespace transport
-@@ -208,4 +205,8 @@ namespace gazebo
-     /// \}
-   }
- }
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ConnectionManager* Instance();
 +
-+/// \brief Explicit instantiation for typed SingletonT.
-+extern template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::ConnectionManager>;
-+
- #endif
+       /// \brief Condition used to trigger an update.
+       private: boost::condition_variable updateCondition;
+ 
 diff --git a/gazebo/transport/TopicManager.cc b/gazebo/transport/TopicManager.cc
-index 14fa782fa4..6c036205ee 100644
+index 14fa782fa4..19587fb884 100644
 --- a/gazebo/transport/TopicManager.cc
 +++ b/gazebo/transport/TopicManager.cc
-@@ -48,6 +48,8 @@ class NodeProcess_TBB
-   private: std::vector<NodePtr> *nodes;
- };
+@@ -65,6 +65,12 @@ TopicManager::~TopicManager()
+ {
+ }
  
 +//////////////////////////////////////////////////
-+template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::TopicManager>;
- 
++static TopicManager* Instance()
++{
++  return SingletonT<TopicManager>::Instance();
++}
++
  //////////////////////////////////////////////////
- TopicManager::TopicManager()
+ void TopicManager::Init()
+ {
 diff --git a/gazebo/transport/TopicManager.hh b/gazebo/transport/TopicManager.hh
-index b2adc04c8d..c7df09af63 100644
+index b2adc04c8d..6c05abae6e 100644
 --- a/gazebo/transport/TopicManager.hh
 +++ b/gazebo/transport/TopicManager.hh
-@@ -44,9 +44,6 @@
- #include "gazebo/transport/Subscriber.hh"
- #include "gazebo/util/system.hh"
+@@ -244,6 +244,9 @@ namespace gazebo
+       /// \param[in] _ptr Node to process.
+       public: void AddNodeToProcess(NodePtr _ptr);
  
--/// \brief Explicit instantiation for typed SingletonT.
--GZ_SINGLETON_DECLARE(GZ_TRANSPORT_VISIBLE, gazebo, transport, TopicManager)
--
- namespace gazebo
- {
-   namespace transport
-@@ -272,4 +269,8 @@ namespace gazebo
-     /// \}
-   }
- }
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static TopicManager* Instance();
 +
-+/// \brief Explicit instantiation for typed SingletonT.
-+extern template class GZ_TRANSPORT_VISIBLE ::SingletonT<gazebo::transport::TopicManager>;
-+
- #endif
+       /// \brief A map of string->list of Node pointers
+       typedef std::map<std::string, std::list<NodePtr> > SubNodeMap;
  
+

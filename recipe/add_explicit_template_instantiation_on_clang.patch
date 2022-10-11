@@ -7,7 +7,7 @@ index 17016a4362..4463a258ff 100644
  }
  
 +//////////////////////////////////////////////////
-+ConnectionManager* Instance()
++ConnectionManager* ConnectionManager::Instance()
 +{
 +  return SingletonT<ConnectionManager>::Instance();
 +}
@@ -38,7 +38,7 @@ index 14fa782fa4..19587fb884 100644
  }
  
 +//////////////////////////////////////////////////
-+TopicManager* Instance()
++TopicManager* TopicManager::Instance()
 +{
 +  return SingletonT<TopicManager>::Instance();
 +}

@@ -1,0 +1,814 @@
+From f96ee7492e18e8677e02bdf55ce7bf704cbfa331 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio.traversaro@iit.it>
+Date: Thu, 13 Oct 2022 11:03:55 +0200
+Subject: [PATCH] Fix Instance() method of Singleton classes
+
+In particular, make sure that all the Instance() methods
+of the same class always use the same instantiation.
+---
+ gazebo/common/FuelModelDatabase.cc    | 13 +++++++++++++
+ gazebo/common/FuelModelDatabase.hh    |  3 +++
+ gazebo/common/MeshManager.cc          | 13 +++++++++++++
+ gazebo/common/MeshManager.hh          |  3 +++
+ gazebo/common/ModelDatabase.cc        | 13 +++++++++++++
+ gazebo/common/ModelDatabase.hh        |  3 +++
+ gazebo/common/SingletonT.hh           |  2 +-
+ gazebo/common/SystemPaths.cc          | 13 +++++++++++++
+ gazebo/common/SystemPaths.hh          |  3 +++
+ gazebo/gui/KeyEventHandler.cc         | 13 +++++++++++++
+ gazebo/gui/KeyEventHandler.hh         |  3 +++
+ gazebo/gui/ModelAlign.cc              | 13 +++++++++++++
+ gazebo/gui/ModelAlign.hh              |  3 +++
+ gazebo/gui/ModelManipulator.cc        | 13 +++++++++++++
+ gazebo/gui/ModelManipulator.hh        |  3 +++
+ gazebo/gui/ModelSnap.cc               | 13 +++++++++++++
+ gazebo/gui/ModelSnap.hh               |  3 +++
+ gazebo/gui/MouseEventHandler.cc       | 13 +++++++++++++
+ gazebo/gui/MouseEventHandler.hh       |  3 +++
+ gazebo/gui/plot/PlotManager.cc        | 13 +++++++++++++
+ gazebo/gui/plot/PlotManager.hh        |  3 +++
+ gazebo/gui/plot/TopicCurveHandler.cc  | 16 ++++++++++++++++
+ gazebo/rendering/RTShaderSystem.cc    | 13 +++++++++++++
+ gazebo/rendering/RTShaderSystem.hh    |  3 +++
+ gazebo/rendering/RenderEngine.cc      | 13 +++++++++++++
+ gazebo/rendering/RenderEngine.hh      |  3 +++
+ gazebo/sensors/SensorManager.cc       | 14 ++++++++++++++
+ gazebo/sensors/SensorManager.hh       |  3 +++
+ gazebo/transport/ConnectionManager.cc | 13 +++++++++++++
+ gazebo/transport/ConnectionManager.hh |  3 +++
+ gazebo/transport/TopicManager.cc      | 13 +++++++++++++
+ gazebo/transport/TopicManager.hh      |  3 +++
+ gazebo/util/Diagnostics.cc            | 13 +++++++++++++
+ gazebo/util/Diagnostics.hh            |  3 +++
+ gazebo/util/IntrospectionManager.cc   | 13 +++++++++++++
+ gazebo/util/IntrospectionManager.hh   |  3 +++
+ gazebo/util/LogPlay.cc                | 13 +++++++++++++
+ gazebo/util/LogPlay.hh                |  3 +++
+ gazebo/util/LogRecord.cc              | 13 +++++++++++++
+ gazebo/util/LogRecord.hh              |  3 +++
+ gazebo/util/OpenAL.cc                 | 13 +++++++++++++
+ gazebo/util/OpenAL.hh                 |  3 +++
+ 42 files changed, 338 insertions(+), 1 deletion(-)
+
+diff --git a/gazebo/common/FuelModelDatabase.cc b/gazebo/common/FuelModelDatabase.cc
+index 3ba2b04fb8..4fa5bd26c9 100644
+--- a/gazebo/common/FuelModelDatabase.cc
++++ b/gazebo/common/FuelModelDatabase.cc
+@@ -322,3 +322,16 @@ std::string FuelModelDatabase::CachedFilePath(const std::string &_uri)
+ 
+   return path;
+ }
++
++//////////////////////////////////////////////////
++FuelModelDatabase* FuelModelDatabase::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<FuelModelDatabase>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/common/FuelModelDatabase.hh b/gazebo/common/FuelModelDatabase.hh
+index 81daafbefc..cfa8f0d1ab 100644
+--- a/gazebo/common/FuelModelDatabase.hh
++++ b/gazebo/common/FuelModelDatabase.hh
+@@ -123,6 +123,9 @@ namespace gazebo
+       /// \return Local path to the file
+       public: std::string CachedFilePath(const std::string &_uri);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static FuelModelDatabase* Instance();
++
+       /// \brief Private data.
+       private: std::unique_ptr<FuelModelDatabasePrivate> dataPtr;
+ 
+diff --git a/gazebo/common/MeshManager.cc b/gazebo/common/MeshManager.cc
+index 6c0104a7ea..e151f8abda 100644
+--- a/gazebo/common/MeshManager.cc
++++ b/gazebo/common/MeshManager.cc
+@@ -1394,5 +1394,18 @@ void MeshManager::ConvertPolylinesToVerticesAndEdges(
+     }
+   }
+ }
++
++//////////////////////////////////////////////////
++MeshManager* MeshManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<MeshManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+ }
+ }
+diff --git a/gazebo/common/MeshManager.hh b/gazebo/common/MeshManager.hh
+index a6778cc07d..16f22a0327 100644
+--- a/gazebo/common/MeshManager.hh
++++ b/gazebo/common/MeshManager.hh
+@@ -261,6 +261,9 @@ namespace gazebo
+                       const ignition::math::Vector2d &_p,
+                       double _tol);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static MeshManager* Instance();
++
+       /// \brief Singleton implementation
+       private: friend class SingletonT<MeshManager>;
+ 
+diff --git a/gazebo/common/ModelDatabase.cc b/gazebo/common/ModelDatabase.cc
+index 54be36799a..4e46add362 100644
+--- a/gazebo/common/ModelDatabase.cc
++++ b/gazebo/common/ModelDatabase.cc
+@@ -683,3 +683,16 @@ std::string ModelDatabase::GetModelFile(const std::string &_uri)
+ 
+   return result;
+ }
++
++//////////////////////////////////////////////////
++ModelDatabase* ModelDatabase::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<ModelDatabase>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/common/ModelDatabase.hh b/gazebo/common/ModelDatabase.hh
+index 0821abad8d..e78fffacdd 100644
+--- a/gazebo/common/ModelDatabase.hh
++++ b/gazebo/common/ModelDatabase.hh
+@@ -150,6 +150,9 @@ namespace gazebo
+       /// no one else should use this function.
+       private: bool UpdateModelCacheImpl();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ModelDatabase* Instance();
++
+       /// \brief Private data.
+       private: ModelDatabasePrivate *dataPtr;
+ 
+diff --git a/gazebo/common/SingletonT.hh b/gazebo/common/SingletonT.hh
+index e97b7c792e..9d08bfc760 100644
+--- a/gazebo/common/SingletonT.hh
++++ b/gazebo/common/SingletonT.hh
+@@ -33,7 +33,7 @@ template <class T>
+ class SingletonT
+ {
+   /// \brief Get an instance of the singleton
+-  public: static T *Instance()
++  public: static T *Instance() GAZEBO_DEPRECATED(11.0)
+           {
+             return &GetInstance();
+           }
+diff --git a/gazebo/common/SystemPaths.cc b/gazebo/common/SystemPaths.cc
+index 2e0f770433..08e84f234e 100644
+--- a/gazebo/common/SystemPaths.cc
++++ b/gazebo/common/SystemPaths.cc
+@@ -577,3 +577,16 @@ void SystemPaths::AddSearchPathSuffix(const std::string &_suffix)
+ 
+   this->suffixPaths.push_back(s);
+ }
++
++//////////////////////////////////////////////////
++SystemPaths* SystemPaths::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<SystemPaths>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/common/SystemPaths.hh b/gazebo/common/SystemPaths.hh
+index 3c62d28c07..f1f05b183a 100644
+--- a/gazebo/common/SystemPaths.hh
++++ b/gazebo/common/SystemPaths.hh
+@@ -181,6 +181,9 @@ namespace gazebo
+       private: void InsertUnique(const std::string &_path,
+                                  std::list<std::string> &_list);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static SystemPaths* Instance();
++
+       /// \brief Paths to installed gazebo media files
+       private: std::list<std::string> gazeboPaths;
+ 
+diff --git a/gazebo/gui/KeyEventHandler.cc b/gazebo/gui/KeyEventHandler.cc
+index e433805ad7..77cf0fa5fd 100644
+--- a/gazebo/gui/KeyEventHandler.cc
++++ b/gazebo/gui/KeyEventHandler.cc
+@@ -116,3 +116,16 @@ bool KeyEventHandler::Handle(const common::KeyEvent &_event,
+   }
+   return false;
+ }
++
++//////////////////////////////////////////////////
++KeyEventHandler* KeyEventHandler::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<KeyEventHandler>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/gui/KeyEventHandler.hh b/gazebo/gui/KeyEventHandler.hh
+index 61e4d9046e..0f045d12df 100644
+--- a/gazebo/gui/KeyEventHandler.hh
++++ b/gazebo/gui/KeyEventHandler.hh
+@@ -145,6 +145,9 @@ namespace gazebo
+       private: bool Handle(const common::KeyEvent &_event,
+                    std::list<Filter> &_list);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static KeyEventHandler* Instance();
++
+       /// \brief This is a singleton class.
+       private: friend class SingletonT<KeyEventHandler>;
+ 
+diff --git a/gazebo/gui/ModelAlign.cc b/gazebo/gui/ModelAlign.cc
+index af0cba86d2..fa7af11587 100644
+--- a/gazebo/gui/ModelAlign.cc
++++ b/gazebo/gui/ModelAlign.cc
+@@ -362,3 +362,16 @@ void ModelAlign::SetHighlighted(const rendering::VisualPtr &_vis,
+     }
+   }
+ }
++
++//////////////////////////////////////////////////
++ModelAlign* ModelAlign::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<ModelAlign>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/gui/ModelAlign.hh b/gazebo/gui/ModelAlign.hh
+index 2b38a6a355..f396414048 100644
+--- a/gazebo/gui/ModelAlign.hh
++++ b/gazebo/gui/ModelAlign.hh
+@@ -97,6 +97,9 @@ namespace gazebo
+       private: void SetHighlighted(const rendering::VisualPtr &_vis,
+           const bool _highlight);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ModelAlign* Instance();
++
+       /// \brief This is a singleton class.
+       private: friend class SingletonT<ModelAlign>;
+ 
+diff --git a/gazebo/gui/ModelManipulator.cc b/gazebo/gui/ModelManipulator.cc
+index b1682f8c89..11603e7d85 100644
+--- a/gazebo/gui/ModelManipulator.cc
++++ b/gazebo/gui/ModelManipulator.cc
+@@ -987,6 +987,19 @@ void ModelManipulator::OnKeyReleaseEvent(const common::KeyEvent &_event)
+   this->dataPtr->keyEvent.key = 0;
+ }
+ 
++//////////////////////////////////////////////////
++ModelManipulator* ModelManipulator::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<ModelManipulator>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
++
+ // Function migrated here from GLWidget.cc and commented out since it doesn't
+ // seem like it's currently used. Kept here for future references
+ /////////////////////////////////////////////////
+diff --git a/gazebo/gui/ModelManipulator.hh b/gazebo/gui/ModelManipulator.hh
+index ecd06954b7..77d3177853 100644
+--- a/gazebo/gui/ModelManipulator.hh
++++ b/gazebo/gui/ModelManipulator.hh
+@@ -179,6 +179,9 @@ namespace gazebo
+           const ignition::math::Vector3d &_axis,
+           const ignition::math::Vector3d &_scale, const std::string &_geom);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ModelManipulator* Instance();
++
+       /// \brief This is a singleton class.
+       private: friend class SingletonT<ModelManipulator>;
+ 
+diff --git a/gazebo/gui/ModelSnap.cc b/gazebo/gui/ModelSnap.cc
+index 8c920bad8c..356c0956ce 100644
+--- a/gazebo/gui/ModelSnap.cc
++++ b/gazebo/gui/ModelSnap.cc
+@@ -507,3 +507,16 @@ void ModelSnap::Update()
+     this->dataPtr->selectedTriangleDirty = false;
+   }
+ }
++
++//////////////////////////////////////////////////
++ModelSnap* ModelSnap::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<ModelSnap>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/gui/ModelSnap.hh b/gazebo/gui/ModelSnap.hh
+index e942a256c6..b3aaef2f7b 100644
+--- a/gazebo/gui/ModelSnap.hh
++++ b/gazebo/gui/ModelSnap.hh
+@@ -111,6 +111,9 @@ namespace gazebo
+       /// \brief Update the visual representation of the snap spot.
+       private: void Update();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ModelSnap* Instance();
++
+       /// \brief This is a singleton class.
+       private: friend class SingletonT<ModelSnap>;
+ 
+diff --git a/gazebo/gui/MouseEventHandler.cc b/gazebo/gui/MouseEventHandler.cc
+index e6cfc46f9b..762eedf5ef 100644
+--- a/gazebo/gui/MouseEventHandler.cc
++++ b/gazebo/gui/MouseEventHandler.cc
+@@ -135,3 +135,16 @@ void MouseEventHandler::Handle(const common::MouseEvent &_event,
+       break;
+   }
+ }
++
++//////////////////////////////////////////////////
++MouseEventHandler* MouseEventHandler::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<MouseEventHandler>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/gui/MouseEventHandler.hh b/gazebo/gui/MouseEventHandler.hh
+index 42c09c3042..62290a5ca5 100644
+--- a/gazebo/gui/MouseEventHandler.hh
++++ b/gazebo/gui/MouseEventHandler.hh
+@@ -156,6 +156,9 @@ namespace gazebo
+       private: void Handle(const common::MouseEvent &_event,
+                    std::list<Filter> &_list);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static MouseEventHandler* Instance();
++
+       /// \brief List of mouse press filters.
+       private: std::list<Filter> pressFilters;
+ 
+diff --git a/gazebo/gui/plot/PlotManager.cc b/gazebo/gui/plot/PlotManager.cc
+index b50f6065af..634b19e406 100644
+--- a/gazebo/gui/plot/PlotManager.cc
++++ b/gazebo/gui/plot/PlotManager.cc
+@@ -190,3 +190,16 @@ std::string PlotManager::HumanReadableName(const std::string &_uri) const
+ 
+   return label;
+ }
++
++//////////////////////////////////////////////////
++PlotManager* PlotManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<PlotManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/gui/plot/PlotManager.hh b/gazebo/gui/plot/PlotManager.hh
+index 0a31e7ac3e..29101fca76 100644
+--- a/gazebo/gui/plot/PlotManager.hh
++++ b/gazebo/gui/plot/PlotManager.hh
+@@ -87,6 +87,9 @@ namespace gazebo
+       /// \return Human readable name
+       public: std::string HumanReadableName(const std::string &_uri) const;
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static PlotManager* Instance();
++
+       /// \brief This is a singleton class.
+       private: friend class SingletonT<PlotManager>;
+ 
+diff --git a/gazebo/gui/plot/TopicCurveHandler.cc b/gazebo/gui/plot/TopicCurveHandler.cc
+index 34bfc75660..c7103f9789 100644
+--- a/gazebo/gui/plot/TopicCurveHandler.cc
++++ b/gazebo/gui/plot/TopicCurveHandler.cc
+@@ -55,6 +55,9 @@ namespace gazebo
+       /// \param[in] _msg WorldStats msg.
+       public: void OnStats(ConstWorldStatisticsPtr &_msg);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static TopicTime* Instance();
++
+       /// \brief Node for communications.
+       private: transport::NodePtr node;
+ 
+@@ -168,6 +171,19 @@ void TopicTime::OnStats(ConstWorldStatisticsPtr &_msg)
+   this->lastSimTime = msgs::Convert(t);
+ }
+ 
++//////////////////////////////////////////////////
++TopicTime* TopicTime::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<TopicTime>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
++
+ /////////////////////////////////////////////////
+ common::Time TopicTime::LastSimTime()
+ {
+diff --git a/gazebo/rendering/RTShaderSystem.cc b/gazebo/rendering/RTShaderSystem.cc
+index fe7197ab5f..72f86bf782 100644
+--- a/gazebo/rendering/RTShaderSystem.cc
++++ b/gazebo/rendering/RTShaderSystem.cc
+@@ -810,3 +810,16 @@ void RTShaderSystem::UpdateShadows(ScenePtr _scene)
+   sceneMgr->setShadowTextureCasterMaterial(_scene->ShadowCasterMaterialName());
+ #endif
+ }
++
++//////////////////////////////////////////////////
++RTShaderSystem* RTShaderSystem::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<RTShaderSystem>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/rendering/RTShaderSystem.hh b/gazebo/rendering/RTShaderSystem.hh
+index 61da4d25ee..b9227357f9 100644
+--- a/gazebo/rendering/RTShaderSystem.hh
++++ b/gazebo/rendering/RTShaderSystem.hh
+@@ -187,6 +187,9 @@ namespace gazebo
+       /// \brief Re-apply shadows. Call this if a shadow paramenter is changed.
+       private: void ReapplyShadows();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static RTShaderSystem* Instance();
++
+       /// \brief Make the RTShader system a singleton.
+       private: friend class SingletonT<RTShaderSystem>;
+ 
+diff --git a/gazebo/rendering/RenderEngine.cc b/gazebo/rendering/RenderEngine.cc
+index 87d78ea95d..cc07bef340 100644
+--- a/gazebo/rendering/RenderEngine.cc
++++ b/gazebo/rendering/RenderEngine.cc
+@@ -883,3 +883,16 @@ Ogre::OverlaySystem *RenderEngine::OverlaySystem() const
+   return this->dataPtr->overlaySystem;
+ }
+ #endif
++
++//////////////////////////////////////////////////
++RenderEngine* RenderEngine::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<RenderEngine>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/rendering/RenderEngine.hh b/gazebo/rendering/RenderEngine.hh
+index ae62ae8457..fa3f28bb84 100644
+--- a/gazebo/rendering/RenderEngine.hh
++++ b/gazebo/rendering/RenderEngine.hh
+@@ -168,6 +168,9 @@ namespace gazebo
+       /// \brief Check the rendering capabilities of the system.
+       private: void CheckSystemCapabilities();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static RenderEngine* Instance();
++
+       /// \brief ID for a dummy window. Used for gui-less operation
+       protected: uint64_t dummyWindowId;
+ 
+diff --git a/gazebo/sensors/SensorManager.cc b/gazebo/sensors/SensorManager.cc
+index a44c8e8158..0c9d14d1c0 100644
+--- a/gazebo/sensors/SensorManager.cc
++++ b/gazebo/sensors/SensorManager.cc
+@@ -1005,6 +1005,20 @@ bool SensorManager::ImageSensorContainer::WaitForPrerendered(double _timeoutsec)
+   return (ret == std::cv_status::no_timeout);
+ }
+ 
++//////////////////////////////////////////////////
++SensorManager* SensorManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<SensorManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
++
++
+ /////////////////////////////////////////////////
+ SimTimeEventHandler::SimTimeEventHandler()
+ {
+diff --git a/gazebo/sensors/SensorManager.hh b/gazebo/sensors/SensorManager.hh
+index dea9caee49..657875014d 100644
+--- a/gazebo/sensors/SensorManager.hh
++++ b/gazebo/sensors/SensorManager.hh
+@@ -193,6 +193,9 @@ namespace gazebo
+       /// \param[in] _sensor Pointer to a sensor to add.
+       private: void AddSensor(SensorPtr _sensor);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static SensorManager* Instance();
++
+       /// \cond
+       /// \brief A container for sensors of a specific type. This is used to
+       /// separate sensors which rely on the rendering engine from those
+diff --git a/gazebo/transport/ConnectionManager.cc b/gazebo/transport/ConnectionManager.cc
+index 17016a4362..312ceac712 100644
+--- a/gazebo/transport/ConnectionManager.cc
++++ b/gazebo/transport/ConnectionManager.cc
+@@ -712,3 +712,16 @@ void ConnectionManager::TriggerUpdate()
+ {
+   this->updateCondition.notify_all();
+ }
++
++//////////////////////////////////////////////////
++ConnectionManager* ConnectionManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<ConnectionManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/transport/ConnectionManager.hh b/gazebo/transport/ConnectionManager.hh
+index 6dc212bc13..65169d1e69 100644
+--- a/gazebo/transport/ConnectionManager.hh
++++ b/gazebo/transport/ConnectionManager.hh
+@@ -167,6 +167,9 @@ namespace gazebo
+       /// \brief Run the manager update loop once
+       private: void RunUpdate();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static ConnectionManager* Instance();
++
+       /// \brief Condition used to trigger an update.
+       private: boost::condition_variable updateCondition;
+ 
+diff --git a/gazebo/transport/TopicManager.cc b/gazebo/transport/TopicManager.cc
+index 14fa782fa4..4acc0e6592 100644
+--- a/gazebo/transport/TopicManager.cc
++++ b/gazebo/transport/TopicManager.cc
+@@ -457,3 +457,16 @@ void TopicManager::PauseIncoming(bool _pause)
+ {
+   this->pauseIncoming = _pause;
+ }
++
++//////////////////////////////////////////////////
++TopicManager* TopicManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<TopicManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/transport/TopicManager.hh b/gazebo/transport/TopicManager.hh
+index b2adc04c8d..6c05abae6e 100644
+--- a/gazebo/transport/TopicManager.hh
++++ b/gazebo/transport/TopicManager.hh
+@@ -244,6 +244,9 @@ namespace gazebo
+       /// \param[in] _ptr Node to process.
+       public: void AddNodeToProcess(NodePtr _ptr);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static TopicManager* Instance();
++
+       /// \brief A map of string->list of Node pointers
+       typedef std::map<std::string, std::list<NodePtr> > SubNodeMap;
+ 
+diff --git a/gazebo/util/Diagnostics.cc b/gazebo/util/Diagnostics.cc
+index 1b3b4dc054..55626b0fc1 100644
+--- a/gazebo/util/Diagnostics.cc
++++ b/gazebo/util/Diagnostics.cc
+@@ -249,6 +249,19 @@ common::Time DiagnosticManager::Time(const std::string &_label) const
+   return common::Time();
+ }
+ 
++//////////////////////////////////////////////////
++DiagnosticManager* DiagnosticManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<DiagnosticManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
++
+ //////////////////////////////////////////////////
+ DiagnosticTimer::DiagnosticTimer(const std::string &_name)
+ : Timer(),
+diff --git a/gazebo/util/Diagnostics.hh b/gazebo/util/Diagnostics.hh
+index 1b5782fdb1..cee46128ee 100644
+--- a/gazebo/util/Diagnostics.hh
++++ b/gazebo/util/Diagnostics.hh
+@@ -143,6 +143,9 @@ namespace gazebo
+                    const common::Time &_wallTime,
+                    const common::Time &_elapsedtime);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static DiagnosticManager* Instance();
++
+       // Singleton implementation
+       private: friend class SingletonT<DiagnosticManager>;
+ 
+diff --git a/gazebo/util/IntrospectionManager.cc b/gazebo/util/IntrospectionManager.cc
+index 048e605317..54073e647b 100644
+--- a/gazebo/util/IntrospectionManager.cc
++++ b/gazebo/util/IntrospectionManager.cc
+@@ -642,3 +642,16 @@ bool IntrospectionManager::ValidateParameter(const gazebo::msgs::Param &_msg,
+ 
+   return true;
+ }
++
++//////////////////////////////////////////////////
++IntrospectionManager* IntrospectionManager::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<IntrospectionManager>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/util/IntrospectionManager.hh b/gazebo/util/IntrospectionManager.hh
+index b471a7a907..d150181edd 100644
+--- a/gazebo/util/IntrospectionManager.hh
++++ b/gazebo/util/IntrospectionManager.hh
+@@ -193,6 +193,9 @@ namespace gazebo
+       private: bool ValidateParameter(const gazebo::msgs::Param &_msg,
+                              const std::set<std::string> &_allowedValues) const;
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static IntrospectionManager* Instance();
++
+       /// \brief This is a singleton.
+       private: friend class SingletonT<IntrospectionManager>;
+ 
+diff --git a/gazebo/util/LogPlay.cc b/gazebo/util/LogPlay.cc
+index e0b80b381f..70cfcc3346 100644
+--- a/gazebo/util/LogPlay.cc
++++ b/gazebo/util/LogPlay.cc
+@@ -838,3 +838,16 @@ bool LogPlay::PrevChunk()
+ 
+   return true;
+ }
++
++//////////////////////////////////////////////////
++LogPlay* LogPlay::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<LogPlay>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/util/LogPlay.hh b/gazebo/util/LogPlay.hh
+index d3ba5a31e2..29013d9ee0 100644
+--- a/gazebo/util/LogPlay.hh
++++ b/gazebo/util/LogPlay.hh
+@@ -184,6 +184,9 @@ namespace gazebo
+       /// chunks before the current one.
+       private: bool PrevChunk();
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static LogPlay* Instance();
++
+       /// \internal
+       /// \brief Private data pointer
+       private: std::unique_ptr<LogPlayPrivate> dataPtr;
+diff --git a/gazebo/util/LogRecord.cc b/gazebo/util/LogRecord.cc
+index e1e2543ffc..19658f54a4 100644
+--- a/gazebo/util/LogRecord.cc
++++ b/gazebo/util/LogRecord.cc
+@@ -1110,3 +1110,16 @@ unsigned int LogRecord::BufferSize() const
+ 
+   return size;
+ }
++
++//////////////////////////////////////////////////
++LogRecord* LogRecord::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<LogRecord>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
+diff --git a/gazebo/util/LogRecord.hh b/gazebo/util/LogRecord.hh
+index 525d6d4e4a..c756d83728 100644
+--- a/gazebo/util/LogRecord.hh
++++ b/gazebo/util/LogRecord.hh
+@@ -262,6 +262,9 @@ namespace gazebo
+       /// \brief Used to get the simulation pause state.
+       private: void OnPause(const bool _pause);
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static LogRecord* Instance();
++
+       /// \brief This is a singleton
+       private: friend class SingletonT<LogRecord>;
+ 
+diff --git a/gazebo/util/OpenAL.cc b/gazebo/util/OpenAL.cc
+index 77ff598dda..9cf773e37f 100644
+--- a/gazebo/util/OpenAL.cc
++++ b/gazebo/util/OpenAL.cc
+@@ -187,6 +187,19 @@ std::set<std::string> OpenAL::DeviceList() const
+   return deviceList;
+ }
+ 
++//////////////////////////////////////////////////
++OpenAL* OpenAL::Instance()
++{
++#ifndef _WIN32
++  #pragma GCC diagnostic push
++  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
++#endif
++  return SingletonT<OpenAL>::Instance();
++#ifndef _WIN32
++  #pragma GCC diagnostic pop
++#endif
++}
++
+ ////////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////
+ //                      OPENAL LISTENER
+diff --git a/gazebo/util/OpenAL.hh b/gazebo/util/OpenAL.hh
+index a98c926e31..f476b69dab 100644
+--- a/gazebo/util/OpenAL.hh
++++ b/gazebo/util/OpenAL.hh
+@@ -81,6 +81,9 @@ namespace gazebo
+       /// \return A list of audio device names
+       public: std::set<std::string> DeviceList() const;
+ 
++      /// \brief Returns a pointer to the unique (static) instance
++      public: static OpenAL* Instance();
++
+       /// \internal
+       /// \brief Private data pointer.
+       private: std::unique_ptr<OpenALPrivate> dataPtr;

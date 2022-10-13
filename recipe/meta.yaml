@@ -7,15 +7,16 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 6ef2721c1279bc836a845022784fb8bf9860468b36abbc5c1887446ea594d261
+    sha256: c4d32b76c213b0f74f01a10d2134232280a13fb58529f9a2ce8a7ab7bca8691a
     patches:
       - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
       - 3190.patch
+      - 3269.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 

@@ -8,3 +8,8 @@ github:
 provider:
   linux_aarch64: default
 test_on_native_only: true
+azure:
+  store_build_artifacts: true
+remote_ci_setup:
+   - liblief=0.11.5
+   - conda-forge-ci-setup=3

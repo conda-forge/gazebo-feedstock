@@ -51,13 +51,6 @@ cmake ${CMAKE_ARGS} .. \
 cmake --build . --config Release -- -j$CPU_COUNT
 cmake --build . --config Release --target install
 
-# Regression test for https://github.com/conda-forge/gazebo-feedstock/issues/148
-if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
-  cmake ${CMAKE_ARGS} -DBUILD_TESTING:BOOL=ON .
-  ninja INTEGRATION_transport_msg_count 
-  ctest --output-on-failure -C Release -R INTEGRATION_transport_msg_count
-fi
-
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
 # This will allow them to be run on environment activation.
 for CHANGE in "activate" "deactivate"

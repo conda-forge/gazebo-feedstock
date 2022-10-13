@@ -55,7 +55,7 @@ cmake --build . --config Release --target install
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
   cmake ${CMAKE_ARGS} -DBUILD_TESTING:BOOL=ON .
   ninja INTEGRATION_transport_msg_count 
-  # ctest --output-on-failure -C Release -R INTEGRATION_transport_msg_count
+  ctest --output-on-failure -C Release -R INTEGRATION_transport_msg_count
 fi
 
 # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.

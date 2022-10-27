@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 OGRE_VERSION:
 - '1.10'
 assimp:
-- 5.2.4
+- 5.2.5
 boost_cpp:
 - 1.78.0
 bzip2:
@@ -53,6 +53,8 @@ tbb_devel:
 - '2021'
 tinyxml2:
 - '9'
+urdfdom:
+- '3.1'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

@@ -3,5 +3,5 @@ __migrator:
   kind: version
   migration_number: 1
 assimp:
-- 5.2.4
-migrator_ts: 1653640601.473587
+- 5.2.5
+migrator_ts: 1663100710.2627342

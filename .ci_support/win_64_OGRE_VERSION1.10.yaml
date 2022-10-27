@@ -1,7 +1,7 @@
 OGRE_VERSION:
 - '1.10'
 assimp:
-- 5.2.4
+- 5.2.5
 boost_cpp:
 - 1.78.0
 c_compiler:
@@ -39,3 +39,5 @@ tbb_devel:
 - '2021'
 tinyxml2:
 - '9'
+urdfdom:
+- '3.1'

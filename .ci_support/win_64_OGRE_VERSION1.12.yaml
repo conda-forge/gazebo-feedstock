@@ -15,7 +15,7 @@ curl:
 cxx_compiler:
 - vs2019
 ffmpeg:
-- '4.4'
+- '5'
 graphviz:
 - '6'
 hdf5:

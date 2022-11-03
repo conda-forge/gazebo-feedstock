@@ -6,7 +6,7 @@ index 81e6576e22..00862f0e8c 100644
    PRIVATE BUILDING_DLL_GZ_GUI
  )
  
-+if(Graphviz_DEFINITIONS)
++if(WIN32)
 +  target_compile_definitions(gazebo_gui
 +    PRIVATE "GVDLL"
 +  )

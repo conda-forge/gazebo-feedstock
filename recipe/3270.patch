@@ -1,0 +1,17 @@
+diff --git a/gazebo/gui/CMakeLists.txt b/gazebo/gui/CMakeLists.txt
+index 81e6576e22..00862f0e8c 100644
+--- a/gazebo/gui/CMakeLists.txt
++++ b/gazebo/gui/CMakeLists.txt
+@@ -196,6 +196,12 @@ target_compile_definitions(gazebo_gui
+   PRIVATE BUILDING_DLL_GZ_GUI
+ )
+ 
++if(Graphviz_DEFINITIONS)
++  target_compile_definitions(gazebo_gui
++    PRIVATE ${Graphviz_DEFINITIONS}
++  )
++endif()
++
+ target_link_libraries(gazebo_gui
+   libgazebo_client
+   gazebo_common

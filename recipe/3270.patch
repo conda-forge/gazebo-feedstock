@@ -8,19 +8,10 @@ index 81e6576e22..00862f0e8c 100644
  
 +if(Graphviz_DEFINITIONS)
 +  target_compile_definitions(gazebo_gui
-+    PRIVATE ${Graphviz_DEFINITIONS}
++    PRIVATE "GVDLL"
 +  )
 +endif()
 +
  target_link_libraries(gazebo_gui
    libgazebo_client
    gazebo_common
-@@ -224,7 +224,7 @@ if (UNIX)
- endif()
- 
- if (HAVE_GRAPHVIZ)
--  target_link_libraries(gazebo_gui ${GRAPHVIZ_LIBRARIES})
-+  target_link_libraries(gazebo_gui ${Graphviz_LIBRARIES})
- endif()
- 
- target_link_libraries(gzclient gazebo_gui)

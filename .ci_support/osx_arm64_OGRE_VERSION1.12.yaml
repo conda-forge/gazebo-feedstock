@@ -23,7 +23,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '14'
 ffmpeg:
-- '4.4'
+- '5'
 graphviz:
 - '6'
 hdf5:

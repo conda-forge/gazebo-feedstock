@@ -27,7 +27,7 @@ libcblas:
 libcurl:
 - '7'
 libgdal:
-- '3.5'
+- '3.6'
 libprotobuf:
 - '3.21'
 pin_run_as_build:

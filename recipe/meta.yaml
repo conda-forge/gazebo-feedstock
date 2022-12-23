@@ -17,7 +17,7 @@ source:
       - 3270.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -114,7 +114,7 @@ requirements:
     - zlib  # [osx]
     - tiny-process-library  # [win]
     - ffmpeg
-    - graphviz
+    - graphviz 6
     - libgdal
     - libusb
     # Bullet is not detected on win for some reason
@@ -144,8 +144,7 @@ requirements:
     # deps
     - boost-cpp
     - tbb-devel
-    # graphviz is not found on win
-    - graphviz  # [not win]
+    - graphviz 6
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:

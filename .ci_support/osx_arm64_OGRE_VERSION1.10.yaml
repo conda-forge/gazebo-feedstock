@@ -24,8 +24,6 @@ cxx_compiler_version:
 - '14'
 ffmpeg:
 - '5'
-graphviz:
-- '6'
 hdf5:
 - 1.12.2
 libblas:
@@ -43,8 +41,6 @@ macos_machine:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  graphviz:
-    max_pin: x
 qt_main:
 - '5.15'
 target_platform:

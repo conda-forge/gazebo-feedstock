@@ -7,7 +7,7 @@ boost_cpp:
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
+- '11'
 cdt_name:
 - cos7
 channel_sources:
@@ -19,13 +19,11 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '10'
+- '11'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
 - '5'
-graphviz:
-- '6'
 hdf5:
 - 1.12.2
 libblas:
@@ -43,8 +41,6 @@ libuuid:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
-  graphviz:
-    max_pin: x
 qt_main:
 - '5.15'
 target_platform:

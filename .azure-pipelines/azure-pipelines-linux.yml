@@ -8,26 +8,16 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_OGRE_VERSION1.10:
-        CONFIG: linux_64_OGRE_VERSION1.10
+      linux_64_:
+        CONFIG: linux_64_
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_OGRE_VERSION1.10
-      linux_64_OGRE_VERSION1.12:
-        CONFIG: linux_64_OGRE_VERSION1.12
+        SHORT_CONFIG: linux_64_
+      linux_aarch64_:
+        CONFIG: linux_aarch64_
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_OGRE_VERSION1.12
-      linux_aarch64_OGRE_VERSION1.10:
-        CONFIG: linux_aarch64_OGRE_VERSION1.10
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_OGRE_VERSION1.10
-      linux_aarch64_OGRE_VERSION1.12:
-        CONFIG: linux_aarch64_OGRE_VERSION1.12
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_OGRE_VERSION1.12
+        SHORT_CONFIG: linux_aarch64_
   timeoutInMinutes: 360
 
   steps:

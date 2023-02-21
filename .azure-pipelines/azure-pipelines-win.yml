@@ -8,14 +8,10 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_OGRE_VERSION1.10:
-        CONFIG: win_64_OGRE_VERSION1.10
+      win_64_:
+        CONFIG: win_64_
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_OGRE_VERSION1.10
-      win_64_OGRE_VERSION1.12:
-        CONFIG: win_64_OGRE_VERSION1.12
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_OGRE_VERSION1.12
+        SHORT_CONFIG: win_64_
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\

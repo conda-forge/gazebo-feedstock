@@ -8,22 +8,14 @@ jobs:
     vmImage: macOS-11
   strategy:
     matrix:
-      osx_64_OGRE_VERSION1.10:
-        CONFIG: osx_64_OGRE_VERSION1.10
+      osx_64_:
+        CONFIG: osx_64_
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_OGRE_VERSION1.10
-      osx_64_OGRE_VERSION1.12:
-        CONFIG: osx_64_OGRE_VERSION1.12
+        SHORT_CONFIG: osx_64_
+      osx_arm64_:
+        CONFIG: osx_arm64_
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_OGRE_VERSION1.12
-      osx_arm64_OGRE_VERSION1.10:
-        CONFIG: osx_arm64_OGRE_VERSION1.10
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_OGRE_VERSION1.10
-      osx_arm64_OGRE_VERSION1.12:
-        CONFIG: osx_arm64_OGRE_VERSION1.12
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_OGRE_VERSION1.12
+        SHORT_CONFIG: osx_arm64_
   timeoutInMinutes: 360
 
   steps:

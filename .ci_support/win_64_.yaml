@@ -1,15 +1,9 @@
-OGRE_VERSION:
-- '1.12'
 assimp:
 - 5.2.5
 boost_cpp:
 - 1.78.0
 c_compiler:
-- gcc
-c_compiler_version:
-- '11'
-cdt_name:
-- cos7
+- vs2019
 channel_sources:
 - conda-forge
 channel_targets:
@@ -17,11 +11,7 @@ channel_targets:
 curl:
 - '7'
 cxx_compiler:
-- gxx
-cxx_compiler_version:
-- '11'
-docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- vs2019
 ffmpeg:
 - '5'
 hdf5:
@@ -36,21 +26,16 @@ libgdal:
 - '3.6'
 libprotobuf:
 - '3.21'
-libuuid:
-- '2'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
 qt_main:
 - '5.15'
 target_platform:
-- linux-64
+- win-64
 tbb_devel:
 - '2021'
 tinyxml2:
 - '9'
 urdfdom:
 - '3.1'
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version

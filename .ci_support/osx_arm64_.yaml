@@ -1,11 +1,15 @@
-OGRE_VERSION:
-- '1.12'
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 assimp:
 - 5.2.5
 boost_cpp:
 - 1.78.0
+bzip2:
+- '1'
 c_compiler:
-- vs2019
+- clang
+c_compiler_version:
+- '14'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -13,7 +17,9 @@ channel_targets:
 curl:
 - '7'
 cxx_compiler:
-- vs2019
+- clangxx
+cxx_compiler_version:
+- '14'
 ffmpeg:
 - '5'
 hdf5:
@@ -28,16 +34,23 @@ libgdal:
 - '3.6'
 libprotobuf:
 - '3.21'
+macos_machine:
+- arm64-apple-darwin20.0.0
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
 qt_main:
 - '5.15'
 target_platform:
-- win-64
+- osx-arm64
 tbb_devel:
 - '2021'
 tinyxml2:
 - '9'
 urdfdom:
 - '3.1'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+zlib:
+- '1.2'

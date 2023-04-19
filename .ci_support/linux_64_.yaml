@@ -13,7 +13,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 curl:
-- '7'
+- '8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -29,7 +29,7 @@ libblas:
 libcblas:
 - 3.9 *netlib
 libcurl:
-- '7'
+- '8'
 libgdal:
 - '3.6'
 libprotobuf:

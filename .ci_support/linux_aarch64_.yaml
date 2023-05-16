@@ -35,7 +35,7 @@ libcblas:
 libcurl:
 - '8'
 libgdal:
-- '3.6'
+- '3.7'
 libprotobuf:
 - '3.21'
 libuuid:

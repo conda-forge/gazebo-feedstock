@@ -14,6 +14,8 @@ cxx_compiler:
 - vs2019
 ffmpeg:
 - '5'
+graphviz:
+- '8'
 hdf5:
 - 1.14.0
 libblas:
@@ -29,6 +31,8 @@ libprotobuf:
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
+  graphviz:
+    max_pin: x
 qt_main:
 - '5.15'
 target_platform:

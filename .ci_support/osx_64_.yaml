@@ -36,6 +36,8 @@ libgdal:
 - '3.7'
 libprotobuf:
 - '3.21'
+libxcb:
+- '1.15'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

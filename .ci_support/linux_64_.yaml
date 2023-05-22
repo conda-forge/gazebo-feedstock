@@ -38,6 +38,8 @@ libprotobuf:
 - '3.21'
 libuuid:
 - '2'
+libxcb:
+- '1.15'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

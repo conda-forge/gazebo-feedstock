@@ -9,7 +9,6 @@ source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
     sha256: a990f27dd08e4461107ef8e29eef18470789e7cd87cdb26e7f384769603537fd
     patches:
-      - fix_build.patch  # [unix]
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
 

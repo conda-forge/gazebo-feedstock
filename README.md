@@ -27,73 +27,143 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_ffmpeg5</td>
+              <td>linux_64_ffmpeg5libprotobuf3.21</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg5libprotobuf3.21" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_ffmpeg6</td>
+              <td>linux_64_ffmpeg5libprotobuf4.23.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg5libprotobuf4.23.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_ffmpeg5</td>
+              <td>linux_64_ffmpeg6libprotobuf3.21</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg6libprotobuf3.21" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_ffmpeg6</td>
+              <td>linux_64_ffmpeg6libprotobuf4.23.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_ffmpeg6libprotobuf4.23.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_ffmpeg5</td>
+              <td>linux_aarch64_ffmpeg5libprotobuf3.21</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg5libprotobuf3.21" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_ffmpeg6</td>
+              <td>linux_aarch64_ffmpeg5libprotobuf4.23.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg5libprotobuf4.23.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_ffmpeg5</td>
+              <td>linux_aarch64_ffmpeg6libprotobuf3.21</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg6libprotobuf3.21" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_ffmpeg6</td>
+              <td>linux_aarch64_ffmpeg6libprotobuf4.23.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_ffmpeg6libprotobuf4.23.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_ffmpeg5</td>
+              <td>osx_64_ffmpeg5libprotobuf3.21</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg5libprotobuf3.21" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_ffmpeg6</td>
+              <td>osx_64_ffmpeg5libprotobuf4.23.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg5libprotobuf4.23.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_ffmpeg6libprotobuf3.21</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg6libprotobuf3.21" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_ffmpeg6libprotobuf4.23.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_ffmpeg6libprotobuf4.23.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_ffmpeg5libprotobuf3.21</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg5libprotobuf3.21" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_ffmpeg5libprotobuf4.23.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg5libprotobuf4.23.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_ffmpeg6libprotobuf3.21</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg6libprotobuf3.21" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_ffmpeg6libprotobuf4.23.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_ffmpeg6libprotobuf4.23.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_ffmpeg5libprotobuf3.21</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg5libprotobuf3.21" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_ffmpeg5libprotobuf4.23.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg5libprotobuf4.23.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_ffmpeg6libprotobuf3.21</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg6libprotobuf3.21" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_ffmpeg6libprotobuf4.23.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=win&configuration=win%20win_64_ffmpeg6libprotobuf4.23.2" alt="variant">
                 </a>
               </td>
             </tr>
@@ -229,7 +299,4 @@ Feedstock Maintainers
 * [@seanyen](https://github.com/seanyen/)
 * [@traversaro](https://github.com/traversaro/)
 * [@wolfv](https://github.com/wolfv/)
-
-
-<!-- dummy commit to enable rerendering -->
 

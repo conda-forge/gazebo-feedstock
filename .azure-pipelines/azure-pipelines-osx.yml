@@ -8,22 +8,38 @@ jobs:
     vmImage: macOS-11
   strategy:
     matrix:
-      osx_64_ffmpeg5:
-        CONFIG: osx_64_ffmpeg5
+      osx_64_ffmpeg5libprotobuf3.21:
+        CONFIG: osx_64_ffmpeg5libprotobuf3.21
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_ffmpeg5
-      osx_64_ffmpeg6:
-        CONFIG: osx_64_ffmpeg6
+        SHORT_CONFIG: osx_64_ffmpeg5libprotobuf3.21
+      osx_64_ffmpeg5libprotobuf4.23.2:
+        CONFIG: osx_64_ffmpeg5libprotobuf4.23.2
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_ffmpeg6
-      osx_arm64_ffmpeg5:
-        CONFIG: osx_arm64_ffmpeg5
+        SHORT_CONFIG: osx_64_ffmpeg5libprotobuf4.23.2
+      osx_64_ffmpeg6libprotobuf3.21:
+        CONFIG: osx_64_ffmpeg6libprotobuf3.21
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_ffmpeg5
-      osx_arm64_ffmpeg6:
-        CONFIG: osx_arm64_ffmpeg6
+        SHORT_CONFIG: osx_64_ffmpeg6libprotobuf3.21
+      osx_64_ffmpeg6libprotobuf4.23.2:
+        CONFIG: osx_64_ffmpeg6libprotobuf4.23.2
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_ffmpeg6
+        SHORT_CONFIG: osx_64_ffmpeg6libprotobuf4.23.2
+      osx_arm64_ffmpeg5libprotobuf3.21:
+        CONFIG: osx_arm64_ffmpeg5libprotobuf3.21
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_ffmpeg5libprotobuf3.21
+      osx_arm64_ffmpeg5libprotobuf4.23.2:
+        CONFIG: osx_arm64_ffmpeg5libprotobuf4.23.2
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_ffmpeg5libprotobuf4.23.2
+      osx_arm64_ffmpeg6libprotobuf3.21:
+        CONFIG: osx_arm64_ffmpeg6libprotobuf3.21
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_ffmpeg6libprotobuf3.21
+      osx_arm64_ffmpeg6libprotobuf4.23.2:
+        CONFIG: osx_arm64_ffmpeg6libprotobuf4.23.2
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_ffmpeg6libprotobuf4.23.2
   timeoutInMinutes: 360
 
   steps:

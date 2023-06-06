@@ -2,7 +2,7 @@ diff --git a/cmake/SearchForStuff.cmake b/cmake/SearchForStuff.cmake
 index b1cb3f37b3..e0fbd68274 100644
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
-@@ -25,29 +25,48 @@ if (CMAKE_BUILD_TYPE)
+@@ -25,29 +25,49 @@ if (CMAKE_BUILD_TYPE)
  endif()
  
  ########################################
@@ -58,6 +58,7 @@ index b1cb3f37b3..e0fbd68274 100644
  else()
 -  set (GZ_PROTOBUF_LIBRARY ${PROTOBUF_LIBRARY})
 -  set (GZ_PROTOBUF_PROTOC_LIBRARY ${PROTOBUF_PROTOC_LIBRARY})
++  find_package(Protobuf CONFIG REQUIRED)
 +  set (GZ_PROTOBUF_LIBRARY protobuf::libprotobuf)
 +  set (GZ_PROTOBUF_PROTOC_LIBRARY protobuf::libprotoc)
 +  if(NOT DEFINED PROTOBUF_PROTOC_LIBRARY)

@@ -76,7 +76,7 @@ requirements:
     - libignition-transport8
     - libignition-common3
     # Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/143
-    - libignition-fuel-tools4 >=4.4
+    - libignition-fuel-tools4 >=4.6
     - libignition-msgs5
     - ogre 1.10.*
     - qt-main

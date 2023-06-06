@@ -17,7 +17,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
-      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
+      -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
+      -DDCMAKE_CXX_STANDARD=17
 
     # No need to compile everything, just gazebomsgs_out is sufficient
     cmake --build . --target gazebomsgs_out --parallel ${CPU_COUNT} --config Release
@@ -40,6 +41,7 @@ fi
 
 cmake ${CMAKE_ARGS} .. \
       -G "Ninja" \
+      -DCMAKE_CXX_STANDARD=17 \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_PREFIX_PATH=$PREFIX \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \

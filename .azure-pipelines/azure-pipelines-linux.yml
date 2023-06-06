@@ -8,16 +8,26 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_:
-        CONFIG: linux_64_
+      linux_64_ffmpeg5:
+        CONFIG: linux_64_ffmpeg5
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_
-      linux_aarch64_:
-        CONFIG: linux_aarch64_
+        SHORT_CONFIG: linux_64_ffmpeg5
+      linux_64_ffmpeg6:
+        CONFIG: linux_64_ffmpeg6
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_
+        SHORT_CONFIG: linux_64_ffmpeg6
+      linux_aarch64_ffmpeg5:
+        CONFIG: linux_aarch64_ffmpeg5
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_ffmpeg5
+      linux_aarch64_ffmpeg6:
+        CONFIG: linux_aarch64_ffmpeg6
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_ffmpeg6
   timeoutInMinutes: 360
 
   steps:

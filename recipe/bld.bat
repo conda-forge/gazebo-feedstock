@@ -20,6 +20,7 @@ cmake ^
     -DHAVE_OPENAL:BOOL=OFF ^
     -DUSE_EXTERNAL_TINYXML:BOOL=ON ^
     -DUSE_EXTERNAL_TINYXML2:BOOL=ON ^
+    -DCMAKE_CXX_STANDARD=17 ^
     %SRC_DIR%
 if errorlevel 1 exit 1
 

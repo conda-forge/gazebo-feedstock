@@ -11,6 +11,7 @@ source:
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
+      - 3331.patch
 
 build:
   number: 1
@@ -39,6 +40,7 @@ requirements:
     - {{ cdt('libxau') }}            # [linux]
     - {{ cdt('expat-devel') }}       # [linux]
     # We need all host deps also in build for cross-compiling gazebomsgs_out
+    - libabseil  # [build_platform != target_platform]
     - libprotobuf  # [build_platform != target_platform]
     - libsdformat  # [build_platform != target_platform]
     - libignition-cmake2  # [build_platform != target_platform]
@@ -68,6 +70,7 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
+    - libabseil
     - libprotobuf
     - libsdformat
     - libignition-cmake2
@@ -75,7 +78,7 @@ requirements:
     - libignition-transport8
     - libignition-common3
     # Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/143
-    - libignition-fuel-tools4 >=4.4
+    - libignition-fuel-tools4 >=4.6
     - libignition-msgs5
     - ogre 1.10.*
     - qt-main

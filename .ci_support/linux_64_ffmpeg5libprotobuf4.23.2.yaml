@@ -26,6 +26,8 @@ graphviz:
 - '8'
 hdf5:
 - 1.14.0
+libabseil:
+- '20230125'
 libblas:
 - 3.9 *netlib
 libcblas:

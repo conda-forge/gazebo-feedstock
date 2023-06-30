@@ -3,7 +3,11 @@ assimp:
 boost_cpp:
 - 1.78.0
 c_compiler:
-- vs2019
+- gcc
+c_compiler_version:
+- '12'
+cdt_name:
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -11,13 +15,17 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- vs2019
+- gxx
+cxx_compiler_version:
+- '12'
+docker_image:
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '5'
+- '6'
 graphviz:
 - '8'
 hdf5:
-- 1.14.0
+- 1.14.1
 libabseil:
 - '20230125'
 libblas:
@@ -29,7 +37,11 @@ libcurl:
 libgdal:
 - '3.7'
 libprotobuf:
-- '3.21'
+- 4.23.2
+libuuid:
+- '2'
+libxcb:
+- '1.15'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
@@ -38,10 +50,13 @@ pin_run_as_build:
 qt_main:
 - '5.15'
 target_platform:
-- win-64
+- linux-64
 tbb_devel:
 - '2021'
 tinyxml2:
 - '9'
 urdfdom:
 - '3.1'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version

@@ -1,15 +1,17 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.15'
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 assimp:
 - 5.2.5
 boost_cpp:
 - 1.78.0
-bzip2:
-- '1'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '15'
+- '12'
+cdt_arch:
+- aarch64
+cdt_name:
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -17,15 +19,17 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- clangxx
+- gxx
 cxx_compiler_version:
-- '15'
+- '12'
+docker_image:
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
 - '6'
 graphviz:
 - '8'
 hdf5:
-- 1.14.0
+- 1.14.1
 libabseil:
 - '20230125'
 libblas:
@@ -37,13 +41,11 @@ libcurl:
 libgdal:
 - '3.7'
 libprotobuf:
-- '3.21'
+- 4.23.2
+libuuid:
+- '2'
 libxcb:
 - '1.15'
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.15'
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x
@@ -52,7 +54,7 @@ pin_run_as_build:
 qt_main:
 - '5.15'
 target_platform:
-- osx-64
+- linux-aarch64
 tbb_devel:
 - '2021'
 tinyxml2:
@@ -62,5 +64,3 @@ urdfdom:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-zlib:
-- '1.2'

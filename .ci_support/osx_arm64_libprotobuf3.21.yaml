@@ -21,11 +21,11 @@ cxx_compiler:
 cxx_compiler_version:
 - '15'
 ffmpeg:
-- '5'
+- '6'
 graphviz:
 - '8'
 hdf5:
-- 1.14.0
+- 1.14.1
 libabseil:
 - '20230125'
 libblas:

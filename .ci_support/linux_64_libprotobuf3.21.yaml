@@ -1,5 +1,3 @@
-BUILD:
-- aarch64-conda_cos7-linux-gnu
 assimp:
 - 5.2.5
 boost_cpp:
@@ -8,8 +6,6 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
-cdt_arch:
-- aarch64
 cdt_name:
 - cos7
 channel_sources:
@@ -29,7 +25,7 @@ ffmpeg:
 graphviz:
 - '8'
 hdf5:
-- 1.14.0
+- 1.14.1
 libabseil:
 - '20230125'
 libblas:
@@ -54,7 +50,7 @@ pin_run_as_build:
 qt_main:
 - '5.15'
 target_platform:
-- linux-aarch64
+- linux-64
 tbb_devel:
 - '2021'
 tinyxml2:

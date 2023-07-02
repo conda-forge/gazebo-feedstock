@@ -1,3 +1,5 @@
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 assimp:
 - 5.2.5
 boost_cpp:
@@ -6,6 +8,8 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+cdt_arch:
+- aarch64
 cdt_name:
 - cos7
 channel_sources:
@@ -37,7 +41,7 @@ libcurl:
 libgdal:
 - '3.7'
 libprotobuf:
-- 4.23.2
+- 4.23.3
 libuuid:
 - '2'
 libxcb:
@@ -50,7 +54,7 @@ pin_run_as_build:
 qt_main:
 - '5.15'
 target_platform:
-- linux-64
+- linux-aarch64
 tbb_devel:
 - '2021'
 tinyxml2:

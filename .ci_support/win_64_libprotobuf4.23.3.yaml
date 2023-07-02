@@ -29,7 +29,7 @@ libcurl:
 libgdal:
 - '3.7'
 libprotobuf:
-- 4.23.2
+- 4.23.3
 pin_run_as_build:
   boost-cpp:
     max_pin: x.x.x

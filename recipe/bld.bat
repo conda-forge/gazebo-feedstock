@@ -25,7 +25,9 @@ cmake ^
 if errorlevel 1 exit 1
 
 :: Build.
-cmake --build . --config Release
+:: Reduced number of thread as a workaround for 
+:: https://github.com/conda-forge/gazebo-feedstock/pull/185#issuecomment-1698933413
+cmake --build . --config Release --parallel 2
 if errorlevel 1 exit 1
 
 :: Install.

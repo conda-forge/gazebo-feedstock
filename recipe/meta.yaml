@@ -14,7 +14,7 @@ source:
       - 3331.patch
 
 build:
-  number: 4
+  number: 5
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -105,8 +105,7 @@ requirements:
     - libusb
     # Bullet is not detected on win for some reason
     - bullet-cpp  # [not win]
-    # A few compile errors on Win when trying to include dartsim
-    - dartsim  # [not win]
+    - dartsim
     - simbody
     - hdf5
     - openal-soft

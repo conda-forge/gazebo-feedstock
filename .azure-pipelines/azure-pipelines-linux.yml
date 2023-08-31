@@ -8,34 +8,19 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_libprotobuf3.21:
-        CONFIG: linux_64_libprotobuf3.21
+      linux_64_:
+        CONFIG: linux_64_
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_libprotobuf3.21
-      linux_64_libprotobuf4.23.3:
-        CONFIG: linux_64_libprotobuf4.23.3
+        SHORT_CONFIG: linux_64_
+      linux_aarch64_:
+        CONFIG: linux_aarch64_
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_libprotobuf4.23.3
-      linux_aarch64_libprotobuf3.21:
-        CONFIG: linux_aarch64_libprotobuf3.21
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_libprotobuf3.21
-      linux_aarch64_libprotobuf4.23.3:
-        CONFIG: linux_aarch64_libprotobuf4.23.3
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_libprotobuf4.23.3
+        SHORT_CONFIG: linux_aarch64_
   timeoutInMinutes: 360
 
   steps:
-  - script: |
-         rm -rf /opt/ghc
-         df -h
-    displayName: Manage disk space
-
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
   - script: |

@@ -29,7 +29,7 @@ ffmpeg:
 graphviz:
 - '8'
 hdf5:
-- 1.14.1
+- 1.14.2
 libabseil:
 - '20230125'
 libblas:

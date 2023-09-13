@@ -127,7 +127,7 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
-    - "ogre>=1.10.12[build_number=3]"
+    - "ogre >=1.10.12[build_number=3]"
     - boost-cpp
     - tbb-devel
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]

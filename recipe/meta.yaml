@@ -12,9 +12,10 @@ source:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
       - 3331.patch
+      - 3347.patch
 
 build:
-  number: 7
+  number: 8
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 

@@ -15,7 +15,7 @@ source:
       - 3347.patch
 
 build:
-  number: 9
+  number: 10
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -58,7 +58,7 @@ requirements:
     - tinyxml2  # [build_platform != target_platform]
     - libtar  # [build_platform != target_platform]
     - libccd-double  # [build_platform != target_platform]
-    - boost-cpp  # [build_platform != target_platform]
+    - libboost-devel
   host:
     - xorg-libxext      # [unix]
     - xorg-libxdmcp     # [unix]
@@ -91,7 +91,6 @@ requirements:
     - libtar   # [unix]
     - libccd-double
     - dlfcn-win32  # [win]
-    - boost-cpp
     # additional deps
     - libuuid  # [linux]
     - libcurl
@@ -128,7 +127,6 @@ requirements:
     - xorg-libsm        # [unix]
     - libglu            # [linux]
     # deps
-    - boost-cpp
     - tbb-devel
     # Add constraint to avoid that old ogre gets installed during migratons,
     # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files

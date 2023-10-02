@@ -1,7 +1,5 @@
 assimp:
 - 5.3.1
-boost_cpp:
-- 1.78.0
 c_compiler:
 - gcc
 c_compiler_version:
@@ -30,6 +28,8 @@ libabseil:
 - '20230802'
 libblas:
 - 3.9 *netlib
+libboost_devel:
+- '1.82'
 libcblas:
 - 3.9 *netlib
 libcurl:
@@ -43,8 +43,6 @@ libuuid:
 libxcb:
 - '1.15'
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   graphviz:
     max_pin: x
 qt_main:

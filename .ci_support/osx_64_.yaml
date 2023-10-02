@@ -2,8 +2,6 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.15'
 assimp:
 - 5.3.1
-boost_cpp:
-- 1.78.0
 bzip2:
 - '1'
 c_compiler:
@@ -30,6 +28,8 @@ libabseil:
 - '20230802'
 libblas:
 - 3.9 *netlib
+libboost_devel:
+- '1.82'
 libcblas:
 - 3.9 *netlib
 libcurl:
@@ -45,8 +45,6 @@ macos_machine:
 macos_min_version:
 - '10.15'
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   graphviz:
     max_pin: x
 qt_main:

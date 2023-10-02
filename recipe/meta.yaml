@@ -58,7 +58,7 @@ requirements:
     - tinyxml2  # [build_platform != target_platform]
     - libtar  # [build_platform != target_platform]
     - libccd-double  # [build_platform != target_platform]
-    - libboost-devel
+    - libboost-devel  # [build_platform != target_platform]
   host:
     - xorg-libxext      # [unix]
     - xorg-libxdmcp     # [unix]
@@ -91,6 +91,7 @@ requirements:
     - libtar   # [unix]
     - libccd-double
     - dlfcn-win32  # [win]
+    - libboost-devel
     # additional deps
     - libuuid  # [linux]
     - libcurl

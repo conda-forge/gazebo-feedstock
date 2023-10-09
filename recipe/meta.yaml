@@ -15,7 +15,7 @@ source:
       - 3347.patch
 
 build:
-  number: 11
+  number: 12
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 

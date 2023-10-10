@@ -11,7 +11,6 @@ source:
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
-      - 3347.patch
 
 build:
   number: 0

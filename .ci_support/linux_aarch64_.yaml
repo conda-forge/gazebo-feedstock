@@ -2,6 +2,8 @@ BUILD:
 - aarch64-conda_cos7-linux-gnu
 assimp:
 - 5.3.1
+bullet_cpp:
+- '3.25'
 c_compiler:
 - gcc
 c_compiler_version:

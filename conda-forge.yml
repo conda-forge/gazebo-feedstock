@@ -11,7 +11,6 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: default
-remote_ci_setup:
-- liblief=0.11.5
-- conda-forge-ci-setup=3
 test_on_native_only: true
+# Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/196#issuecomment-1813185082
+conda_build_tool: mambabuild

@@ -13,7 +13,7 @@ cxx_compiler:
 ffmpeg:
 - '6'
 graphviz:
-- '8'
+- '9'
 hdf5:
 - 1.14.2
 libabseil:

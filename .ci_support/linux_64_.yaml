@@ -54,7 +54,7 @@ target_platform:
 tbb_devel:
 - '2021'
 tinyxml2:
-- '9'
+- '10'
 urdfdom:
 - '4.0'
 zip_keys:

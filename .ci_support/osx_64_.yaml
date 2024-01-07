@@ -25,7 +25,7 @@ ffmpeg:
 graphviz:
 - '9'
 hdf5:
-- 1.14.2
+- 1.14.3
 libabseil:
 - '20230802'
 libblas:
@@ -58,7 +58,7 @@ tbb_devel:
 tinyxml2:
 - '9'
 urdfdom:
-- '3.1'
+- '4.0'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

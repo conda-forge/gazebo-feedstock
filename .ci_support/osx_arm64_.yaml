@@ -39,7 +39,7 @@ libcurl:
 libgdal:
 - '3.8'
 libprotobuf:
-- 4.24.4
+- 4.25.1
 libxcb:
 - '1.15'
 macos_machine:

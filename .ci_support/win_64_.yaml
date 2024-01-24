@@ -29,7 +29,7 @@ libcurl:
 libgdal:
 - '3.8'
 libprotobuf:
-- 4.24.4
+- 4.25.1
 pin_run_as_build:
   graphviz:
     max_pin: x

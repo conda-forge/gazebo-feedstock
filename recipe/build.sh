@@ -29,12 +29,6 @@ fi
 mkdir build
 cd build
 
-# Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/150
-# Remove when boost is updated to 1.80.0
-if [[ "${target_platform}" == "osx-64" ]]; then
-  export CXXFLAGS="-DBOOST_ASIO_DISABLE_STD_ALIGNED_ALLOC ${CXXFLAGS}"
-fi
-
 if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == "1" ]]; then
   export CMAKE_ARGS="${CMAKE_ARGS} -DFREEIMAGE_RUNS:BOOL=ON -DFREEIMAGE_RUNS__TRYRUN_OUTPUT:STRING="" -DFREEIMAGE_COMPILES:BOOL=ON -DProtobuf_PROTOC_EXECUTABLE=$BUILD_PREFIX/bin/protoc -DPROTOBUF_PROTOC_EXECUTABLE=$BUILD_PREFIX/bin/protoc -DGAZEBOMSGS_OUT_EXECUTABLE:STRING=`pwd`/../build-host/gazebo/msgs/gazebomsgs_out"
 fi

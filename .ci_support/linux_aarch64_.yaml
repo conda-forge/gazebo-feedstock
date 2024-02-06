@@ -43,7 +43,7 @@ libcurl:
 libgdal:
 - '3.8'
 libprotobuf:
-- 4.24.4
+- 4.25.1
 libuuid:
 - '2'
 libxcb:

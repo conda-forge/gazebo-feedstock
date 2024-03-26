@@ -6,6 +6,10 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cdt_name:
 - cos7
 channel_sources:
@@ -31,13 +35,15 @@ libabseil:
 libblas:
 - 3.9 *netlib
 libboost_devel:
-- '1.82'
+- '1.84'
 libcblas:
 - 3.9 *netlib
 libcurl:
 - '8'
 libgdal:
 - '3.8'
+libode:
+- 0.16.2
 libprotobuf:
 - 4.25.3
 libuuid:
@@ -60,3 +66,5 @@ urdfdom:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+- - c_stdlib_version
+  - cdt_name

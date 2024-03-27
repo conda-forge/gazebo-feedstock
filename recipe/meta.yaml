@@ -13,7 +13,7 @@ source:
       - fix-invisible-meshes.patch
 
 build:
-  number: 9
+  number: 10
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
 
@@ -21,7 +21,7 @@ requirements:
   build:
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
-    - sysroot_linux-64 2.17  # [linux64 and cdt_name == 'cos7']
+    - {{ stdlib("c") }}
     - cmake
     - pkg-config
     - ninja
@@ -132,7 +132,6 @@ requirements:
     # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
     # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
     - "ogre >=1.10.12.1"
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
 
 test:
   commands:

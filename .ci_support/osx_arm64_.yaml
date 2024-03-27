@@ -10,6 +10,10 @@ c_compiler:
 - clang
 c_compiler_version:
 - '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -31,13 +35,15 @@ libabseil:
 libblas:
 - 3.9 *netlib
 libboost_devel:
-- '1.82'
+- '1.84'
 libcblas:
 - 3.9 *netlib
 libcurl:
 - '8'
 libgdal:
 - '3.8'
+libode:
+- 0.16.2
 libprotobuf:
 - 4.25.3
 libxcb:

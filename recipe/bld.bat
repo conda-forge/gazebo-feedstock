@@ -4,9 +4,17 @@ set PKG_CONFIG_PATH=%LIBRARY_PREFIX%\share\pkgconfig;%LIBRARY_PREFIX%\lib\pkgcon
 set CC=cl.exe
 set CXX=cl.exe
 
+if "%GZ_CLI_NAME_VARIANT%"=="origname" (
+  set "CMAKE_ARGS=%CMAKE_ARGS% -DGZ_CLI_EXECUTABLE_NAME=gz"
+)
+
+if "%GZ_CLI_NAME_VARIANT%"=="gzcompatname" (
+  set "CMAKE_ARGS=%CMAKE_ARGS% -DGZ_CLI_EXECUTABLE_NAME=gz11"
+)
+
 mkdir build
 cd build
-cmake ^
+cmake %CMAKE_ARGS% ^
     -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DCMAKE_BUILD_TYPE=Release ^

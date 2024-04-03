@@ -18,3 +18,16 @@ cdt_name:                                         # [linux64]
 
 c_stdlib_version:   # [linux]
   - "2.17"          # [linux]
+
+
+# We want to permit to side-by-side installation of gazebo
+# and libgz-tools2 to facilitate migration to gz-sim, however
+# they both install gz. So, we are building two different variants:
+# * One called `origname` that has higher priority and is installed if libgz-tools2 is not installed,
+#   that uses gz as the name for the cli helper of gazebo classic. This variant can't be installed if
+#   libgz-tools2 is installed
+# * Another variant, called `gzcompatname` that is co-installable with libgz-tools2, but that renames
+#   the gz commmand line tool to gz11
+GZ_CLI_NAME_VARIANT:
+  - "origname"
+  - "gzcompatname"

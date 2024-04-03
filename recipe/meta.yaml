@@ -148,7 +148,7 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\gzclient.exe  exit 1  # [win]
     - if not exist %PREFIX%\\Library\\bin\\gazebo.exe exit 1  # [win]
     - if not exist %PREFIX%\\Library\\bin\\gz.exe exit 1  # [win and GZ_CLI_NAME_VARIANT == "origname"]
-    - if not exist %PREFIX%\\Library\\bin\\gz11.exe exit 1 # [win and GZ_CLI_NAME_VARIANT == "gzcompatname"]
+    - if not exist %PREFIX%\\Library\\bin\\gz11.exe exit 1  # [win and GZ_CLI_NAME_VARIANT == "gzcompatname"]
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]

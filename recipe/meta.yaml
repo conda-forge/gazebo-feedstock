@@ -139,6 +139,7 @@ requirements:
     # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
     # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
     - "ogre >=1.10.12.1"
+  run_constrained:
     # Prevent to install side-by-side installation with libgz-tools2
     - libgz-tools2 <0.0.0  # [GZ_CLI_NAME_VARIANT == "origname"]
 

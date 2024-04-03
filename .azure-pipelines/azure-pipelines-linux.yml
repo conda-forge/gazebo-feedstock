@@ -8,16 +8,26 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_:
-        CONFIG: linux_64_
+      linux_64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: linux_64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_
-      linux_aarch64_:
-        CONFIG: linux_aarch64_
+        SHORT_CONFIG: linux_64_GZ_CLI_NAME_VARIANTgzcompatname
+      linux_64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: linux_64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_aarch64_
+        SHORT_CONFIG: linux_64_GZ_CLI_NAME_VARIANTorigname
+      linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatname
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatname
+      linux_aarch64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: linux_aarch64_GZ_CLI_NAME_VARIANTorigname
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_aarch64_GZ_CLI_NAME_VARIANTorigname
   timeoutInMinutes: 360
   variables: {}
 

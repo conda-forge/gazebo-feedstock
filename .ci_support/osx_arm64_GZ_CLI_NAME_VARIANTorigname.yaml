@@ -1,0 +1,72 @@
+GZ_CLI_NAME_VARIANT:
+- origname
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+assimp:
+- 5.3.1
+bullet_cpp:
+- '3.25'
+bzip2:
+- '1'
+c_compiler:
+- clang
+c_compiler_version:
+- '16'
+c_stdlib:
+- macosx_deployment_target
+c_stdlib_version:
+- '11.0'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '8'
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '16'
+ffmpeg:
+- '6'
+graphviz:
+- '9'
+hdf5:
+- 1.14.3
+libabseil:
+- '20240116'
+libblas:
+- 3.9 *netlib
+libboost_devel:
+- '1.84'
+libcblas:
+- 3.9 *netlib
+libcurl:
+- '8'
+libgdal:
+- '3.8'
+libode:
+- 0.16.2
+libprotobuf:
+- 4.25.3
+libxcb:
+- '1.15'
+macos_machine:
+- arm64-apple-darwin20.0.0
+pin_run_as_build:
+  graphviz:
+    max_pin: x
+qt_main:
+- '5.15'
+target_platform:
+- osx-arm64
+tbb_devel:
+- '2021'
+tinyxml2:
+- '10'
+urdfdom:
+- '4.0'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+zlib:
+- '1.2'

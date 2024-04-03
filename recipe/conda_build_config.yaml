@@ -25,7 +25,7 @@ c_stdlib_version:   # [linux]
 # they both install gz. So, we are building two different variants:
 # * One called `origname` that has higher priority and is installed if libgz-tools2 is not installed,
 #   that uses gz as the name for the cli helper of gazebo classic. This variant can't be installed if
-#   libgz-tools2 is installed
+#   libgz-tools2 is installed. This variant also install an executable called gz11 for forward compatibility.
 # * Another variant, called `gzcompatname` that is co-installable with libgz-tools2, but that renames
 #   the gz commmand line tool to gz11
 GZ_CLI_NAME_VARIANT:

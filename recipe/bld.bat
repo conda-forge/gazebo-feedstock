@@ -48,3 +48,8 @@ for %%F in (activate deactivate) DO (
     if not exist %PREFIX%\etc\conda\%%F.d mkdir %PREFIX%\etc\conda\%%F.d
     copy %RECIPE_DIR%\%%F.bat %PREFIX%\etc\conda\%%F.d\%PKG_NAME%_%%F.bat
 )
+
+:: If we are building the origname variant, we want to also install gz11 command
+if "%GZ_CLI_NAME_VARIANT%"=="origname" (
+  copy %LIBRARY_PREFIX%\bin\gz.exe %LIBRARY_PREFIX%\bin\gz11.exe
+)

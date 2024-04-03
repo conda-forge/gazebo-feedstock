@@ -63,3 +63,7 @@ do
     mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
     cp "${RECIPE_DIR}/${CHANGE}.sh" "${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}_${CHANGE}.sh"
 done
+
+if [[ "${GZ_CLI_NAME_VARIANT}" == "origname" ]]; then
+  cp $PREFIX/bin/gz $PREFIX/bin/gz11
+fi

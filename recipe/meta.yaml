@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set number = 0 %}
+{% set number = 11 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set number = number + 200 %}
@@ -19,7 +19,7 @@ source:
       - 3368.patch
 
 build:
-  number: 10
+  number: {{ number }}
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
   string: {{ GZ_CLI_NAME_VARIANT }}{{ PKG_HASH }}_{{ PKG_BUILDNUM }}

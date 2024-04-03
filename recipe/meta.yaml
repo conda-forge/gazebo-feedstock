@@ -153,7 +153,7 @@ test:
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]
     - test -f $PREFIX/bin/gz  # [unix and GZ_CLI_NAME_VARIANT == "origname"]
-    - test -f $PREFIX/bin/gz11  # [unix"]
+    - test -f $PREFIX/bin/gz11  # [unix]
     - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]

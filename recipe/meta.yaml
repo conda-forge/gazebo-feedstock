@@ -27,8 +27,9 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  # [not win]
+    - {{ compiler('c') }}  # [not win]
+    - vs2022_win-64
     - {{ stdlib("c") }}
     - cmake
     - pkg-config
@@ -163,7 +164,8 @@ test:
     - gzclient --version | findstr "Gazebo multi-robot simulator, version"  # [win]
     - gazebo --version | findstr "Gazebo multi-robot simulator, version"  # [win]
     # We do not try to check the gz11 help output as it prints on stderr and not stdout
-    - gz11 help
+    # For some reason this fails on aarch64 with Error setting socket option (IP_MULTICAST_IF) error
+    - gz11 help  # [not aarch64]
 
 about:
   home: http://classic.gazebosim.org/

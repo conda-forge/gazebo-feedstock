@@ -3,11 +3,19 @@ About gazebo-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gazebo-feedstock/blob/main/LICENSE.txt)
 
-Home: http://gazebosim.org/
+Home: http://classic.gazebosim.org/
 
 Package license: Apache-2.0
 
-Summary: Advanced robot simulator for research, design, and development.
+Summary: Gazebo Classic robot simulator for research, design, and development.
+
+This feedstock packages the Gazebo Classic simulator, that will not be supported past 2025.
+For new development, please consider migrating to Modern gz-sim simulator, available in conda-forge.
+To simplify migration to gz-sim, we want to permit to side-by-side installation of gazebo and libgz-tools2, however they both install a command called `gz`.
+So, this feedstock is building two different variants of the `gazebo` conda package:
+  * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
+  * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
+
 
 Current build status
 ====================

@@ -2,8 +2,6 @@ GZ_CLI_NAME_VARIANT:
 - gzcompatname
 assimp:
 - 5.3.1
-c_compiler:
-- vs2019
 c_stdlib:
 - vs
 channel_sources:
@@ -12,8 +10,6 @@ channel_targets:
 - conda-forge main
 curl:
 - '8'
-cxx_compiler:
-- vs2019
 ffmpeg:
 - '6'
 graphviz:

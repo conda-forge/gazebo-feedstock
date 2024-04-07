@@ -8,10 +8,14 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_:
-        CONFIG: win_64_
+      win_64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
+      win_64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\

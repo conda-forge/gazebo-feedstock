@@ -1,5 +1,10 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
+{% set number = 11 %}
+
+{% if GZ_CLI_NAME_VARIANT == "origname" %}
+{% set number = number + 200 %}
+{% endif %}
 
 package:
   name: {{ name }}
@@ -11,11 +16,14 @@ source:
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
+      - 3368.patch
+      - 3370.patch
 
 build:
-  number: 10
+  number: {{ number }}
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
+  string: {{ GZ_CLI_NAME_VARIANT }}{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 requirements:
   build:
@@ -132,15 +140,22 @@ requirements:
     # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
     # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
     - "ogre >=1.10.12.1"
+  run_constrained:
+    # Prevent to install side-by-side installation with libgz-tools2
+    - libgz-tools2 <0.0.0  # [GZ_CLI_NAME_VARIANT == "origname"]
 
 test:
   commands:
-    - if exist %PREFIX%\\Library\\bin\\gzserver.exe (exit 0) else (exit 1)  # [win]
-    - if exist %PREFIX%\\Library\\bin\\gzclient.exe (exit 0) else (exit 1)  # [win]
-    - if exist %PREFIX%\\Library\\bin\\gazebo.exe (exit 0) else (exit 1)  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\gzserver.exe  exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\gzclient.exe  exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\gazebo.exe exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\gz.exe exit 1  # [win and GZ_CLI_NAME_VARIANT == "origname"]
+    - if not exist %PREFIX%\\Library\\bin\\gz11.exe exit 1  # [win]
     - test -f $PREFIX/bin/gzserver  # [unix]
     - test -f $PREFIX/bin/gzclient  # [unix]
     - test -f $PREFIX/bin/gazebo    # [unix]
+    - test -f $PREFIX/bin/gz  # [unix and GZ_CLI_NAME_VARIANT == "origname"]
+    - test -f $PREFIX/bin/gz11  # [unix]
     - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]

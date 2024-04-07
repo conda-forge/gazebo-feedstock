@@ -4,9 +4,17 @@ set PKG_CONFIG_PATH=%LIBRARY_PREFIX%\share\pkgconfig;%LIBRARY_PREFIX%\lib\pkgcon
 set CC=cl.exe
 set CXX=cl.exe
 
+if "%GZ_CLI_NAME_VARIANT%"=="origname" (
+  set "CMAKE_ARGS=%CMAKE_ARGS% -DGZ_CLI_EXECUTABLE_NAME=gz"
+)
+
+if "%GZ_CLI_NAME_VARIANT%"=="gzcompatname" (
+  set "CMAKE_ARGS=%CMAKE_ARGS% -DGZ_CLI_EXECUTABLE_NAME=gz11"
+)
+
 mkdir build
 cd build
-cmake ^
+cmake %CMAKE_ARGS% ^
     -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DCMAKE_BUILD_TYPE=Release ^
@@ -39,4 +47,9 @@ if errorlevel 1 exit 1
 for %%F in (activate deactivate) DO (
     if not exist %PREFIX%\etc\conda\%%F.d mkdir %PREFIX%\etc\conda\%%F.d
     copy %RECIPE_DIR%\%%F.bat %PREFIX%\etc\conda\%%F.d\%PKG_NAME%_%%F.bat
+)
+
+:: If we are building the origname variant, we want to also install gz11 command
+if "%GZ_CLI_NAME_VARIANT%"=="origname" (
+  copy %LIBRARY_PREFIX%\bin\gz.exe %LIBRARY_PREFIX%\bin\gz11.exe
 )

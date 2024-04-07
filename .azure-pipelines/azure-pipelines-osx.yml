@@ -8,14 +8,22 @@ jobs:
     vmImage: macOS-11
   strategy:
     matrix:
-      osx_64_:
-        CONFIG: osx_64_
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_
-      osx_arm64_:
-        CONFIG: osx_arm64_
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
+      osx_64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
+      osx_arm64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
   timeoutInMinutes: 360
   variables: {}
 

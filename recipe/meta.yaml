@@ -27,9 +27,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [not win]
-    - {{ compiler('c') }}  # [not win]
-    - vs2022_win-64
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - cmake
     - pkg-config

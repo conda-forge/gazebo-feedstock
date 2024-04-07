@@ -23,7 +23,7 @@ build:
   number: {{ number }}
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
-  string: {{ GZ_CLI_NAME_VARIANT }}{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+  string: {{ GZ_CLI_NAME_VARIANT }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 requirements:
   build:

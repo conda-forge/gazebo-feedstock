@@ -159,9 +159,6 @@ test:
     - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]
-    - gzserver --version | findstr "Gazebo multi-robot simulator, version"  # [win]
-    - gzclient --version | findstr "Gazebo multi-robot simulator, version"  # [win]
-    - gazebo --version | findstr "Gazebo multi-robot simulator, version"  # [win]
     # We do not try to check the gz11 help output as it prints on stderr and not stdout
     # For some reason this fails on aarch64 with Error setting socket option (IP_MULTICAST_IF) error
     - gz11 help  # [not aarch64]

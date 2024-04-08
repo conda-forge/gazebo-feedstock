@@ -8,10 +8,6 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_GZ_CLI_NAME_VARIANTgzcompatname:
-        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
       win_64_GZ_CLI_NAME_VARIANTorigname:
         CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'

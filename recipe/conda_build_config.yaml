@@ -24,6 +24,10 @@ libboost_devel:
 libboost_python_devel:
   - '1.82'
 
+# Workaround for https://github.com/conda-forge/conda-forge.github.io/issues/2102#issuecomment-2043560833
+c_stdlib_version:            # [win and x86_64] 
+  - 2019                     # [win and x86_64]
+
 # We want to permit to side-by-side installation of gazebo
 # and libgz-tools2 to facilitate migration to gz-sim, however
 # they both install gz. So, we are building two different variants:

@@ -25,7 +25,7 @@ libabseil:
 libblas:
 - 3.9 *netlib
 libboost_devel:
-- '1.84'
+- '1.82'
 libcblas:
 - 3.9 *netlib
 libcurl:

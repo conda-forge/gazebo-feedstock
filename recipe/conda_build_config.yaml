@@ -19,6 +19,10 @@ cdt_name:                                         # [linux64]
 c_stdlib_version:   # [linux]
   - "2.17"          # [linux]
 
+libboost_devel:
+  - '1.82'
+libboost_python_devel:
+  - '1.82'
 
 # We want to permit to side-by-side installation of gazebo
 # and libgz-tools2 to facilitate migration to gz-sim, however

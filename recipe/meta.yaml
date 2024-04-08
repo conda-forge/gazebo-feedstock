@@ -24,6 +24,7 @@ build:
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
   string: {{ GZ_CLI_NAME_VARIANT }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+  skip: true  # [not win and GZ_CLI_NAME_VARIANT == "gzcompatname"]
 
 requirements:
   build:

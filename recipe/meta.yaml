@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set number = 11 %}
+{% set number = 12 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set number = number + 200 %}

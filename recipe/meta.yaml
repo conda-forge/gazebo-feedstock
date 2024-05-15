@@ -18,6 +18,7 @@ source:
       - fix-invisible-meshes.patch
       - 3368.patch
       - 3370.patch
+      - 3380.patch
 
 build:
   number: {{ number }}

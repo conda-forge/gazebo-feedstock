@@ -8,14 +8,22 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_GZ_CLI_NAME_VARIANTgzcompatname:
-        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
+      win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
-      win_64_GZ_CLI_NAME_VARIANTorigname:
-        CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
+      win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
+      win_64_GZ_CLI_NAME_VARIANTorignameffmpeg6:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTorignameffmpeg6
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorignameffmpeg6
+      win_64_GZ_CLI_NAME_VARIANTorignameffmpeg7:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTorignameffmpeg7
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorignameffmpeg7
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\

@@ -1,0 +1,30 @@
+From c5b740dc1099fbf0e9dc8ca2cf8e2ae72515eddd Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Wed, 15 May 2024 12:09:39 +0200
+Subject: [PATCH] Update AudioDecoder.cc
+
+Signed-off-by: Silvio Traversaro <silvio@traversaro.it>
+---
+ gazebo/common/AudioDecoder.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gazebo/common/AudioDecoder.cc b/gazebo/common/AudioDecoder.cc
+index e798d60c27..7b689a6e52 100644
+--- a/gazebo/common/AudioDecoder.cc
++++ b/gazebo/common/AudioDecoder.cc
+@@ -335,6 +335,7 @@ bool AudioDecoder::SetFile(const std::string &_filename)
+   // conda-forge with 5.0.0 h594f047_1 this is not happening for some reason.
+   // As temporary workaround, we copy directly the data structures, taking the code from
+   // https://github.com/FFmpeg/FFmpeg/blob/n5.0/libavcodec/codec_par.c#L120
++#if LIBAVFORMAT_VERSION_MAJOR < 61
+   AVCodecParameters* par = this->formatCtx->streams[this->audioStream]->codecpar;
+   this->codecCtx->sample_fmt       = static_cast<AVSampleFormat>(par->format);
+   this->codecCtx->channel_layout   = par->channel_layout;
+@@ -346,6 +347,7 @@ bool AudioDecoder::SetFile(const std::string &_filename)
+   this->codecCtx->initial_padding  = par->initial_padding;
+   this->codecCtx->trailing_padding = par->trailing_padding;
+   this->codecCtx->seek_preroll     = par->seek_preroll;
++#endif
+ 
+   // It would be better to just define codec as const AVCodec *,
+   // but that is not done to avoid ABI problem. Anyhow, as codec

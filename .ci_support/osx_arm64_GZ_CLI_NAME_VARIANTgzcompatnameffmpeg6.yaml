@@ -2,6 +2,8 @@ GZ_CLI_NAME_VARIANT:
 - gzcompatname
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
+MACOSX_SDK_VERSION:
+- '11.0'
 assimp:
 - 5.3.1
 bullet_cpp:
@@ -43,7 +45,7 @@ libcblas:
 libcurl:
 - '8'
 libgdal:
-- '3.9'
+- '3.8'
 libode:
 - 0.16.2
 libprotobuf:

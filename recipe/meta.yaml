@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set number = 12 %}
+{% set number = 13 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set number = number + 200 %}
@@ -51,7 +51,7 @@ requirements:
     # We need all host deps also in build for cross-compiling gazebomsgs_out
     - libabseil  # [build_platform != target_platform]
     - libprotobuf  # [build_platform != target_platform]
-    - libsdformat  # [build_platform != target_platform]
+    - libsdformat 9.*  # [build_platform != target_platform]
     - libignition-cmake2  # [build_platform != target_platform]
     - libignition-math6  # [build_platform != target_platform]
     - libignition-transport8  # [build_platform != target_platform]
@@ -81,7 +81,7 @@ requirements:
     # deps
     - libabseil
     - libprotobuf
-    - libsdformat
+    - libsdformat 9.*
     - libignition-cmake2
     - libignition-math6
     - libignition-transport8

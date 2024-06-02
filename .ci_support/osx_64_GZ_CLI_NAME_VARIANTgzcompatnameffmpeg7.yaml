@@ -50,8 +50,6 @@ libode:
 - 0.16.2
 libprotobuf:
 - 4.25.3
-libxcb:
-- '1.15'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:

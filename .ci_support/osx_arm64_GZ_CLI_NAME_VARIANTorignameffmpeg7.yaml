@@ -50,8 +50,6 @@ libode:
 - 0.16.2
 libprotobuf:
 - 4.25.3
-libxcb:
-- '1.15'
 macos_machine:
 - arm64-apple-darwin20.0.0
 pin_run_as_build:

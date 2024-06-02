@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set number = 13 %}
+{% set number = 14 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set number = number + 200 %}
@@ -158,6 +158,7 @@ test:
     - test -f $PREFIX/bin/gazebo    # [unix]
     - test -f $PREFIX/bin/gz  # [unix and GZ_CLI_NAME_VARIANT == "origname"]
     - test -f $PREFIX/bin/gz11  # [unix]
+    - test -f $PREFIX/lib/libCameraPlugin.dylib  # [osx]
     - gzserver --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gzclient --version | grep "Gazebo multi-robot simulator, version"  # [unix]
     - gazebo --version | grep "Gazebo multi-robot simulator, version"  # [unix]

@@ -77,12 +77,12 @@ fi
 # prefix, so we prefer to minimize the risk of clobbering, so we only symlink
 # the one used in https://github.com/ros-simulation/gazebo_ros_pkgs/blob/f9e1a4607842afa5888ef01de31cd64a1e3e297f/gazebo_plugins/CMakeLists.txt
 if [[ "${target_platform}" == osx-* ]]; then
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libCameraPlugin.dylib $CONDA_PREFIX/lib/libCameraPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libElevatorPlugin.dylib $CONDA_PREFIX/lib/libElevatorPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libMultiCameraPlugin.dylib $CONDA_PREFIX/lib/libMultiCameraPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libDepthCameraPlugin.dylib $CONDA_PREFIX/lib/libDepthCameraPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libGpuRayPlugin.dylib $CONDA_PREFIX/lib/libGpuRayPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libHarnessPlugin.dylib $CONDA_PREFIX/lib/libHarnessPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libWheelSlipPlugin.dylib $CONDA_PREFIX/lib/libWheelSlipPlugin.dylib
-    ln -s $CONDA_PREFIX/lib/gazebo-11/plugins/libRayPlugin.dylib $CONDA_PREFIX/lib/libRayPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libCameraPlugin.dylib $PREFIX/lib/libCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libElevatorPlugin.dylib $PREFIX/lib/libElevatorPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libMultiCameraPlugin.dylib $PREFIX/lib/libMultiCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libDepthCameraPlugin.dylib $PREFIX/lib/libDepthCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libGpuRayPlugin.dylib $PREFIX/lib/libGpuRayPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libHarnessPlugin.dylib $PREFIX/lib/libHarnessPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libWheelSlipPlugin.dylib $PREFIX/lib/libWheelSlipPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libRayPlugin.dylib $PREFIX/lib/libRayPlugin.dylib
 fi

@@ -1,7 +1,7 @@
 GZ_CLI_NAME_VARIANT:
 - origname
 assimp:
-- 5.3.1
+- 5.4.1
 bullet_cpp:
 - '3.25'
 c_compiler:
@@ -50,8 +50,6 @@ libprotobuf:
 - 4.25.3
 libuuid:
 - '2'
-libxcb:
-- '1.15'
 pin_run_as_build:
   graphviz:
     max_pin: x

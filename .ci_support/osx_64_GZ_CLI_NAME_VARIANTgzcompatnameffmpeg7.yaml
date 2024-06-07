@@ -5,7 +5,7 @@ MACOSX_DEPLOYMENT_TARGET:
 MACOSX_SDK_VERSION:
 - '10.15'
 assimp:
-- 5.3.1
+- 5.4.1
 bullet_cpp:
 - '3.25'
 bzip2:
@@ -50,8 +50,6 @@ libode:
 - 0.16.2
 libprotobuf:
 - 4.25.3
-libxcb:
-- '1.15'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:
@@ -73,4 +71,4 @@ zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
 zlib:
-- '1.2'
+- '1'

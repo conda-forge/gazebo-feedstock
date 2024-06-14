@@ -67,3 +67,22 @@ done
 if [[ "${GZ_CLI_NAME_VARIANT}" == "origname" ]]; then
   cp $PREFIX/bin/gz $PREFIX/bin/gz11
 fi
+
+# Ensure that plugins are found as libraries linked by the linker
+# in macos, see
+# https://github.com/RoboStack/ros-noetic/issues/228
+# https://github.com/RoboStack/ros-noetic/issues/462
+# https://github.com/RoboStack/ros-humble/issues/185
+# We do not symlink all the libraries as they do not have Gazebo-specific
+# prefix, so we prefer to minimize the risk of clobbering, so we only symlink
+# the one used in https://github.com/ros-simulation/gazebo_ros_pkgs/blob/f9e1a4607842afa5888ef01de31cd64a1e3e297f/gazebo_plugins/CMakeLists.txt
+if [[ "${target_platform}" == osx-* ]]; then
+    ln -s $PREFIX/lib/gazebo-11/plugins/libCameraPlugin.dylib $PREFIX/lib/libCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libElevatorPlugin.dylib $PREFIX/lib/libElevatorPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libMultiCameraPlugin.dylib $PREFIX/lib/libMultiCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libDepthCameraPlugin.dylib $PREFIX/lib/libDepthCameraPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libGpuRayPlugin.dylib $PREFIX/lib/libGpuRayPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libHarnessPlugin.dylib $PREFIX/lib/libHarnessPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libWheelSlipPlugin.dylib $PREFIX/lib/libWheelSlipPlugin.dylib
+    ln -s $PREFIX/lib/gazebo-11/plugins/libRayPlugin.dylib $PREFIX/lib/libRayPlugin.dylib
+fi

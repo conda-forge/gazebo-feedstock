@@ -29,7 +29,7 @@ docker_image:
 ffmpeg:
 - '6'
 graphviz:
-- '9'
+- '11'
 hdf5:
 - 1.14.3
 libabseil:

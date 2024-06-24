@@ -47,13 +47,15 @@ libcblas:
 libcurl:
 - '8'
 libgdal:
-- '3.8'
+- '3.9'
 libode:
 - 0.16.2
 libprotobuf:
 - 4.25.3
 libuuid:
 - '2'
+libxcb:
+- '1.16'
 pin_run_as_build:
   graphviz:
     max_pin: x

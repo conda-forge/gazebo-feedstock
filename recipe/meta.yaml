@@ -1,9 +1,9 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set number = 15 %}
+{% set build_number = 15 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
-{% set number = number + 200 %}
+{% set build_number = build_number + 200 %}
 {% endif %}
 
 package:
@@ -23,7 +23,7 @@ source:
       - ffmpeg_5_6_fix.patch
 
 build:
-  number: {{ number }}
+  number: {{ build_number }}
   run_exports:
     - {{ pin_subpackage('gazebo', max_pin='x') }}
   string: {{ GZ_CLI_NAME_VARIANT }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}

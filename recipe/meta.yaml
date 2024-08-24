@@ -20,6 +20,7 @@ source:
       - 3370.patch
       - 3380.patch
       - 3373.patch
+      - 3397.patch
       - ffmpeg_5_6_fix.patch
 
 build:

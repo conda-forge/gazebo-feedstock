@@ -5,7 +5,7 @@ MACOSX_DEPLOYMENT_TARGET:
 MACOSX_SDK_VERSION:
 - '11.0'
 assimp:
-- 5.4.1
+- 5.4.2
 bullet_cpp:
 - '3.25'
 bzip2:
@@ -13,7 +13,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '16'
+- '17'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -27,7 +27,7 @@ curl:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '16'
+- '17'
 ffmpeg:
 - '7'
 graphviz:
@@ -39,7 +39,7 @@ libabseil:
 libblas:
 - 3.9 *netlib
 libboost_devel:
-- '1.84'
+- '1.86'
 libcblas:
 - 3.9 *netlib
 libcurl:
@@ -54,9 +54,6 @@ libxcb:
 - '1.16'
 macos_machine:
 - arm64-apple-darwin20.0.0
-pin_run_as_build:
-  graphviz:
-    max_pin: x
 qt_main:
 - '5.15'
 target_platform:

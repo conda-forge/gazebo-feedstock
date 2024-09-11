@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.14.0" %}
-{% set build_number = 17 %}
+{% set build_number = 18 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set build_number = build_number + 200 %}
@@ -117,7 +117,7 @@ requirements:
     - libusb
     # Bullet is not detected on win for some reason
     - bullet-cpp  # [not win]
-    - dartsim
+    - dartsim-cpp
     - simbody
     - hdf5
     - openal-soft

@@ -33,7 +33,7 @@ graphviz:
 hdf5:
 - 1.14.3
 libabseil:
-- '20240116'
+- '20240722'
 libblas:
 - 3.9 *netlib
 libboost_devel:
@@ -47,7 +47,7 @@ libgdal:
 libode:
 - 0.16.2
 libprotobuf:
-- 4.25.3
+- 5.27.5
 libuuid:
 - '2'
 libxcb:

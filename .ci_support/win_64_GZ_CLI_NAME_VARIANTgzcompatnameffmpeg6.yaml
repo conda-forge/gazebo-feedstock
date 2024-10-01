@@ -1,7 +1,7 @@
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
 assimp:
-- 5.4.2
+- 5.4.3
 c_compiler:
 - vs2019
 c_stdlib:

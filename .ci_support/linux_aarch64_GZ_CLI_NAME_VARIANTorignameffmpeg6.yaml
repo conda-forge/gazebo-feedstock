@@ -3,7 +3,7 @@ BUILD:
 GZ_CLI_NAME_VARIANT:
 - origname
 assimp:
-- 5.4.2
+- 5.4.3
 bullet_cpp:
 - '3.25'
 c_compiler:
@@ -55,7 +55,7 @@ libprotobuf:
 libuuid:
 - '2'
 libxcb:
-- '1.16'
+- '1'
 qt_main:
 - '5.15'
 target_platform:

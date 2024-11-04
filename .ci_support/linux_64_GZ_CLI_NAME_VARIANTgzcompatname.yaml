@@ -1,5 +1,5 @@
 GZ_CLI_NAME_VARIANT:
-- origname
+- gzcompatname
 assimp:
 - 5.4.3
 bullet_cpp:
@@ -27,7 +27,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '6'
+- '7'
 graphviz:
 - '12'
 hdf5:
@@ -47,7 +47,7 @@ libgdal:
 libode:
 - 0.16.2
 libprotobuf:
-- 5.27.5
+- 5.28.2
 libuuid:
 - '2'
 libxcb:

@@ -5,41 +5,25 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-12
+    vmImage: macOS-13
   strategy:
     matrix:
-      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
-      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
+      osx_64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
-      osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg6:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg6
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg6
-      osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg7:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg7
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
+      osx_arm64_GZ_CLI_NAME_VARIANTorigname:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameffmpeg7
-      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg6
-      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameffmpeg7
-      osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg6:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg6
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg6
-      osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg7:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg7
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameffmpeg7
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
   timeoutInMinutes: 360
   variables: {}
 

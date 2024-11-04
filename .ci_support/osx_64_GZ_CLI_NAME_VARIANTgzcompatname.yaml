@@ -1,5 +1,5 @@
 GZ_CLI_NAME_VARIANT:
-- origname
+- gzcompatname
 MACOSX_DEPLOYMENT_TARGET:
 - '10.15'
 MACOSX_SDK_VERSION:
@@ -13,7 +13,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -27,9 +27,9 @@ curl:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '17'
+- '18'
 ffmpeg:
-- '6'
+- '7'
 graphviz:
 - '12'
 hdf5:
@@ -49,7 +49,7 @@ libgdal:
 libode:
 - 0.16.2
 libprotobuf:
-- 5.27.5
+- 5.28.2
 libxcb:
 - '1'
 macos_machine:

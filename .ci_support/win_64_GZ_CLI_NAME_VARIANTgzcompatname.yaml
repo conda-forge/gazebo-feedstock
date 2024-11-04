@@ -1,23 +1,11 @@
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
-MACOSX_SDK_VERSION:
-- '11.0'
 assimp:
 - 5.4.3
-bullet_cpp:
-- '3.25'
-bzip2:
-- '1'
 c_compiler:
-- clang
-c_compiler_version:
-- '17'
+- vs2019
 c_stdlib:
-- macosx_deployment_target
-c_stdlib_version:
-- '11.0'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
@@ -25,9 +13,7 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- clangxx
-cxx_compiler_version:
-- '17'
+- vs2019
 ffmpeg:
 - '7'
 graphviz:
@@ -49,23 +35,14 @@ libgdal:
 libode:
 - 0.16.2
 libprotobuf:
-- 5.27.5
-libxcb:
-- '1'
-macos_machine:
-- arm64-apple-darwin20.0.0
+- 5.28.2
 qt_main:
 - '5.15'
 target_platform:
-- osx-arm64
+- win-64
 tbb_devel:
 - '2021'
 tinyxml2:
 - '10'
 urdfdom:
 - '4.0'
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version
-zlib:
-- '1'

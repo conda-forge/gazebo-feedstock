@@ -1,3 +1,5 @@
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
 assimp:
@@ -12,6 +14,8 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
+cdt_arch:
+- aarch64
 cdt_name:
 - cos7
 channel_sources:
@@ -27,7 +31,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '6'
+- '7'
 graphviz:
 - '12'
 hdf5:
@@ -47,7 +51,7 @@ libgdal:
 libode:
 - 0.16.2
 libprotobuf:
-- 5.27.5
+- 5.28.2
 libuuid:
 - '2'
 libxcb:
@@ -55,7 +59,7 @@ libxcb:
 qt_main:
 - '5.15'
 target_platform:
-- linux-64
+- linux-aarch64
 tbb_devel:
 - '2021'
 tinyxml2:

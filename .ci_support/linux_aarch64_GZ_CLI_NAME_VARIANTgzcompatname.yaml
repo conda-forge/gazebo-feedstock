@@ -17,7 +17,7 @@ c_stdlib_version:
 cdt_arch:
 - aarch64
 cdt_name:
-- cos7
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -49,7 +49,7 @@ libcurl:
 libgdal:
 - '3.9'
 libode:
-- 0.16.2
+- 0.16.5
 libprotobuf:
 - 5.28.2
 libuuid:
@@ -69,5 +69,3 @@ urdfdom:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-- - c_stdlib_version
-  - cdt_name

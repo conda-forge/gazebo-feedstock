@@ -16,13 +16,6 @@ source:
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
-      - 3368.patch
-      - 3370.patch
-      - 3380.patch
-      - 3373.patch
-      - 3386.patch
-      - 3397.patch
-      - ffmpeg_5_6_fix.patch
 
 build:
   number: {{ build_number }}

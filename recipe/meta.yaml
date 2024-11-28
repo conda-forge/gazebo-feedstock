@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
-{% set version = "11.14.0" %}
-{% set build_number = 20 %}
+{% set version = "11.15.0" %}
+{% set build_number = 0 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set build_number = build_number + 200 %}
@@ -12,17 +12,10 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 6b63d857399ba08190c331b545d24e8e3e308b840ff051bbf39e87879e37af50
+    sha256: 23295dadffed68f983fa1012a6ce0a6375aab4711c01e8cc987daa2d561eba7f
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
-      - 3368.patch
-      - 3370.patch
-      - 3380.patch
-      - 3373.patch
-      - 3386.patch
-      - 3397.patch
-      - ffmpeg_5_6_fix.patch
 
 build:
   number: {{ build_number }}
@@ -39,18 +32,6 @@ requirements:
     - pkg-config
     - ninja
 
-    # x11 stuff
-    - {{ cdt('mesa-libgl') }}        # [linux]
-    - {{ cdt('mesa-libgl-devel') }}  # [unix and not arm64]
-    - {{ cdt('mesa-dri-drivers') }}  # [unix and not arm64]
-    - {{ cdt('libselinux') }}        # [linux]
-    - {{ cdt('libxcb') }}            # [linux]
-    - {{ cdt('libxdamage') }}        # [linux]
-    - {{ cdt('libxfixes') }}         # [linux]
-    - {{ cdt('libxxf86vm') }}        # [linux]
-    - {{ cdt('libxext') }}           # [linux]
-    - {{ cdt('libxau') }}            # [linux]
-    - {{ cdt('expat-devel') }}       # [linux]
     # We need all host deps also in build for cross-compiling gazebomsgs_out
     - libabseil  # [build_platform != target_platform]
     - libprotobuf  # [build_platform != target_platform]
@@ -81,6 +62,7 @@ requirements:
     - xorg-libice       # [unix]
     - xorg-libsm        # [unix]
     - libglu            # [linux]
+    - libgl-devel       # [linux]
     # deps
     - libabseil
     - libprotobuf

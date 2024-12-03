@@ -45,7 +45,7 @@ libcblas:
 libcurl:
 - '8'
 libgdal:
-- '3.9'
+- '3.10'
 libode:
 - 0.16.5
 libprotobuf:

@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
-{% set version = "11.15.0" %}
-{% set build_number = 1 %}
+{% set version = "11.15.1" %}
+{% set build_number = 0 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set build_number = build_number + 200 %}
@@ -12,7 +12,7 @@ package:
 
 source:
   - url: https://github.com/osrf/{{ name }}/archive/{{ name }}{{ version.split('.')[0] }}_{{ version }}.tar.gz
-    sha256: 23295dadffed68f983fa1012a6ce0a6375aab4711c01e8cc987daa2d561eba7f
+    sha256: 77a952971eabfd79e16d2582a355ee017a2e22cc369b68453323c0984b725126
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch

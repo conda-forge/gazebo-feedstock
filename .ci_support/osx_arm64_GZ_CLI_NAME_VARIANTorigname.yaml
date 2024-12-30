@@ -28,6 +28,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+dartsim_cpp:
+- '6.15'
 ffmpeg:
 - '7'
 graphviz:
@@ -49,7 +51,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.28.2
+- 5.28.3
 libxcb:
 - '1'
 macos_machine:

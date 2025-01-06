@@ -14,6 +14,8 @@ curl:
 - '8'
 cxx_compiler:
 - vs2019
+dartsim_cpp:
+- '6.15'
 ffmpeg:
 - '7'
 graphviz:
@@ -35,7 +37,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.28.2
+- 5.28.3
 qt_main:
 - '5.15'
 target_platform:

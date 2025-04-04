@@ -39,11 +39,11 @@ hdf5:
 libabseil:
 - '20240722'
 libblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libboost_devel:
 - '1.86'
 libcblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libcurl:
 - '8'
 libgdal:
@@ -65,7 +65,7 @@ target_platform:
 tbb_devel:
 - '2021'
 tinyxml2:
-- '10'
+- '11.0'
 urdfdom:
 - '4.0'
 zip_keys:

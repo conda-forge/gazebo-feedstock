@@ -37,13 +37,13 @@ graphviz:
 hdf5:
 - 1.14.3
 libabseil:
-- '20240722'
+- '20250127'
 libblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libboost_devel:
 - '1.86'
 libcblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libcurl:
 - '8'
 libgdal:
@@ -51,7 +51,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.28.3
+- 5.29.3
 libxcb:
 - '1'
 macos_machine:
@@ -65,7 +65,7 @@ target_platform:
 tbb_devel:
 - '2021'
 tinyxml2:
-- '10'
+- '11.0'
 urdfdom:
 - '4.0'
 zip_keys:

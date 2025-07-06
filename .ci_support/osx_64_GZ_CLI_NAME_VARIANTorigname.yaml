@@ -1,9 +1,9 @@
 GZ_CLI_NAME_VARIANT:
 - origname
 MACOSX_DEPLOYMENT_TARGET:
-- '10.15'
+- '11.0'
 MACOSX_SDK_VERSION:
-- '10.15'
+- '11.0'
 assimp:
 - 5.4.3
 bullet_cpp:
@@ -17,7 +17,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '10.15'
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -37,7 +37,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20250127'
+- '20250512'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -51,7 +51,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.29.3
+- 6.31.1
 libxcb:
 - '1'
 macos_machine:

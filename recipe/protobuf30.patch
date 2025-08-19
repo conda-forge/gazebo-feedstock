@@ -1,11 +1,15 @@
-From d1bfe447a830ff1f1a8726edb8d91db5465bf299 Mon Sep 17 00:00:00 2001
+From be634fb62f2d55acdc043f1b24d4c500f835e7a4 Mon Sep 17 00:00:00 2001
 From: Silvio Traversaro <silvio@traversaro.it>
 Date: Tue, 19 Aug 2025 17:45:46 +0200
 Subject: [PATCH] Fix compatibility with protobuf 30
 
 ---
  gazebo/msgs/generator/GazeboGenerator.cc | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ gazebo/msgs/msgs.cc                      |  2 +-
+ gazebo/transport/CallbackHelper.hh       |  2 +-
+ gazebo/transport/Node.hh                 |  2 +-
+ gazebo/transport/TopicManager.hh         |  2 +-
+ 5 files changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/gazebo/msgs/generator/GazeboGenerator.cc b/gazebo/msgs/generator/GazeboGenerator.cc
 index 10d76c7df6..9aea1b0608 100644
@@ -72,3 +76,55 @@ index 10d76c7df6..9aea1b0608 100644
        "." + name + "\", " + name + ")\n";
      printer.Print(constType.c_str(), "name", "namespace_scope");
    }
+diff --git a/gazebo/msgs/msgs.cc b/gazebo/msgs/msgs.cc
+index 6fc83841df..31e4056e82 100644
+--- a/gazebo/msgs/msgs.cc
++++ b/gazebo/msgs/msgs.cc
+@@ -118,7 +118,7 @@ namespace gazebo
+ 
+       std::string *serialized_data = pkg.mutable_serialized_data();
+       if (!message.IsInitialized())
+-        gzthrow("Can't serialize message of type[" + message.GetTypeName() +
++        gzthrow("Can't serialize message of type[" + std::string(message.GetTypeName()) +
+             "] because it is missing required fields");
+ 
+       if (!message.SerializeToString(serialized_data))
+diff --git a/gazebo/transport/CallbackHelper.hh b/gazebo/transport/CallbackHelper.hh
+index 9bd50cc605..51a91cad36 100644
+--- a/gazebo/transport/CallbackHelper.hh
++++ b/gazebo/transport/CallbackHelper.hh
+@@ -136,7 +136,7 @@ namespace gazebo
+                 if ((m = dynamic_cast<google::protobuf::Message*>(&test))
+                     == NULL)
+                   gzthrow("Message type must be a google::protobuf type\n");
+-                return m->GetTypeName();
++                return std::string(m->GetTypeName());
+               }
+ 
+       // documentation inherited
+diff --git a/gazebo/transport/Node.hh b/gazebo/transport/Node.hh
+index 7883afdb1c..785772a7ad 100644
+--- a/gazebo/transport/Node.hh
++++ b/gazebo/transport/Node.hh
+@@ -228,7 +228,7 @@ namespace gazebo
+                   const google::protobuf::Message &_message)
+               {
+                 transport::PublisherPtr pub = this->Advertise(_topic,
+-                    _message.GetTypeName());
++                    std::string(_message.GetTypeName()));
+                 pub->WaitForConnection();
+ 
+                 pub->Publish(_message, true);
+diff --git a/gazebo/transport/TopicManager.hh b/gazebo/transport/TopicManager.hh
+index 6c05abae6e..71f8802a76 100644
+--- a/gazebo/transport/TopicManager.hh
++++ b/gazebo/transport/TopicManager.hh
+@@ -160,7 +160,7 @@ namespace gazebo
+                 if (!msg)
+                   gzthrow("Advertise requires a google protobuf type");
+ 
+-                return this->Advertise(_topic, msg->GetTypeName(), _queueLimit,
++                return this->Advertise(_topic, std::string(msg->GetTypeName()), _queueLimit,
+                         _hzRate);
+               }
+ 

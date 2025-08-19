@@ -16,6 +16,7 @@ source:
     patches:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
+      - protobuf30.patch
 
 build:
   number: {{ build_number }}

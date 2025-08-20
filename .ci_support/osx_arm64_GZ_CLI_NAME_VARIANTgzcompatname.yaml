@@ -13,7 +13,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '18'
+- '19'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -27,7 +27,7 @@ curl:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '18'
+- '19'
 dartsim_cpp:
 - '6.15'
 ffmpeg:
@@ -37,7 +37,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20250127'
+- '20250512'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -51,7 +51,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.29.3
+- 6.31.1
 libxcb:
 - '1'
 macos_machine:

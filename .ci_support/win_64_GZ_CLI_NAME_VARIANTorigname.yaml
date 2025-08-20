@@ -3,7 +3,7 @@ GZ_CLI_NAME_VARIANT:
 assimp:
 - 5.4.3
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -13,7 +13,7 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- vs2019
+- vs2022
 dartsim_cpp:
 - '6.15'
 ffmpeg:
@@ -23,7 +23,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20250127'
+- '20250512'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -37,7 +37,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.29.3
+- 6.31.1
 qt_main:
 - '5.15'
 target_platform:

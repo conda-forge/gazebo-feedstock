@@ -7,7 +7,7 @@ bullet_cpp:
 c_compiler:
 - gcc
 c_compiler_version:
-- '13'
+- '14'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -23,7 +23,7 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '13'
+- '14'
 dartsim_cpp:
 - '6.15'
 docker_image:
@@ -35,7 +35,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20250127'
+- '20250512'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -49,7 +49,7 @@ libgdal:
 libode:
 - 0.16.5
 libprotobuf:
-- 5.29.3
+- 6.31.1
 libuuid:
 - '2'
 libxcb:

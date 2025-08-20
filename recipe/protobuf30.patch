@@ -1,16 +1,132 @@
-From be634fb62f2d55acdc043f1b24d4c500f835e7a4 Mon Sep 17 00:00:00 2001
+From fb8400b8a3e7e198e6944bacc268133eb489040b Mon Sep 17 00:00:00 2001
 From: Silvio Traversaro <silvio@traversaro.it>
 Date: Tue, 19 Aug 2025 17:45:46 +0200
 Subject: [PATCH] Fix compatibility with protobuf 30
 
 ---
+ gazebo/gui/ConfigWidget.cc               | 13 +++++++------
+ gazebo/gui/ModelListWidget.cc            |  8 ++++++--
+ gazebo/gui/plot/Palette.cc               |  2 +-
+ gazebo/gui/plot/TopicCurveHandler.cc     |  2 +-
  gazebo/msgs/generator/GazeboGenerator.cc | 22 +++++++++++-----------
  gazebo/msgs/msgs.cc                      |  2 +-
  gazebo/transport/CallbackHelper.hh       |  2 +-
  gazebo/transport/Node.hh                 |  2 +-
  gazebo/transport/TopicManager.hh         |  2 +-
- 5 files changed, 15 insertions(+), 15 deletions(-)
+ 9 files changed, 30 insertions(+), 25 deletions(-)
 
+diff --git a/gazebo/gui/ConfigWidget.cc b/gazebo/gui/ConfigWidget.cc
+index 5fd736adfc..968e845d60 100644
+--- a/gazebo/gui/ConfigWidget.cc
++++ b/gazebo/gui/ConfigWidget.cc
+@@ -595,7 +595,7 @@ QWidget *ConfigWidget::Parse(google::protobuf::Message *_msg,
+     if (!ref)
+       return NULL;
+ 
+-    std::string name = field->name();
++    std::string name = std::string(field->name());
+ 
+     // Parse each field in the message
+     // TODO parse repeated fields
+@@ -753,8 +753,9 @@ QWidget *ConfigWidget::Parse(google::protobuf::Message *_msg,
+               std::string geometryTypeStr;
+               if (typeValueDescriptor)
+               {
++                std::string typeName = std::string(typeValueDescriptor->name());
+                 geometryTypeStr =
+-                    QString(typeValueDescriptor->name().c_str()).toLower().
++                    QString(typeName.c_str()).toLower().
+                     toStdString();
+               }
+ 
+@@ -779,7 +780,7 @@ QWidget *ConfigWidget::Parse(google::protobuf::Message *_msg,
+                 const google::protobuf::Descriptor *geomValueDescriptor =
+                     geomValueMsg->GetDescriptor();
+ 
+-                std::string geomMsgName = geomField->message_type()->name();
++                std::string geomMsgName = std::string(geomField->message_type()->name());
+                 if (geomMsgName == "BoxGeom" || geomMsgName == "MeshGeom")
+                 {
+                   int fieldIdx = (geomMsgName == "BoxGeom") ? 0 : 1;
+@@ -1001,7 +1002,7 @@ QWidget *ConfigWidget::Parse(google::protobuf::Message *_msg,
+               const google::protobuf::EnumValueDescriptor *valueDescriptor =
+                   descriptor->value(j);
+               if (valueDescriptor)
+-                enumValues.push_back(valueDescriptor->name());
++                enumValues.push_back(std::string(valueDescriptor->name()));
+             }
+             configChildWidget =
+                 this->CreateEnumWidget(name, enumValues, _level);
+@@ -1015,7 +1016,7 @@ QWidget *ConfigWidget::Parse(google::protobuf::Message *_msg,
+ 
+             newFieldWidget = configChildWidget;
+           }
+-          this->UpdateEnumWidget(configChildWidget, value->name());
++          this->UpdateEnumWidget(configChildWidget, std::string(value->name()));
+           break;
+         }
+         default:
+@@ -2086,7 +2087,7 @@ void ConfigWidget::UpdateMsg(google::protobuf::Message *_msg,
+     if (!ref)
+       return;
+ 
+-    std::string name = field->name();
++    std::string name = std::string(field->name());
+ 
+     // Update each field in the message
+     // TODO update repeated fields
+diff --git a/gazebo/gui/ModelListWidget.cc b/gazebo/gui/ModelListWidget.cc
+index 1b6b84942e..dabc4a2f65 100644
+--- a/gazebo/gui/ModelListWidget.cc
++++ b/gazebo/gui/ModelListWidget.cc
+@@ -1747,7 +1747,10 @@ void ModelListWidget::FillPropertyTree(const msgs::SphericalCoordinates &_msg,
+   else
+   {
+     for (int i = 0; i < surfaceModelEnum->value_count(); ++i)
+-      types << surfaceModelEnum->value(i)->name().c_str();
++    {
++      std::string  surfaceModelEnumStr(surfaceModelEnum->value(i)->name());
++      types << surfaceModelEnumStr.c_str();
++    }
+   }
+ 
+   item->setAttribute("enumNames", types);
+@@ -3069,7 +3072,8 @@ void ModelListWidget::FillPropertyTree(const msgs::Physics &_msg,
+     }
+     else
+     {
+-      types << engineTypeEnum->value(_msg.type()-1)->name().c_str();
++      std::string engineTypeEnumStr = std::string(engineTypeEnum->value(_msg.type()-1)->name());
++      types << engineTypeEnumStr.c_str();
+     }
+ 
+     item->setAttribute("enumNames", types);
+diff --git a/gazebo/gui/plot/Palette.cc b/gazebo/gui/plot/Palette.cc
+index 7a02848d1d..9f8fd29e2f 100644
+--- a/gazebo/gui/plot/Palette.cc
++++ b/gazebo/gui/plot/Palette.cc
+@@ -1179,7 +1179,7 @@ void Palette::FillFromMsg(google::protobuf::Message *_msg,
+     if (!field)
+       return;
+ 
+-    auto name = field->name();
++    auto name = std::string(field->name());
+ 
+     if (field->is_repeated())
+       continue;
+diff --git a/gazebo/gui/plot/TopicCurveHandler.cc b/gazebo/gui/plot/TopicCurveHandler.cc
+index c7103f9789..81cf9342af 100644
+--- a/gazebo/gui/plot/TopicCurveHandler.cc
++++ b/gazebo/gui/plot/TopicCurveHandler.cc
+@@ -370,7 +370,7 @@ void TopicCurve::UpdateCurve(google::protobuf::Message *_msg,
+     if (!field)
+       continue;
+ 
+-    std::string fieldName = field->name();
++    std::string fieldName = std::string(field->name());
+ 
+     // Check if message has timestamp and use it if it exists and is
+     // a top level msg field.
 diff --git a/gazebo/msgs/generator/GazeboGenerator.cc b/gazebo/msgs/generator/GazeboGenerator.cc
 index 10d76c7df6..9aea1b0608 100644
 --- a/gazebo/msgs/generator/GazeboGenerator.cc

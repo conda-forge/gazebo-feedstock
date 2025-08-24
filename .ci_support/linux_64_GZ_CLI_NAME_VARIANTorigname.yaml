@@ -29,7 +29,7 @@ dartsim_cpp:
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 ffmpeg:
-- '7'
+- '8'
 graphviz:
 - '13'
 hdf5:

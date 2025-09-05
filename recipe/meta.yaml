@@ -17,6 +17,7 @@ source:
       - use-external-libs-config.patch
       - fix-invisible-meshes.patch
       - protobuf30.patch
+      - ffmpeg8.patch
 
 build:
   number: {{ build_number }}

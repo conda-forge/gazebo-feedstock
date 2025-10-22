@@ -35,7 +35,7 @@ libcurl:
 libgdal:
 - '3.11'
 libode:
-- 0.16.5
+- 0.16.6
 libprotobuf:
 - 6.31.1
 qt_main:

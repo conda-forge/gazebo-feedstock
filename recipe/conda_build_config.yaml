@@ -1,7 +1,7 @@
 macos_min_version:             # [osx and x86_64]
   - 10.15                      # [osx and x86_64]
 c_stdlib_version:              # [osx and x86_64]
-  - 10.15                      # [osx and x86_64]                                                    # [linux64]
+  - 10.15                      # [osx and x86_64]
 
 # We want to permit to side-by-side installation of gazebo
 # and libgz-tools2 to facilitate migration to gz-sim, however

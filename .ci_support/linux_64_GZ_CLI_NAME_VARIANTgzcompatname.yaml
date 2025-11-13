@@ -12,8 +12,6 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
-cdt_name:
-- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -47,7 +45,7 @@ libcurl:
 libgdal:
 - '3.11'
 libode:
-- 0.16.5
+- 0.16.6
 libprotobuf:
 - 6.31.1
 libuuid:
@@ -59,7 +57,7 @@ qt_main:
 target_platform:
 - linux-64
 tbb_devel:
-- '2021'
+- '2022'
 tinyxml2:
 - '11.0'
 urdfdom:

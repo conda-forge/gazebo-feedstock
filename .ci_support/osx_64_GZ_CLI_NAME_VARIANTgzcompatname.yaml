@@ -33,7 +33,7 @@ dartsim_cpp:
 ffmpeg:
 - '8'
 graphviz:
-- '13'
+- '14'
 hdf5:
 - 1.14.6
 libabseil:
@@ -49,7 +49,7 @@ libcurl:
 libgdal:
 - '3.11'
 libode:
-- 0.16.5
+- 0.16.6
 libprotobuf:
 - 6.31.1
 libxcb:

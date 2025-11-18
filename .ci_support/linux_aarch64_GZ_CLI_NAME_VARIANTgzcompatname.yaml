@@ -12,8 +12,6 @@ c_stdlib:
 - sysroot
 c_stdlib_version:
 - '2.17'
-cdt_name:
-- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -31,7 +29,7 @@ docker_image:
 ffmpeg:
 - '8'
 graphviz:
-- '13'
+- '14'
 hdf5:
 - 1.14.6
 libabseil:
@@ -47,7 +45,7 @@ libcurl:
 libgdal:
 - '3.11'
 libode:
-- 0.16.5
+- 0.16.6
 libprotobuf:
 - 6.31.1
 libuuid:

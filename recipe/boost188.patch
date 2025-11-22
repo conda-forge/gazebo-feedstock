@@ -1,0 +1,432 @@
+From f943600969cb0f8b9504ae2f779363183370e8c6 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Sat, 22 Nov 2025 17:49:15 +0100
+Subject: [PATCH] Update to support boost 1.88
+
+---
+ gazebo/transport/Connection.cc |  127 +-
+ gazebo/transport/Connection.hh |    7 +-
+ gazebo/transport/IOManager.cc  |   44 +-
+ gazebo/transport/IOManager.hh  |   12 +-
+ 4 files changed, 1485 insertions(+), 1338 deletions(-)
+
+diff --git a/gazebo/transport/Connection.cc b/gazebo/transport/Connection.cc
+index 48195f908c..4da6446fcb 100644
+--- a/gazebo/transport/Connection.cc
++++ b/gazebo/transport/Connection.cc
+@@ -52,6 +52,7 @@
+ #include <boost/bind/bind.hpp>
+ #include <boost/function.hpp>
+ #include <boost/lexical_cast.hpp>
++#include <boost/version.hpp>
+ 
+ #include "gazebo/common/Console.hh"
+ #include "gazebo/msgs/msgs.hh"
+@@ -65,6 +66,33 @@ using namespace transport;
+ 
+ extern void dummy_callback_fn(uint32_t);
+ 
++namespace
++{
++#if BOOST_VERSION >= 108800
++inline uint32_t AddressToUInt(const boost::asio::ip::address_v4 &_addr)
++{
++  return _addr.to_uint();
++}
++
++inline boost::asio::ip::address_v4 MakeAddressV4(
++    const std::string &_value)
++{
++  return boost::asio::ip::make_address_v4(_value);
++}
++#else
++inline uint32_t AddressToUInt(const boost::asio::ip::address_v4 &_addr)
++{
++  return _addr.to_ulong();
++}
++
++inline boost::asio::ip::address_v4 MakeAddressV4(
++    const std::string &_value)
++{
++  return boost::asio::ip::address_v4::from_string(_value);
++}
++#endif
++}
++
+ unsigned int Connection::idCounter = 0;
+ IOManager *Connection::iomanager = NULL;
+ 
+@@ -73,7 +101,7 @@ IOManager *Connection::iomanager = NULL;
+ // is stolen from adress::is_unspecified function in boost v1.52.
+ static bool addressIsUnspecified(const boost::asio::ip::address_v4 &_addr)
+ {
+-  return _addr.to_ulong() == 0;
++  return AddressToUInt(_addr) == 0;
+ }
+ 
+ // Version 1.52 of boost has an address::is_loopback function, but
+@@ -81,7 +109,7 @@ static bool addressIsUnspecified(const boost::asio::ip::address_v4 &_addr)
+ // is stolen from adress::is_loopback function in boost v1.52.
+ static bool addressIsLoopback(const boost::asio::ip::address_v4 &_addr)
+ {
+-  return (_addr.to_ulong() & 0xFF000000) == 0x7F000000;
++  return (AddressToUInt(_addr) & 0xFF000000) == 0x7F000000;
+ }
+ 
+ //////////////////////////////////////////////////
+@@ -150,9 +178,33 @@ bool Connection::Connect(const std::string &_host, unsigned int _port)
+   if (httpIndex != static_cast<int>(std::string::npos))
+     host = _host.substr(7, _host.size() - 7);
+ 
+-  // Resolve the host name into an IP address
+-  boost::asio::ip::tcp::resolver::iterator end;
+   boost::asio::ip::tcp::resolver resolver(iomanager->GetIO());
++
++#if BOOST_VERSION >= 108800
++  boost::asio::ip::tcp::endpoint endpoint;
++  bool endpointFound = false;
++  try
++  {
++    auto endpoints = resolver.resolve(host, service,
++        boost::asio::ip::resolver_base::numeric_service);
++
++    for (auto iter = endpoints.begin(); iter != endpoints.end(); ++iter)
++    {
++      if (iter->endpoint().address().is_v4())
++      {
++        endpoint = iter->endpoint();
++        endpointFound = true;
++        break;
++      }
++    }
++  }
++  catch(...)
++  {
++    gzerr << "Unable to resolve uri[" << host << ":" << _port << "]\n";
++    return false;
++  }
++#else
++  boost::asio::ip::tcp::resolver::iterator end;
+   boost::asio::ip::tcp::resolver::query query(host, service,
+       boost::asio::ip::resolver_query_base::numeric_service);
+   boost::asio::ip::tcp::resolver::iterator endpointIter;
+@@ -161,13 +213,11 @@ bool Connection::Connect(const std::string &_host, unsigned int _port)
+   {
+     endpointIter = resolver.resolve(query);
+ 
+-    // Find the first valid IPv4 address
+     for (; endpointIter != end &&
+            !(*endpointIter).endpoint().address().is_v4(); ++endpointIter)
+     {
+     }
+ 
+-    // Make sure we didn't run off the end of the list.
+     if (endpointIter == end)
+     {
+       gzerr << "Unable to resolve uri[" << _host << ":" << _port << "]\n";
+@@ -179,15 +229,30 @@ bool Connection::Connect(const std::string &_host, unsigned int _port)
+     gzerr << "Unable to resolve uri[" << host << ":" << _port << "]\n";
+     return false;
+   }
++#endif
++
++#if BOOST_VERSION >= 108800
++  if (!endpointFound)
++  {
++    gzerr << "Unable to resolve uri[" << _host << ":" << _port << "]\n";
++    return false;
++  }
++#endif
+ 
+   this->connectError = false;
+   this->remoteURI.clear();
+ 
+   // Use async connect so that we can use a custom timeout. This is useful
+   // when trying to detect network errors.
++#if BOOST_VERSION >= 108800
++  this->socket->async_connect(endpoint,
++      common::weakBind(&Connection::OnConnect, this->shared_from_this(),
++        boost::asio::placeholders::error));
++#else
+   this->socket->async_connect(*endpointIter++,
+       common::weakBind(&Connection::OnConnect, this->shared_from_this(),
+         boost::asio::placeholders::error, endpointIter));
++#endif
+ 
+   // Wait for at most 60 seconds for a connection to be established.
+   // The connectionCondition notification occurs in ::OnConnect.
+@@ -690,6 +755,28 @@ boost::asio::ip::tcp::endpoint Connection::GetLocalEndpoint()
+   if (hostname && !std::string(hostname).empty())
+   {
+     boost::asio::ip::tcp::resolver resolver(iomanager->GetIO());
++    bool resolved = false;
++
++#if BOOST_VERSION >= 108800
++    try
++    {
++      auto endpoints = resolver.resolve(hostname, "");
++      for (auto iter = endpoints.begin(); iter != endpoints.end(); ++iter)
++      {
++        auto testEndPoint = iter->endpoint();
++        if (!addressIsUnspecified(testEndPoint.address().to_v4()))
++        {
++          address = testEndPoint.address().to_v4();
++          resolved = true;
++          break;
++        }
++      }
++    }
++    catch(...)
++    {
++      resolved = false;
++    }
++#else
+     boost::asio::ip::tcp::resolver::query query(hostname, "");
+     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
+     boost::asio::ip::tcp::resolver::iterator end;
+@@ -703,13 +790,15 @@ boost::asio::ip::tcp::endpoint Connection::GetLocalEndpoint()
+       if (!addressIsUnspecified(testEndPoint.address().to_v4()))
+       {
+         address = testEndPoint.address().to_v4();
++        resolved = true;
+         break;
+       }
+     }
++#endif
+ 
+     // Complain if GAZEBO_HOSTNAME was set, but we were not able to get
+     // a valid address.
+-    if (addressIsUnspecified(address))
++    if (!resolved && addressIsUnspecified(address))
+       gzerr << "GAZEBO_HOSTNAME[" << hostname << "] is invalid. "
+             << "We will fallback onto GAZEBO_IP.";
+   }
+@@ -724,7 +813,7 @@ boost::asio::ip::tcp::endpoint Connection::GetLocalEndpoint()
+             << "] is invalid. We will still try to use it, be warned.\n";
+     }
+ 
+-    address = boost::asio::ip::address_v4::from_string(ip);
++    address = MakeAddressV4(ip);
+   }
+ 
+   // Try to automatically find a valid address if GAZEBO_IP and
+@@ -774,7 +863,7 @@ boost::asio::ip::tcp::endpoint Connection::GetLocalEndpoint()
+         if (!ValidateIP(host))
+           continue;
+ 
+-        address = boost::asio::ip::address_v4::from_string(host);
++        address = MakeAddressV4(host);
+ 
+         // Also make sure that the IP address is not a loopback interface.
+         if (!addressIsLoopback(address))
+@@ -868,7 +957,7 @@ boost::asio::ip::tcp::endpoint Connection::GetLocalEndpoint()
+       "but will almost certainly not work if you have remote processes."
+       "Report to the disc-zmq development team to seek a fix." << std::endl;
+   }
+-  address = boost::asio::ip::address_v4::from_string(retAddr);
++  address = MakeAddressV4(retAddr);
+ #endif
+   }
+ 
+@@ -923,6 +1012,18 @@ std::string Connection::GetHostname(boost::asio::ip::tcp::endpoint _ep)
+   else
+   {
+     boost::asio::ip::tcp::resolver resolver(iomanager->GetIO());
++#if BOOST_VERSION >= 108800
++    try
++    {
++      auto endpoints = resolver.resolve(_ep);
++      for (const auto &entry : endpoints)
++        result = entry.host_name();
++    }
++    catch(...)
++    {
++      // fall back to empty result
++    }
++#else
+     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(_ep);
+     boost::asio::ip::tcp::resolver::iterator end;
+ 
+@@ -931,6 +1032,7 @@ std::string Connection::GetHostname(boost::asio::ip::tcp::endpoint _ep)
+       result = (*iter).host_name();
+       ++iter;
+     }
++#endif
+   }
+ 
+   return result;
+@@ -948,9 +1050,14 @@ std::string Connection::GetLocalHostname()
+   return GetHostname(GetLocalEndpoint());
+ }
+ 
++#if BOOST_VERSION >= 108800
++//////////////////////////////////////////////////
++void Connection::OnConnect(const boost::system::error_code &_error)
++#else
+ //////////////////////////////////////////////////
+ void Connection::OnConnect(const boost::system::error_code &_error,
+     boost::asio::ip::tcp::resolver::iterator /*_endPointIter*/)
++#endif
+ {
+   // This function is called when a connection is successfully (or
+   // unsuccessfully) established.
+diff --git a/gazebo/transport/Connection.hh b/gazebo/transport/Connection.hh
+index af3fee50b0..ca3bf0547b 100644
+--- a/gazebo/transport/Connection.hh
++++ b/gazebo/transport/Connection.hh
+@@ -36,6 +36,7 @@
+ #include <boost/asio.hpp>
+ #include <boost/bind.hpp>
+ #include <boost/function.hpp>
++#include <boost/version.hpp>
+ #include <boost/thread.hpp>
+ #include <boost/tuple/tuple.hpp>
+ 
+@@ -407,9 +408,13 @@ namespace gazebo
+ 
+       /// \brief Callback method when connected
+       /// \param[in] _error Error code thrown during connection
++    #if BOOST_VERSION >= 108800
++      private: void OnConnect(const boost::system::error_code &_error);
++    #else
+       /// \param[in] _endPointIter Pointer to resolver iterator
+       private: void OnConnect(const boost::system::error_code &_error,
+-                  boost::asio::ip::tcp::resolver::iterator _endPointIter);
++          boost::asio::ip::tcp::resolver::iterator _endPointIter);
++    #endif
+ 
+       /// \brief Socket pointer
+       private: boost::asio::ip::tcp::socket *socket;
+diff --git a/gazebo/transport/IOManager.cc b/gazebo/transport/IOManager.cc
+index a59d7b0d37..fc6c3f6757 100644
+--- a/gazebo/transport/IOManager.cc
++++ b/gazebo/transport/IOManager.cc
+@@ -18,6 +18,12 @@
+ #include <boost/bind/bind.hpp>
+ #include <boost/thread/thread.hpp>
+ #include <iostream>
++#include <boost/version.hpp>
++
++#if BOOST_VERSION >= 108800
++#include <boost/asio/executor_work_guard.hpp>
++#endif
++
+ #include "gazebo/transport/IOManager.hh"
+ 
+ namespace gazebo
+@@ -27,11 +33,17 @@ namespace transport
+ /////////////////////////////////////////////////
+ class IOManagerPrivate
+ {
+-  /// \brief IO service.
+-  public: boost::asio::io_service *io_service = nullptr;
++  /// \brief IO context/service.
++  public: AsioIO *io = nullptr;
+ 
++#if BOOST_VERSION >= 108800
++  /// \brief Work guard keeps the io_context running.
++  public: boost::asio::executor_work_guard<AsioIO::executor_type> *work =
++      nullptr;
++#else
+   /// \brief Use io_service::work to keep the io_service running in thread.
+   public: boost::asio::io_service::work *work = nullptr;
++#endif
+ 
+   /// \brief Reference count of connections using this IOManager.
+   public: std::atomic_int count;
+@@ -44,12 +56,18 @@ class IOManagerPrivate
+ IOManager::IOManager()
+   : dataPtr(new IOManagerPrivate)
+ {
+-  this->dataPtr->io_service = new boost::asio::io_service;
++  this->dataPtr->io = new AsioIO;
++#if BOOST_VERSION >= 108800
++  this->dataPtr->work =
++      new boost::asio::executor_work_guard<AsioIO::executor_type>(
++      this->dataPtr->io->get_executor());
++#else
+   this->dataPtr->work = new boost::asio::io_service::work(
+-      *this->dataPtr->io_service);
++      *this->dataPtr->io);
++#endif
+   this->dataPtr->count = 0;
+   this->dataPtr->thread = new boost::thread(boost::bind(
+-      &boost::asio::io_service::run, this->dataPtr->io_service));
++      &AsioIO::run, this->dataPtr->io));
+ }
+ 
+ /////////////////////////////////////////////////
+@@ -60,8 +78,8 @@ IOManager::~IOManager()
+   delete this->dataPtr->work;
+   this->dataPtr->work = nullptr;
+ 
+-  delete this->dataPtr->io_service;
+-  this->dataPtr->io_service = nullptr;
++  delete this->dataPtr->io;
++  this->dataPtr->io = nullptr;
+ 
+   delete this->dataPtr;
+   this->dataPtr = nullptr;
+@@ -70,8 +88,12 @@ IOManager::~IOManager()
+ /////////////////////////////////////////////////
+ void IOManager::Stop()
+ {
+-  this->dataPtr->io_service->reset();
+-  this->dataPtr->io_service->stop();
++#if BOOST_VERSION >= 108800
++  this->dataPtr->io->restart();
++#else
++  this->dataPtr->io->reset();
++#endif
++  this->dataPtr->io->stop();
+   if (this->dataPtr->thread)
+   {
+     this->dataPtr->thread->join();
+@@ -81,9 +103,9 @@ void IOManager::Stop()
+ }
+ 
+ /////////////////////////////////////////////////
+-boost::asio::io_service &IOManager::GetIO()
++AsioIO &IOManager::GetIO()
+ {
+-  return *this->dataPtr->io_service;
++  return *this->dataPtr->io;
+ }
+ 
+ /////////////////////////////////////////////////
+diff --git a/gazebo/transport/IOManager.hh b/gazebo/transport/IOManager.hh
+index 325284ae59..b5e6ae2952 100644
+--- a/gazebo/transport/IOManager.hh
++++ b/gazebo/transport/IOManager.hh
+@@ -18,12 +18,18 @@
+ #define GAZEBO_TRANSPORT_IOMANAGER_HH_
+ 
+ #include <boost/asio.hpp>
++#include <boost/version.hpp>
+ #include "gazebo/util/system.hh"
+ 
+ namespace gazebo
+ {
+   namespace transport
+   {
++#if BOOST_VERSION >= 108800
++    using AsioIO = boost::asio::io_context;
++#else
++    using AsioIO = boost::asio::io_service;
++#endif
+     // Forward declare private class.
+     class IOManagerPrivate;
+ 
+@@ -40,9 +46,9 @@ namespace gazebo
+       /// \brief Destructor
+       public: ~IOManager();
+ 
+-      /// \brief Get handle to boost::asio IO service
+-      /// \return Handle to boost::asio IO service
+-      public: boost::asio::io_service &GetIO();
++      /// \brief Get handle to boost::asio IO object
++      /// \return Handle to boost::asio IO object
++      public: AsioIO &GetIO();
+ 
+       /// \brief Increment the event count by 1
+       public: void IncCount();

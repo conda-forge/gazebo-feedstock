@@ -18,6 +18,7 @@ source:
       - fix-invisible-meshes.patch
       - protobuf30.patch
       - ffmpeg8.patch
+      - boost188.patch
 
 build:
   number: {{ build_number }}

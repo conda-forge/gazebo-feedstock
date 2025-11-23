@@ -63,7 +63,7 @@ qt_main:
 target_platform:
 - osx-64
 tbb_devel:
-- '2021'
+- '2022'
 tinyxml2:
 - '11.0'
 urdfdom:

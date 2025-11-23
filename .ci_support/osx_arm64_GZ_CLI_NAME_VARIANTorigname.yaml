@@ -33,7 +33,7 @@ dartsim_cpp:
 ffmpeg:
 - '8'
 graphviz:
-- '13'
+- '14'
 hdf5:
 - 1.14.6
 libabseil:
@@ -61,7 +61,7 @@ qt_main:
 target_platform:
 - osx-arm64
 tbb_devel:
-- '2021'
+- '2022'
 tinyxml2:
 - '11.0'
 urdfdom:

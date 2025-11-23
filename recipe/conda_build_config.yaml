@@ -3,15 +3,6 @@ macos_min_version:             # [osx and x86_64]
 c_stdlib_version:              # [osx and x86_64]
   - 10.15                      # [osx and x86_64]
 
-cudnn:                                            # [linux64]
-  - undefined                                     # [linux64]
-cuda_compiler_version:                            # [linux64]
-  - None                                          # [linux64]
-docker_image:                                     # [linux64]
-  - quay.io/condaforge/linux-anvil-cos7-x86_64    # [linux64]
-cdt_name:                                         # [linux64]
-  - cos7                                          # [linux64]
-
 # We want to permit to side-by-side installation of gazebo
 # and libgz-tools2 to facilitate migration to gz-sim, however
 # they both install gz. So, we are building two different variants:

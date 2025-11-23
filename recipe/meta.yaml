@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.15.1" %}
-{% set build_number = 7 %}
+{% set build_number = 8 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set build_number = build_number + 200 %}
@@ -18,6 +18,7 @@ source:
       - fix-invisible-meshes.patch
       - protobuf30.patch
       - ffmpeg8.patch
+      - boost188.patch
 
 build:
   number: {{ build_number }}
@@ -130,8 +131,9 @@ requirements:
     # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
     - "ogre >=1.10.12.1"
   run_constrained:
-    # Prevent to install side-by-side installation with libgz-tools2
+    # Prevent to install side-by-side installation with libgz-tools2 or libgz-tools
     - libgz-tools2 <0.0.0  # [GZ_CLI_NAME_VARIANT == "origname"]
+    - libgz-tools <0.0.0  # [GZ_CLI_NAME_VARIANT == "origname"]
 
 test:
   commands:

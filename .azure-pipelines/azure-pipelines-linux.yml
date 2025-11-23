@@ -11,12 +11,12 @@ jobs:
       linux_64_GZ_CLI_NAME_VARIANTgzcompatname:
         CONFIG: linux_64_GZ_CLI_NAME_VARIANTgzcompatname
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
         SHORT_CONFIG: linux_64_GZ_CLI_NAME_VARIANTgzcompatname
       linux_64_GZ_CLI_NAME_VARIANTorigname:
         CONFIG: linux_64_GZ_CLI_NAME_VARIANTorigname
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
         SHORT_CONFIG: linux_64_GZ_CLI_NAME_VARIANTorigname
       linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatname:
         CONFIG: linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatname

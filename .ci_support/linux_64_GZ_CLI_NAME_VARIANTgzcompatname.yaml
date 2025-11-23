@@ -57,7 +57,7 @@ qt_main:
 target_platform:
 - linux-64
 tbb_devel:
-- '2021'
+- '2022'
 tinyxml2:
 - '11.0'
 urdfdom:

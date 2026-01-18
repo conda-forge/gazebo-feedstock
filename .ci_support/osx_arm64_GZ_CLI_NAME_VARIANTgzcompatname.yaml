@@ -29,7 +29,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 dartsim_cpp:
-- '6.15'
+- '6.16'
 ffmpeg:
 - '8'
 graphviz:

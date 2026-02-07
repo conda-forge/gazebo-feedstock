@@ -23,7 +23,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20250512'
+- '20260107'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -37,7 +37,7 @@ libgdal:
 libode:
 - 0.16.6
 libprotobuf:
-- 6.31.1
+- 6.33.5
 qt_main:
 - '5.15'
 target_platform:

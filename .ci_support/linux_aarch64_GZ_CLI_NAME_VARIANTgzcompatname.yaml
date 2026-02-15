@@ -61,7 +61,7 @@ tbb_devel:
 tinyxml2:
 - '11.0'
 urdfdom:
-- '4.0'
+- '5.1'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

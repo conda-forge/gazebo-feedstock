@@ -8,14 +8,22 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_GZ_CLI_NAME_VARIANTgzcompatname:
-        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
+      win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatname
-      win_64_GZ_CLI_NAME_VARIANTorigname:
-        CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
+      win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+      win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+      win_64_GZ_CLI_NAME_VARIANTorignamehdf52:
+        CONFIG: win_64_GZ_CLI_NAME_VARIANTorignamehdf52
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: win_64_GZ_CLI_NAME_VARIANTorignamehdf52
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\

@@ -1,9 +1,9 @@
 GZ_CLI_NAME_VARIANT:
 - origname
 MACOSX_DEPLOYMENT_TARGET:
-- '10.15'
+- '11.0'
 MACOSX_SDK_VERSION:
-- '10.15'
+- '11.0'
 assimp:
 - 6.0.3
 bullet_cpp:
@@ -17,7 +17,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '10.15'
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -56,8 +56,6 @@ libxcb:
 - '1'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.15'
 qt_main:
 - '5.15'
 target_platform:

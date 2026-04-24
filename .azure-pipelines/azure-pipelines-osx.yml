@@ -5,25 +5,49 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-15
+    vmImage: $(VMIMAGE)
   strategy:
     matrix:
-      osx_64_GZ_CLI_NAME_VARIANTgzcompatname:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatname
-      osx_64_GZ_CLI_NAME_VARIANTorigname:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
+        VMIMAGE: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorigname
-      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+        VMIMAGE: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatname
-      osx_arm64_GZ_CLI_NAME_VARIANTorigname:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        VMIMAGE: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignamehdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf52
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorigname
+        SHORT_CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf52
+        VMIMAGE: macOS-15
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnam_h2d8ffffd
+        VMIMAGE: macOS-15
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+        VMIMAGE: macOS-15
+      osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        VMIMAGE: macOS-15
+      osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52
+        VMIMAGE: macOS-15
   timeoutInMinutes: 360
   variables: {}
 

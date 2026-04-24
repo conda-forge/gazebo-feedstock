@@ -1,0 +1,67 @@
+GZ_CLI_NAME_VARIANT:
+- gzcompatname
+assimp:
+- 6.0.3
+bullet_cpp:
+- '3.25'
+c_compiler:
+- gcc
+c_compiler_version:
+- '14'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '8'
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '14'
+dartsim_cpp:
+- '6.16'
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
+ffmpeg:
+- '8'
+graphviz:
+- '14'
+hdf5:
+- '2'
+libabseil:
+- '20260107'
+libblas:
+- 3.9.* *netlib
+libboost_devel:
+- '1.88'
+libcblas:
+- 3.9.* *netlib
+libcurl:
+- '8'
+libgdal:
+- '3.12'
+libode:
+- 0.16.6
+libprotobuf:
+- 6.33.5
+libuuid:
+- '2'
+libxcb:
+- '1'
+qt_main:
+- '5.15'
+target_platform:
+- linux-aarch64
+tbb_devel:
+- '2022'
+tinyxml2:
+- '11.0'
+urdfdom:
+- '5.1'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version

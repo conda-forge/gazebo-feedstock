@@ -31,22 +31,22 @@ jobs:
       osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
         CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         store_build_artifacts: false
       osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
         CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         store_build_artifacts: false
       osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
         CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         store_build_artifacts: false
       osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52:
         CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
+        VMIMAGE: macOS-15-arm64
         store_build_artifacts: false
   timeoutInMinutes: 360
   variables: {}

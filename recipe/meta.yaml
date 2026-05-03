@@ -19,6 +19,7 @@ source:
       - protobuf30.patch
       - ffmpeg8.patch
       - boost188.patch
+      - boost190.patch
 
 build:
   number: {{ build_number }}

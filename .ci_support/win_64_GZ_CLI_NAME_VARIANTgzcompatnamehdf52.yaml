@@ -1,7 +1,7 @@
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
 assimp:
-- 6.0.3
+- '6'
 c_compiler:
 - vs2022
 c_stdlib:
@@ -27,7 +27,7 @@ libabseil:
 libblas:
 - 3.9.* *netlib
 libboost_devel:
-- '1.88'
+- '1.90'
 libcblas:
 - 3.9.* *netlib
 libcurl:

@@ -1,9 +1,9 @@
 GZ_CLI_NAME_VARIANT:
 - origname
 MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+- '12.0'
 MACOSX_SDK_VERSION:
-- '11.0'
+- '12.0'
 assimp:
 - '6'
 bullet_cpp:
@@ -13,11 +13,11 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '19'
+- '21'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '11.0'
+- '12.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -27,17 +27,17 @@ curl:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '19'
+- '21'
 dartsim_cpp:
 - '6.19'
 ffmpeg:
-- '8'
+- '9'
 graphviz:
 - '14'
 hdf5:
 - 1.14.6
 libabseil:
-- '20260107'
+- '20260526'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -51,7 +51,7 @@ libgdal:
 libode:
 - 0.16.6
 libprotobuf:
-- 6.33.5
+- 7.35.1
 libxcb:
 - '1'
 macos_machine:

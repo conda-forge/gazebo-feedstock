@@ -7,7 +7,7 @@ bullet_cpp:
 c_compiler:
 - gcc
 c_compiler_version:
-- '14'
+- '15'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -21,19 +21,19 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '14'
+- '15'
 dartsim_cpp:
 - '6.19'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 ffmpeg:
-- '8'
+- '9'
 graphviz:
 - '14'
 hdf5:
 - '2'
 libabseil:
-- '20260107'
+- '20260526'
 libblas:
 - 3.9.* *netlib
 libboost_devel:
@@ -47,7 +47,7 @@ libgdal:
 libode:
 - 0.16.6
 libprotobuf:
-- 6.33.5
+- 7.35.1
 libuuid:
 - '2'
 libxcb:

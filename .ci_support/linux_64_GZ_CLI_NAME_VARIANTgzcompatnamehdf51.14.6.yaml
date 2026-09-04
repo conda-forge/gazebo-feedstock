@@ -42,7 +42,7 @@ libcblas:
 - 3.9.* *netlib
 libcurl:
 - '8'
-libgdal:
+libgdal_core:
 - '3.13'
 libode:
 - 0.16.6

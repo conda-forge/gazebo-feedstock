@@ -1,6 +1,6 @@
 {% set name = "gazebo" %}
 {% set version = "11.15.1" %}
-{% set build_number = 22 %}
+{% set build_number = 23 %}
 
 {% if GZ_CLI_NAME_VARIANT == "origname" %}
 {% set build_number = build_number + 200 %}
@@ -99,7 +99,12 @@ requirements:
     - tiny-process-library  # [win]
     - ffmpeg
     - graphviz
-    - libgdal
+    # Avoid the libgdal metapackage, which pulls every optional plugin
+    # (including TileDB and its unrelated cloud/AWS SDK stack). gazebo's
+    # DEM/heightmap loader (gazebo/common/HeightmapData.cc) just calls the
+    # generic GDALOpen() on GeoTIFF/USGS DEM files (see test/data/dem_*),
+    # which libgdal-core already provides without any optional plugin.
+    - libgdal-core
     - libusb
     # Bullet is not detected on win for some reason
     - bullet-cpp  # [not win]

@@ -132,6 +132,7 @@ requirements:
     # deps
     - libboost-devel
     - tbb-devel
+    - libgdal-netcdf
     # Add constraint to avoid that old ogre gets installed during migratons,
     # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
     # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139

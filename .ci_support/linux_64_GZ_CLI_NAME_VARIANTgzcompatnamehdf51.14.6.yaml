@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
 assimp:
@@ -33,7 +35,7 @@ graphviz:
 hdf5:
 - 1.14.6
 libabseil:
-- '20260526'
+- '20260817'
 libblas:
 - 3.9.* *netlib
 libboost_devel:

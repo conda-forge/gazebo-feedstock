@@ -23,7 +23,7 @@ graphviz:
 hdf5:
 - '2'
 libabseil:
-- '20260526'
+- '20260817'
 libblas:
 - 3.9.* *netlib
 libboost_devel:

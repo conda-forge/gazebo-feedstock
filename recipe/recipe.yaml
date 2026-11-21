@@ -1,0 +1,214 @@
+schema_version: 1
+
+context:
+  name: gazebo
+  version: "11.15.1"
+  major_version: ${{ (version | split('.'))[0] }}
+  build_number: 24
+  # The origname variant gets a higher build number so that it has higher priority
+  variant_build_number: ${{ build_number + 200 if GZ_CLI_NAME_VARIANT == "origname" else build_number }}
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/osrf/${{ name }}/archive/${{ name }}${{ major_version }}_${{ version }}.tar.gz
+    sha256: 77a952971eabfd79e16d2582a355ee017a2e22cc369b68453323c0984b725126
+    patches:
+      - use-external-libs-config.patch
+      - fix-invisible-meshes.patch
+      - protobuf30.patch
+      - ffmpeg8.patch
+      - boost188.patch
+      - boost190.patch
+
+build:
+  number: ${{ variant_build_number }}
+  string: ${{ GZ_CLI_NAME_VARIANT }}h${{ hash }}_${{ variant_build_number }}
+  script:
+    env:
+      GZ_CLI_NAME_VARIANT: ${{ GZ_CLI_NAME_VARIANT }}
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - cmake
+    - pkg-config
+    - ninja
+    # We need all host deps also in build for cross-compiling gazebomsgs_out
+    - if: build_platform != target_platform
+      then:
+        - libabseil
+        - libprotobuf
+        - libsdformat 9.*
+        - libignition-cmake2
+        - libignition-math6
+        - libignition-transport8
+        - libignition-common3
+        - libignition-fuel-tools4
+        - ogre 1.10.*
+        - qt-main
+        - freeimage
+        - curl
+        - tbb-devel
+        - qwt
+        - tinyxml2
+        - libtar
+        - libccd-double
+        - libboost-devel
+  host:
+    - if: unix
+      then:
+        - xorg-libxext
+        - xorg-libxdmcp
+        - xorg-libxau
+        - libxcb
+        - xorg-libxfixes
+        - xorg-libxrender
+        - xorg-libx11
+        - xorg-libice
+        - xorg-libsm
+        - libtar
+    - if: linux
+      then:
+        - libglu
+        - libgl-devel
+        - libuuid
+    - if: osx
+      then:
+        - bzip2
+        - zlib
+    - if: win
+      then:
+        - dlfcn-win32
+        - tiny-process-library
+    # deps
+    - libabseil
+    - libprotobuf
+    - libsdformat 9.*
+    - libignition-cmake2
+    - libignition-math6
+    - libignition-transport8
+    - libignition-common3
+    # Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/143
+    - libignition-fuel-tools4 >=4.6
+    - libignition-msgs5
+    - ogre 1.10.*
+    - qt-main
+    - freeimage
+    - curl
+    - tbb-devel
+    - qwt
+    - tinyxml2
+    - libccd-double
+    - libboost-devel
+    # additional deps
+    - libcurl
+    - tinyxml
+    # - gts
+    - ffmpeg
+    - graphviz
+    # Avoid the libgdal metapackage, which pulls every optional plugin
+    # (including TileDB and its unrelated cloud/AWS SDK stack). gazebo's
+    # DEM/heightmap loader (gazebo/common/HeightmapData.cc) just calls the
+    # generic GDALOpen() on GeoTIFF/USGS DEM files (see test/data/dem_*),
+    # which libgdal-core already provides without any optional plugin.
+    - libgdal-core
+    - libusb
+    # Bullet is not detected on win for some reason
+    - if: not win
+      then: bullet-cpp
+    - dartsim-cpp
+    - simbody
+    - hdf5
+    - openal-soft
+    - libode
+    - assimp
+    - urdfdom
+    - libblas
+    - libcblas
+  run:
+    - if: unix
+      then:
+        - xorg-libxext
+        - xorg-libxdmcp
+        - xorg-libxau
+        - libxcb
+        - xorg-libxfixes
+        - xorg-libxrender
+        - xorg-libx11
+        - xorg-libice
+        - xorg-libsm
+    - if: linux
+      then: libglu
+    # deps
+    - libboost-devel
+    - tbb-devel
+    - libgdal-netcdf
+    # Add constraint to avoid that old ogre gets installed during migratons,
+    # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
+    # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
+    - ogre >=1.10.12.1
+  run_exports:
+    - ${{ pin_subpackage('gazebo', upper_bound='x') }}
+  run_constraints:
+    # Prevent to install side-by-side installation with libgz-tools2 or libgz-tools
+    - if: GZ_CLI_NAME_VARIANT == "origname"
+      then:
+        - libgz-tools2 <0.0.0
+        - libgz-tools <0.0.0
+
+tests:
+  - package_contents:
+      files:
+        - if: unix
+          then:
+            - bin/gzserver
+            - bin/gzclient
+            - bin/gazebo
+            - bin/gz11
+          else:
+            - Library/bin/gzserver.exe
+            - Library/bin/gzclient.exe
+            - Library/bin/gazebo.exe
+            - Library/bin/gz11.exe
+        - if: GZ_CLI_NAME_VARIANT == "origname"
+          then:
+            - if: unix
+              then: bin/gz
+              else: Library/bin/gz.exe
+        - if: osx
+          then: lib/libCameraPlugin.dylib
+  - script:
+      - if: unix
+        then:
+          - gzserver --version | grep "Gazebo multi-robot simulator, version"
+          - gzclient --version | grep "Gazebo multi-robot simulator, version"
+          - gazebo --version | grep "Gazebo multi-robot simulator, version"
+      # We do not try to check the gz11 help output as it prints on stderr and not stdout
+      # For some reason this fails on aarch64 with Error setting socket option (IP_MULTICAST_IF) error
+      - if: not aarch64
+        then: gz11 help
+
+about:
+  homepage: http://classic.gazebosim.org/
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: Gazebo Classic robot simulator for research, design, and development.
+  description: |
+    This feedstock packages the Gazebo Classic simulator, that will not be supported past 2025.
+    For new development, please consider migrating to Modern gz-sim simulator, available in conda-forge.
+    To simplify migration to gz-sim, we want to permit to side-by-side installation of gazebo and libgz-tools2, however they both install a command called `gz`.
+    So, this feedstock is building two different variants of the `gazebo` conda package:
+      * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
+      * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
+
+extra:
+  recipe-maintainers:
+    - seanyen
+    - wolfv
+    - Tobias-Fischer
+    - traversaro

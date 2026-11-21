@@ -28,40 +28,42 @@ export RATTLER_CACHE_DIR="${CONDA_BLD_PATH}/pkg_cache"
 ( endgroup "Configuring build environment" ) 2> /dev/null
 
 arch=$(uname -m)
+MICROMAMBA_VERSION="2.10.0-0"
+MINIFORGE_VERSION="26.9.4-2"
 if [[ "${arch}" == "x86_64" ]]; then
   arch="64"
+  MICROMAMBA_SHA256="8421462a1ef1df9f7acd114f9e2a24c1332ce4f4e29f44465b4acb44e2755172"
+  MINIFORGE_SHA256="30e82ce68875fc50b917a3a541ea0516272866584187f7ea980ce8eaf715807d"
+else
+  # arch is already correct
+  MICROMAMBA_SHA256="c547639f5caf742236641c362746abb4a3505774753ecd08fe341643670c4c01"
+  MINIFORGE_SHA256="fb567612b76f4ef46de326f04425dbe381b6afc6a66c545f5043255a5ef34258"
 fi
 
-( startgroup "Provisioning base env with micromamba" ) 2> /dev/null
+( startgroup "Provisioning base env with pixi" ) 2> /dev/null
 
-MAMBA_ROOT_PREFIX="${MINIFORGE_HOME}-micromamba-$(date +%s)"
-MICROMAMBA_VERSION="2.9.0-0"
-MICROMAMBA_URL="https://github.com/mamba-org/micromamba-releases/releases/download/${MICROMAMBA_VERSION}/micromamba-osx-${arch}"
-MICROMAMBA_TMPDIR=$(mktemp -d)
-MICROMAMBA_EXE=${MICROMAMBA_TMPDIR}/micromamba
+echo Installing pixi
+curl -fsSL https://pixi.sh/install.sh | bash
+export PATH="~/.pixi/bin:$PATH"
 
-echo "Downloading micromamba ${MICROMAMBA_VERSION}"
-curl -L -o "${MICROMAMBA_EXE}" "${MICROMAMBA_URL}"
-chmod +x "${MICROMAMBA_EXE}"
+pushd "${FEEDSTOCK_ROOT}"
+echo Installing environment
+mkdir -p "${MINIFORGE_HOME}"
+PIXI_ENV=build
+sed -i.bak "s/platforms = .*/platforms = [\"osx-${arch}\"]/" pixi.toml
+pixi install --environment "${PIXI_ENV}"
+pixi list --environment "${PIXI_ENV}"
 
-echo Creating environment
-"${MICROMAMBA_EXE}" create --yes --root-prefix "${MAMBA_ROOT_PREFIX}" --prefix "${MINIFORGE_HOME}" \
-    --override-channels --channel conda-forge --strict-channel-priority \
-    pip python=3.14 conda-build conda-forge-ci-setup=4 "conda-build>=26.3"
-echo "Moving pkgs cache from ${MAMBA_ROOT_PREFIX} to ${MINIFORGE_HOME}"
-mv "${MAMBA_ROOT_PREFIX}/pkgs" "${MINIFORGE_HOME}"
+echo Activating environment
+eval "$(pixi shell-hook --environment "${PIXI_ENV}")"
+mv pixi.toml.bak pixi.toml
+popd
 
-echo Cleaning up micromamba
-rm -rf "${MAMBA_ROOT_PREFIX}" "${MICROMAMBA_EXE}" || :
-
-( endgroup "Provisioning base env with micromamba" ) 2> /dev/null
+( endgroup "Provisioning base env with pixi" ) 2> /dev/null
 
 ( startgroup "Configuring conda" ) 2> /dev/null
 
 # Activate the base conda environment
-echo Activating environment
-source "${MINIFORGE_HOME}/etc/profile.d/conda.sh"
-conda activate base
 # Configure the solver
 export CONDA_SOLVER="libmamba"
 export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
@@ -114,7 +116,7 @@ source run_conda_forge_build_setup
 
 
 if [[ "${HOST_PLATFORM}" != "${BUILD_PLATFORM}" ]] && [[ "${BUILD_WITH_CONDA_DEBUG:-0}" != 1 ]]; then
-    EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --no-test"
+    EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --test skip"
 fi
 
 
@@ -132,15 +134,17 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     #   - --output-id vs. --output-name
     #   - --clobber-file vs. none
     #   - none vs. --target-platform
-    CONDA_SUBDIR="${BUILD_PLATFORM}" conda debug \
-        "${RECIPE_ROOT}" \
+    export CONDA_BLD_PATH="${CONDA_BLD_PATH:-${FEEDSTOCK_ROOT}/build_artifacts}"
+    rattler-build debug setup \
+        --recipe "${RECIPE_ROOT}" \
         -m "${CONFIG_FILE}" \
         ${EXTRA_CB_OPTIONS:-} \
-        ${BUILD_OUTPUT_ID:+--output-id "${BUILD_OUTPUT_ID}"} \
-        --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml"
+        ${BUILD_OUTPUT_ID:+--output-name "${BUILD_OUTPUT_ID}"} \
+        --build-platform "${BUILD_PLATFORM}" \
+        --target-platform "${HOST_PLATFORM}"
 
-    # Drop into an interactive shell
-    /bin/bash
+    rattler-build debug shell
+    exit 0
 fi
 
 # Build the recipe
@@ -153,13 +157,15 @@ echo Building recipe
 #   - none vs. --target-platform
 #   - --extra-meta a=b c=d vs. --extra-meta a=b --extra-meta c=d
 
-CONDA_SUBDIR="${BUILD_PLATFORM}" conda-build \
-    "${RECIPE_ROOT}" \
+rattler-build build \
+    --recipe "${RECIPE_ROOT}" \
     -m "${CONFIG_FILE}" \
     ${EXTRA_CB_OPTIONS:-} \
-    --suppress-variables \
-    --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
-    --extra-meta flow_run_id="${flow_run_id:-}" remote_url="${remote_url:-}" sha="${sha:-}"
+    --build-platform "${BUILD_PLATFORM}" \
+    --target-platform "${HOST_PLATFORM}" \
+    --extra-meta flow_run_id="${flow_run_id:-}" \
+    --extra-meta remote_url="${remote_url:-}" \
+    --extra-meta sha="${sha:-}"
 
 ( startgroup "Inspecting artifacts" ) 2> /dev/null
 

@@ -3,7 +3,9 @@ GZ_CLI_NAME_VARIANT:
 assimp:
 - '6'
 c_compiler:
-- vs2022
+- vs
+c_compiler_version:
+- '2022'
 c_stdlib:
 - vs
 channel_sources:
@@ -13,7 +15,9 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- vs2022
+- vs
+cxx_compiler_version:
+- '2022'
 dartsim_cpp:
 - '6.19'
 ffmpeg:

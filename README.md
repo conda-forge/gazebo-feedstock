@@ -16,7 +16,6 @@ So, this feedstock is building two different variants of the `gazebo` conda pack
   * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
   * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
 
-
 Current build status
 ====================
 

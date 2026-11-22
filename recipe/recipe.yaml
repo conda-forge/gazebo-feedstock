@@ -163,23 +163,15 @@ requirements:
 
 tests:
   - package_contents:
-      files:
-        - if: unix
-          then:
-            - bin/gzserver
-            - bin/gzclient
-            - bin/gazebo
-            - bin/gz11
-          else:
-            - Library/bin/gzserver.exe
-            - Library/bin/gzclient.exe
-            - Library/bin/gazebo.exe
-            - Library/bin/gz11.exe
+      # bin entries resolve to bin/<name> on unix and Library/bin/<name>.exe on win
+      bin:
+        - gzserver
+        - gzclient
+        - gazebo
+        - gz11
         - if: GZ_CLI_NAME_VARIANT == "origname"
-          then:
-            - if: unix
-              then: bin/gz
-              else: Library/bin/gz.exe
+          then: gz
+      files:
         - if: osx
           then: lib/libCameraPlugin.dylib
   - script:
@@ -188,10 +180,8 @@ tests:
           - gzserver --version | grep "Gazebo multi-robot simulator, version"
           - gzclient --version | grep "Gazebo multi-robot simulator, version"
           - gazebo --version | grep "Gazebo multi-robot simulator, version"
-      # We do not try to check the gz11 help output as it prints on stderr and not stdout
-      # For some reason this fails on aarch64 with Error setting socket option (IP_MULTICAST_IF) error
-      - if: not aarch64
-        then: gz11 help
+      # gz11 prints its help on stderr, so we only check that it exits successfully
+      - gz11 help
 
 about:
   homepage: http://classic.gazebosim.org/

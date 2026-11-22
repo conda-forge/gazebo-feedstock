@@ -1,21 +1,21 @@
+DOCKER_PLATFORM:
+- linux/aarch64
 GZ_CLI_NAME_VARIANT:
 - origname
-MACOSX_SDK_VERSION:
-- '12.0'
+GZ_QT_VARIANT:
+- qt6
 assimp:
 - '6'
 bullet_cpp:
 - '3.25'
-bzip2:
-- '1'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '21'
+- '15'
 c_stdlib:
-- macosx_deployment_target
+- sysroot
 c_stdlib_version:
-- '12.0'
+- '2.17'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -23,13 +23,17 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- clangxx
+- gxx
 cxx_compiler_version:
-- '21'
+- '15'
 dartsim_cpp:
 - '6.19'
+docker_image:
+- quay.io/condaforge/linux-anvil-aarch64:alma10
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
@@ -50,14 +54,16 @@ libode:
 - 0.16.6
 libprotobuf:
 - 7.35.1
+libuuid:
+- '2'
 libxcb:
 - '1'
-macos_machine:
-- arm64-apple-darwin20.0.0
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:
-- osx-arm64
+- linux-aarch64
 tbb_devel:
 - '2023'
 tinyxml2:
@@ -67,5 +73,3 @@ urdfdom:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-zlib:
-- '1'

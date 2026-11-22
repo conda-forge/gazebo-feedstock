@@ -1,19 +1,15 @@
-DOCKER_PLATFORM:
-- linux/aarch64
 GZ_CLI_NAME_VARIANT:
-- origname
+- gzcompatname
+GZ_QT_VARIANT:
+- qt5
 assimp:
 - '6'
-bullet_cpp:
-- '3.25'
 c_compiler:
-- gcc
+- vs
 c_compiler_version:
-- '15'
+- '2022'
 c_stdlib:
-- sysroot
-c_stdlib_version:
-- '2.17'
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
@@ -21,15 +17,15 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- gxx
+- vs
 cxx_compiler_version:
-- '15'
+- '2022'
 dartsim_cpp:
 - '6.19'
-docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma10
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
@@ -50,20 +46,15 @@ libode:
 - 0.16.6
 libprotobuf:
 - 7.35.1
-libuuid:
-- '2'
-libxcb:
-- '1'
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:
-- linux-aarch64
+- win-64
 tbb_devel:
 - '2023'
 tinyxml2:
 - '11.0'
 urdfdom:
 - '6'
-zip_keys:
-- - c_compiler_version
-  - cxx_compiler_version

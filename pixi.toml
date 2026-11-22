@@ -38,186 +38,366 @@ description = "List contents of all packages found in rattler-build build direct
 [feature.build.tasks.build]
 cmd = "rattler-build build --recipe recipe"
 description = "Build gazebo-feedstock directly (without setup scripts), no particular variant specified"
-[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform linux-64"
-description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform linux-64"
-description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"
-[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform linux-64"
-description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform linux-64"
-description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"
-[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform linux-64"
-description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform linux-64"
-description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"
-[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform linux-64"
-description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform linux-64"
-description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignamehdf52"
-[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform linux-aarch64"
-description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform linux-aarch64"
-description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"
-[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform linux-aarch64"
-description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform linux-aarch64"
-description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"
-[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform linux-aarch64"
-description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform linux-aarch64"
-description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"
-[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform linux-aarch64"
-description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform linux-aarch64"
-description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignamehdf52"
-[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform osx-64"
-description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform osx-64"
-description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"
-[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform osx-64"
-description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform osx-64"
-description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"
-[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform osx-64"
-description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform osx-64"
-description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"
-[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform osx-64"
-description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform osx-64"
-description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignamehdf52"
-[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform osx-arm64"
-description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform osx-arm64"
-description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"
-[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform osx-arm64"
-description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform osx-arm64"
-description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"
-[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform osx-arm64"
-description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform osx-arm64"
-description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"
-[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform osx-arm64"
-description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform osx-arm64"
-description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52"
-[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform win-64"
-description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml --target-platform win-64"
-description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6"
-[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform win-64"
-description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml --target-platform win-64"
-description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52"
-[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform win-64"
-description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml --target-platform win-64"
-description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6 directly (without setup scripts)"
-[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6.yaml"
-description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6"
-[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform win-64"
-description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml --target-platform win-64"
-description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignamehdf52 directly (without setup scripts)"
-[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignamehdf52"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignamehdf52.yaml"
-description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignamehdf52"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-64"
+description = "Build gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-64"
+description = "Debug gazebo-feedstock with variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-aarch64"
+description = "Build gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform linux-aarch64"
+description = "Debug gazebo-feedstock with variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant linux_aarch64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-64"
+description = "Build gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-64"
+description = "Debug gazebo-feedstock with variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-arm64"
+description = "Build gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform osx-arm64"
+description = "Debug gazebo-feedstock with variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6"
+[feature.build.tasks."build-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform win-64"
+description = "Build gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."debug-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml --target-platform win-64"
+description = "Debug gazebo-feedstock with variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52 directly (without setup scripts)"
+[feature.build.tasks."inspect-win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52.yaml"
+description = "List contents of gazebo-feedstock packages built for variant win_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52"
 
 [environments]
 build = ["build"]

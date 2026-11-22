@@ -1,5 +1,7 @@
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
+GZ_QT_VARIANT:
+- qt5
 MACOSX_SDK_VERSION:
 - '12.0'
 assimp:
@@ -30,10 +32,12 @@ dartsim_cpp:
 - '6.19'
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
-- '2'
+- 1.14.6
 libabseil:
 - '20260817'
 libblas:
@@ -54,6 +58,8 @@ libxcb:
 - '1'
 macos_machine:
 - x86_64-apple-darwin13.4.0
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:

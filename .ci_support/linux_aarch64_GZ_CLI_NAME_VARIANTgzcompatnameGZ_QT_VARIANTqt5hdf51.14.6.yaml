@@ -2,6 +2,8 @@ DOCKER_PLATFORM:
 - linux/aarch64
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
+GZ_QT_VARIANT:
+- qt5
 assimp:
 - '6'
 bullet_cpp:
@@ -30,10 +32,12 @@ docker_image:
 - quay.io/condaforge/linux-anvil-aarch64:alma10
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
-- '2'
+- 1.14.6
 libabseil:
 - '20260817'
 libblas:
@@ -54,6 +58,8 @@ libuuid:
 - '2'
 libxcb:
 - '1'
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:

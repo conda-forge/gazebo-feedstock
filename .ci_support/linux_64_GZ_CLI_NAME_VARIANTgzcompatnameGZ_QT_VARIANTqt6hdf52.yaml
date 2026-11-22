@@ -1,7 +1,9 @@
 DOCKER_PLATFORM:
-- linux/aarch64
+- linux/amd64
 GZ_CLI_NAME_VARIANT:
 - gzcompatname
+GZ_QT_VARIANT:
+- qt6
 assimp:
 - '6'
 bullet_cpp:
@@ -27,13 +29,15 @@ cxx_compiler_version:
 dartsim_cpp:
 - '6.19'
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma10
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
-- 1.14.6
+- '2'
 libabseil:
 - '20260817'
 libblas:
@@ -54,10 +58,12 @@ libuuid:
 - '2'
 libxcb:
 - '1'
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:
-- linux-aarch64
+- linux-64
 tbb_devel:
 - '2023'
 tinyxml2:

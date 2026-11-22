@@ -1,13 +1,23 @@
 GZ_CLI_NAME_VARIANT:
-- origname
+- gzcompatname
+GZ_QT_VARIANT:
+- qt5
+MACOSX_SDK_VERSION:
+- '12.0'
 assimp:
 - '6'
+bullet_cpp:
+- '3.25'
+bzip2:
+- '1'
 c_compiler:
-- vs
+- clang
 c_compiler_version:
-- '2022'
+- '21'
 c_stdlib:
-- vs
+- macosx_deployment_target
+c_stdlib_version:
+- '12.0'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,17 +25,19 @@ channel_targets:
 curl:
 - '8'
 cxx_compiler:
-- vs
+- clangxx
 cxx_compiler_version:
-- '2022'
+- '21'
 dartsim_cpp:
 - '6.19'
 ffmpeg:
 - '9'
+glib:
+- '2'
 graphviz:
 - '14'
 hdf5:
-- '2'
+- 1.14.6
 libabseil:
 - '20260817'
 libblas:
@@ -42,13 +54,24 @@ libode:
 - 0.16.6
 libprotobuf:
 - 7.35.1
+libxcb:
+- '1'
+macos_machine:
+- arm64-apple-darwin20.0.0
+qt6_main:
+- '6.11'
 qt_main:
 - '5.15'
 target_platform:
-- win-64
+- osx-arm64
 tbb_devel:
 - '2023'
 tinyxml2:
 - '11.0'
 urdfdom:
 - '6'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+zlib:
+- '1'

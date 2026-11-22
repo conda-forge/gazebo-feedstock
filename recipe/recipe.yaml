@@ -54,7 +54,7 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - cmake
-    - pkg-config
+    - pkgconf
     - ninja
     # We need all host deps also in build for cross-compiling gazebomsgs_out
     - if: build_platform != target_platform
@@ -217,8 +217,10 @@ tests:
 
 about:
   homepage: http://classic.gazebosim.org/
-  # the Qt 6 builds include qttools' property browser (LGPL-3.0-only)
-  license: ${{ "Apache-2.0 AND LGPL-3.0-only" if GZ_QT_VARIANT == "qt6" else "Apache-2.0" }}
+  # gazebo is Apache-2.0; its GUI includes a Qt property browser: the Qt 5 builds the one
+  # bundled with gazebo (Qt Solutions, BSD-3-Clause), the Qt 6 builds the one from qttools
+  # (LGPL-3.0-only)
+  license: Apache-2.0 AND BSD-3-Clause AND LGPL-3.0-only
   license_file:
     - LICENSE
     - if: GZ_QT_VARIANT == "qt6"

@@ -8,7 +8,9 @@ context:
   # The origname variant gets a higher build number so that it has higher priority,
   # and so do the Qt 5 builds over the Qt 6 ones (see conda_build_config.yaml)
   variant_build_number: ${{ build_number + (200 if GZ_CLI_NAME_VARIANT == "origname" else 0) + (100 if GZ_QT_VARIANT == "qt5" else 0) }}
-  qt_string: ${{ "qt6" if GZ_QT_VARIANT == "qt6" else "" }}
+  # Qt major version of this build and of the other one, for the linkage tests
+  qt_major: ${{ GZ_QT_VARIANT[2:] }}
+  qt_other_major: ${{ "5" if GZ_QT_VARIANT == "qt6" else "6" }}
   # gazebo bundles the Qt 4/5-only Qt Solutions property browser; for Qt 6, build.sh
   # replaces it with the Qt 6 port that qttools ships (src/shared/qtpropertybrowser)
   qttools_version: "6.11.1"
@@ -42,7 +44,7 @@ source:
 
 build:
   number: ${{ variant_build_number }}
-  string: ${{ qt_string }}${{ GZ_CLI_NAME_VARIANT }}h${{ hash }}_${{ variant_build_number }}
+  string: ${{ GZ_QT_VARIANT }}${{ GZ_CLI_NAME_VARIANT }}h${{ hash }}_${{ variant_build_number }}
   script:
     env:
       GZ_CLI_NAME_VARIANT: ${{ GZ_CLI_NAME_VARIANT }}
@@ -72,8 +74,8 @@ requirements:
         - freeimage
         - curl
         - tbb-devel
-        # qwt 6.3 is the one built against Qt 6 as well
-        - ${{ "qwt 6.3.*" if GZ_QT_VARIANT == "qt6" else "qwt" }}
+        # qwt 6.3 is built against Qt 6, qwt 6.2 against Qt 5
+        - ${{ "qwt >=6.3.0" if GZ_QT_VARIANT == "qt6" else "qwt <6.3.0" }}
         - tinyxml2
         - libtar
         - libccd-double
@@ -120,8 +122,8 @@ requirements:
     - freeimage
     - curl
     - tbb-devel
-    # qwt 6.3 is the one built against Qt 6 as well
-    - ${{ "qwt 6.3.*" if GZ_QT_VARIANT == "qt6" else "qwt" }}
+    # qwt 6.3 is built against Qt 6, qwt 6.2 against Qt 5
+    - ${{ "qwt >=6.3.0" if GZ_QT_VARIANT == "qt6" else "qwt <6.3.0" }}
     - tinyxml2
     - libccd-double
     - libboost-devel
@@ -177,6 +179,9 @@ requirements:
     - ogre >=1.10.12.1
   run_exports:
     - ${{ pin_subpackage('gazebo', upper_bound='x') }}
+    # gazebo's public headers expose Qt, so downstream packages must keep the Qt variant
+    # they were built against
+    - gazebo * ${{ GZ_QT_VARIANT }}*
   run_constraints:
     # Prevent to install side-by-side installation with libgz-tools2 or libgz-tools
     - if: GZ_CLI_NAME_VARIANT == "origname"
@@ -206,21 +211,25 @@ tests:
       # gz11 prints its help on stderr, so we only check that it exits successfully
       - gz11 help
       # the GUI links the Qt major version of its variant, and only that one
-      - if: GZ_QT_VARIANT == "qt6" and osx
+      - if: osx
         then:
-          - grep -q libQt6Core $PREFIX/lib/libgazebo_gui.dylib
-          - "! grep -q libQt5Core $PREFIX/lib/libgazebo_gui.dylib"
-      - if: GZ_QT_VARIANT == "qt6" and linux
+          - otool -L $PREFIX/lib/libgazebo_gui.dylib | grep -q libQt${{ qt_major }}Core
+          - "! otool -L $PREFIX/lib/libgazebo_gui.dylib | grep -q libQt${{ qt_other_major }}"
+      - if: linux
         then:
-          - grep -q libQt6Core $PREFIX/lib/libgazebo_gui.so
-          - "! grep -q libQt5Core $PREFIX/lib/libgazebo_gui.so"
+          - patchelf --print-needed $PREFIX/lib/libgazebo_gui.so | grep -q libQt${{ qt_major }}Core
+          - "! patchelf --print-needed $PREFIX/lib/libgazebo_gui.so | grep -q libQt${{ qt_other_major }}"
+    requirements:
+      run:
+        - if: linux
+          then: patchelf
 
 about:
   homepage: http://classic.gazebosim.org/
   # gazebo is Apache-2.0; its GUI includes a Qt property browser: the Qt 5 builds the one
   # bundled with gazebo (Qt Solutions, BSD-3-Clause), the Qt 6 builds the one from qttools
   # (LGPL-3.0-only)
-  license: Apache-2.0 AND BSD-3-Clause AND LGPL-3.0-only
+  license: ${{ "Apache-2.0 AND LGPL-3.0-only" if GZ_QT_VARIANT == "qt6" else "Apache-2.0 AND BSD-3-Clause" }}
   license_file:
     - LICENSE
     - if: GZ_QT_VARIANT == "qt6"
@@ -233,8 +242,9 @@ about:
     So, this feedstock is building two different variants of the `gazebo` conda package:
       * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
       * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
-    Each of them is also built against Qt 6, with `qt6` at the start of the build string
-    (for example `gazebo=*=qt6*`); the Qt 5 builds stay the default.
+    Each of them is built against Qt 5 and against Qt 6, with `qt5` or `qt6` at the start of
+    the build string (for example `gazebo=*=qt6*`); the Qt 5 builds stay the default.
+    Packages built against gazebo keep the Qt variant they were built with (run_exports).
 
 extra:
   recipe-maintainers:

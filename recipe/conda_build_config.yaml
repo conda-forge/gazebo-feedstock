@@ -9,3 +9,11 @@
 GZ_CLI_NAME_VARIANT:
   - "origname"
   - "gzcompatname"
+
+# The GUI is built against Qt 5 (qt-main) and against Qt 6 (qt6-main),
+# for environments that are Qt 6 only such as RoboStack's ROS 1. The Qt 5 builds keep their
+# build strings and a higher build number, so they stay the default; the Qt 6 builds carry
+# "qt6" at the start of their build string (`gazebo=*=qt6*`).
+GZ_QT_VARIANT:
+  - qt5
+  - qt6

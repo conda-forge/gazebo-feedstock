@@ -12,6 +12,16 @@ if "%GZ_CLI_NAME_VARIANT%"=="gzcompatname" (
   set "CMAKE_ARGS=%CMAKE_ARGS% -DGZ_CLI_EXECUTABLE_NAME=gz11"
 )
 
+:: The bundled Qt Solutions property browser does not build against Qt 6: use the Qt 6 port
+:: from qttools (same API), and keep gazebo's header names as shims to its private headers
+if "%GZ_QT_VARIANT%"=="qt6" (
+  copy /Y qttools\src\shared\qtpropertybrowser\*.cpp gazebo\gui\qtpropertybrowser\ || exit 1
+  copy /Y qttools\src\shared\qtpropertybrowser\*_p.h gazebo\gui\qtpropertybrowser\ || exit 1
+  for %%h in (qtbuttonpropertybrowser qteditorfactory qtgroupboxpropertybrowser qtpropertybrowser qtpropertymanager qttreepropertybrowser qtvariantproperty) do (
+    echo #include "%%h_p.h"> gazebo\gui\qtpropertybrowser\%%h.h
+  )
+)
+
 mkdir build
 cd build
 cmake %CMAKE_ARGS% ^

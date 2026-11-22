@@ -1,3 +1,14 @@
+if [[ "${GZ_QT_VARIANT}" == "qt6" ]]; then
+  # The bundled Qt Solutions property browser does not build against Qt 6: use the Qt 6 port
+  # from qttools (same API), and keep gazebo's header names as shims to its private headers
+  pb=gazebo/gui/qtpropertybrowser
+  cp qttools/src/shared/qtpropertybrowser/*.cpp qttools/src/shared/qtpropertybrowser/*_p.h $pb/
+  for h in qtbuttonpropertybrowser qteditorfactory qtgroupboxpropertybrowser qtpropertybrowser \
+           qtpropertymanager qttreepropertybrowser qtvariantproperty; do
+    echo "#include \"${h}_p.h\"" > $pb/${h}.h
+  done
+fi
+
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   (
     mkdir -p build-host
@@ -18,7 +29,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -DCMAKE_PREFIX_PATH=$BUILD_PREFIX -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True \
-      -DDCMAKE_CXX_STANDARD=17
+      -DCMAKE_CXX_STANDARD=17 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
     # No need to compile everything, just gazebomsgs_out is sufficient
     cmake --build . --target gazebomsgs_out --parallel ${CPU_COUNT} --config Release
@@ -51,7 +62,8 @@ cmake ${CMAKE_ARGS} .. \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DBoost_NO_BOOST_CMAKE=OFF \
       -DBoost_DEBUG=OFF \
-      -DHAVE_OPENAL:BOOL=OFF
+      -DHAVE_OPENAL:BOOL=OFF \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 cmake --build . --config Release -- -j$CPU_COUNT
 cmake --build . --config Release --target install

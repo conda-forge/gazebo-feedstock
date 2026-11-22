@@ -1,0 +1,376 @@
+From 58b888d5a2ba9aac0327e5f822422063b2a4ed9f Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Sat, 21 Nov 2026 10:37:03 +0000
+Subject: [PATCH 4/5] gui: Qt 6 compile fixes
+
+- qt.h: QAction/QActionGroup/QShortcut moved to QtGui, drop QDesktopWidget
+- enterEvent(QEvent*) -> enterEvent(QEnterEvent*) (silently stopped overriding)
+- QStyleOption::init -> initFrom
+- QFontMetrics::width -> horizontalAdvance
+- QWheelEvent::pos -> position
+- QSortFilterProxyModel::filterChanged -> invalidateFilter
+- QFileDialog::DirectoryOnly -> Directory + ShowDirsOnly
+- QString::null, QApplication::flush removed
+- int -> Qt::Alignment, QPixmap -> QCursor explicit
+---
+ gazebo/gui/GLWidget.cc                       | 4 ++--
+ gazebo/gui/GLWidget.hh                       | 2 +-
+ gazebo/gui/GuiPlugin.hh                      | 2 +-
+ gazebo/gui/RenderWidget.cc                   | 2 +-
+ gazebo/gui/building/BuildingEditorPalette.cc | 2 +-
+ gazebo/gui/building/EditorView.cc            | 2 +-
+ gazebo/gui/building/MeasureItem.cc           | 2 +-
+ gazebo/gui/model/GraphView.cc                | 2 +-
+ gazebo/gui/model/JointInspector.cc           | 2 +-
+ gazebo/gui/model/JointInspector.hh           | 2 +-
+ gazebo/gui/model/LinkInspector.cc            | 2 +-
+ gazebo/gui/model/LinkInspector.hh            | 2 +-
+ gazebo/gui/model/ModelEditorPalette.cc       | 2 +-
+ gazebo/gui/model/ModelPluginInspector.cc     | 2 +-
+ gazebo/gui/model/ModelPluginInspector.hh     | 2 +-
+ gazebo/gui/plot/ExportDialog.cc              | 5 +++--
+ gazebo/gui/plot/IncrementalPlot.cc           | 2 +-
+ gazebo/gui/plot/Palette.cc                   | 6 +++---
+ gazebo/gui/plot/PlotTracker.cc               | 2 +-
+ gazebo/gui/qt.h                              | 6 +++---
+ gazebo/gui/viewers/LaserView.cc              | 4 ++--
+ 21 files changed, 29 insertions(+), 28 deletions(-)
+
+diff --git a/gazebo/gui/GLWidget.cc b/gazebo/gui/GLWidget.cc
+index 438d516..38d3b43 100644
+--- a/gazebo/gui/GLWidget.cc
++++ b/gazebo/gui/GLWidget.cc
+@@ -231,7 +231,7 @@ bool GLWidget::eventFilter(QObject * /*_obj*/, QEvent *_event)
+ void GLWidget::showEvent(QShowEvent *_event)
+ {
+   // This function is most applicable for Linux.
+-  QApplication::flush();
++  // QApplication::flush() was removed in Qt 6 (it was a no-op on most platforms)
+ 
+   if (this->dataPtr->windowId <=0)
+   {
+@@ -262,7 +262,7 @@ void GLWidget::showEvent(QShowEvent *_event)
+ }
+ 
+ /////////////////////////////////////////////////
+-void GLWidget::enterEvent(QEvent * /*_event*/)
++void GLWidget::enterEvent(QEnterEvent * /*_event*/)
+ {
+ }
+ 
+diff --git a/gazebo/gui/GLWidget.hh b/gazebo/gui/GLWidget.hh
+index f57b7c0..d43ec06 100644
+--- a/gazebo/gui/GLWidget.hh
++++ b/gazebo/gui/GLWidget.hh
+@@ -94,7 +94,7 @@ namespace gazebo
+       /// \param[in] _e The QT show event information.
+       protected: virtual void showEvent(QShowEvent *_e);
+ 
+-      protected: virtual void enterEvent(QEvent *_event);
++      protected: virtual void enterEvent(QEnterEvent *_event);
+ 
+ 
+       protected: void keyPressEvent(QKeyEvent *_event);
+diff --git a/gazebo/gui/GuiPlugin.hh b/gazebo/gui/GuiPlugin.hh
+index 96af883..9854c57 100644
+--- a/gazebo/gui/GuiPlugin.hh
++++ b/gazebo/gui/GuiPlugin.hh
+@@ -43,7 +43,7 @@ namespace gazebo
+     public: virtual void paintEvent(QPaintEvent *)
+     {
+       QStyleOption opt;
+-      opt.init(this);
++      opt.initFrom(this);
+       QPainter p(this);
+       style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+     }
+diff --git a/gazebo/gui/RenderWidget.cc b/gazebo/gui/RenderWidget.cc
+index c4eebd2..7f6acef 100644
+--- a/gazebo/gui/RenderWidget.cc
++++ b/gazebo/gui/RenderWidget.cc
+@@ -210,7 +210,7 @@ void RenderWidget::DisplayOverlayMsg(const std::string &_msg, int _duration)
+     return;
+   }
+   this->msgOverlayLabel->resize(
+-      this->msgOverlayLabel->fontMetrics().width(tr(msg.c_str())),
++      this->msgOverlayLabel->fontMetrics().horizontalAdvance(tr(msg.c_str())),
+       this->msgOverlayLabel->fontMetrics().height());
+   this->msgOverlayLabel->setVisible(true);
+ 
+diff --git a/gazebo/gui/building/BuildingEditorPalette.cc b/gazebo/gui/building/BuildingEditorPalette.cc
+index 44e9fa3..745de01 100644
+--- a/gazebo/gui/building/BuildingEditorPalette.cc
++++ b/gazebo/gui/building/BuildingEditorPalette.cc
+@@ -482,7 +482,7 @@ void BuildingEditorPalette::OnTexture(int _textureId)
+     QPixmap textureCursor(this->dataPtr->textureList[_textureId]);
+     textureCursor = textureCursor.scaled(QSize(30, 30), Qt::IgnoreAspectRatio,
+         Qt::SmoothTransformation);
+-    QApplication::setOverrideCursor(textureCursor);
++    QApplication::setOverrideCursor(QCursor(textureCursor));
+   }
+   else
+   {
+diff --git a/gazebo/gui/building/EditorView.cc b/gazebo/gui/building/EditorView.cc
+index 63ce43b..6d4023a 100644
+--- a/gazebo/gui/building/EditorView.cc
++++ b/gazebo/gui/building/EditorView.cc
+@@ -217,7 +217,7 @@ void EditorView::wheelEvent(QWheelEvent *_event)
+   int numSteps = delta / wheelIncr;
+ 
+   QTransform mat = transform();
+-  QPointF mousePosition = _event->pos();
++  QPointF mousePosition = _event->position();
+ 
+   mat.translate((width()/2) - mousePosition.x(), (height() / 2) -
+     mousePosition.y());
+diff --git a/gazebo/gui/building/MeasureItem.cc b/gazebo/gui/building/MeasureItem.cc
+index bf3afa7..f4c58e3 100644
+--- a/gazebo/gui/building/MeasureItem.cc
++++ b/gazebo/gui/building/MeasureItem.cc
+@@ -84,7 +84,7 @@ void MeasureItem::paint(QPainter *_painter,
+          << this->dataPtr->value << " m";
+ 
+   double margin = 10;
+-  float textWidth = _painter->fontMetrics().width(stream.str().c_str());
++  float textWidth = _painter->fontMetrics().horizontalAdvance(stream.str().c_str());
+   float textHeight = _painter->fontMetrics().height();
+ 
+   float posX = (p1.x()+p2.x())/2;
+diff --git a/gazebo/gui/model/GraphView.cc b/gazebo/gui/model/GraphView.cc
+index a4ed89f..9f4990f 100644
+--- a/gazebo/gui/model/GraphView.cc
++++ b/gazebo/gui/model/GraphView.cc
+@@ -75,7 +75,7 @@ void GraphView::wheelEvent(QWheelEvent *_event)
+   int numSteps = delta / wheelIncr;
+ 
+   QTransform mat = transform();
+-  QPointF mousePosition = _event->pos();
++  QPointF mousePosition = _event->position();
+ 
+   mat.translate((width()/2) - mousePosition.x(), (height()/2) -
+     mousePosition.y());
+diff --git a/gazebo/gui/model/JointInspector.cc b/gazebo/gui/model/JointInspector.cc
+index 662fda2..bd6b911 100644
+--- a/gazebo/gui/model/JointInspector.cc
++++ b/gazebo/gui/model/JointInspector.cc
+@@ -646,7 +646,7 @@ void JointInspector::OnOK()
+ }
+ 
+ /////////////////////////////////////////////////
+-void JointInspector::enterEvent(QEvent */*_event*/)
++void JointInspector::enterEvent(QEnterEvent */*_event*/)
+ {
+   QApplication::setOverrideCursor(Qt::ArrowCursor);
+ }
+diff --git a/gazebo/gui/model/JointInspector.hh b/gazebo/gui/model/JointInspector.hh
+index c414bc4..43647c6 100644
+--- a/gazebo/gui/model/JointInspector.hh
++++ b/gazebo/gui/model/JointInspector.hh
+@@ -73,7 +73,7 @@ namespace gazebo
+ 
+       /// \brief Qt event emiited when the mouse enters this widget.
+       /// \param[in] _event Qt event.
+-      protected: virtual void enterEvent(QEvent *_event);
++      protected: virtual void enterEvent(QEnterEvent *_event);
+ 
+       /// \brief Qt callback when an enum value has changed.
+       /// \param[in] _name of widget in the config widget that emitted the
+diff --git a/gazebo/gui/model/LinkInspector.cc b/gazebo/gui/model/LinkInspector.cc
+index 4962597..b0cc27d 100644
+--- a/gazebo/gui/model/LinkInspector.cc
++++ b/gazebo/gui/model/LinkInspector.cc
+@@ -269,7 +269,7 @@ void LinkInspector::OnOK()
+ }
+ 
+ /////////////////////////////////////////////////
+-void LinkInspector::enterEvent(QEvent */*_event*/)
++void LinkInspector::enterEvent(QEnterEvent */*_event*/)
+ {
+   QApplication::setOverrideCursor(Qt::ArrowCursor);
+ }
+diff --git a/gazebo/gui/model/LinkInspector.hh b/gazebo/gui/model/LinkInspector.hh
+index f590694..a7d6940 100644
+--- a/gazebo/gui/model/LinkInspector.hh
++++ b/gazebo/gui/model/LinkInspector.hh
+@@ -88,7 +88,7 @@ namespace gazebo
+ 
+       /// \brief Qt event emiited when the mouse enters this widget.
+       /// \param[in] _event Qt event.
+-      protected: virtual void enterEvent(QEvent *_event);
++      protected: virtual void enterEvent(QEnterEvent *_event);
+ 
+       /// \brief Computes volume of associated link.
+       /// \return The volume.
+diff --git a/gazebo/gui/model/ModelEditorPalette.cc b/gazebo/gui/model/ModelEditorPalette.cc
+index 6c5b906..c1538b1 100644
+--- a/gazebo/gui/model/ModelEditorPalette.cc
++++ b/gazebo/gui/model/ModelEditorPalette.cc
+@@ -127,7 +127,7 @@ ModelEditorPalette::ModelEditorPalette(QWidget *_parent)
+   customButton->setCheckable(true);
+   customButton->setChecked(false);
+   connect(customButton, SIGNAL(clicked()), this, SLOT(OnCustom()));
+-  customLayout->addWidget(customButton, 0, 0);
++  customLayout->addWidget(customButton, 0, Qt::Alignment());
+ 
+   // Button group
+   this->dataPtr->linkButtonGroup = new QButtonGroup;
+diff --git a/gazebo/gui/model/ModelPluginInspector.cc b/gazebo/gui/model/ModelPluginInspector.cc
+index d9e2e75..6d3919c 100644
+--- a/gazebo/gui/model/ModelPluginInspector.cc
++++ b/gazebo/gui/model/ModelPluginInspector.cc
+@@ -139,7 +139,7 @@ void ModelPluginInspector::OnOK()
+ }
+ 
+ /////////////////////////////////////////////////
+-void ModelPluginInspector::enterEvent(QEvent */*_event*/)
++void ModelPluginInspector::enterEvent(QEnterEvent */*_event*/)
+ {
+   QApplication::setOverrideCursor(Qt::ArrowCursor);
+ }
+diff --git a/gazebo/gui/model/ModelPluginInspector.hh b/gazebo/gui/model/ModelPluginInspector.hh
+index 93c5202..f1f5eee 100644
+--- a/gazebo/gui/model/ModelPluginInspector.hh
++++ b/gazebo/gui/model/ModelPluginInspector.hh
+@@ -59,7 +59,7 @@ namespace gazebo
+ 
+       /// \brief Qt event emiited when the mouse enters this widget.
+       /// \param[in] _event Qt event.
+-      protected: virtual void enterEvent(QEvent *_event);
++      protected: virtual void enterEvent(QEnterEvent *_event);
+ 
+      /// \brief Qt signal emitted to indicate that changes should be applied.
+       Q_SIGNALS: void Applied();
+diff --git a/gazebo/gui/plot/ExportDialog.cc b/gazebo/gui/plot/ExportDialog.cc
+index a6ee6b9..44e3b26 100644
+--- a/gazebo/gui/plot/ExportDialog.cc
++++ b/gazebo/gui/plot/ExportDialog.cc
+@@ -101,7 +101,7 @@ class PlotViewDelegate : public QStyledItemDelegate
+ 
+             int checkSize = 24;
+             int checkMargin = 4;
+-            int checkTitleWidth = fm.width(title) + checkSize + checkMargin;
++            int checkTitleWidth = fm.horizontalAdvance(title) + checkSize + checkMargin;
+ 
+             // Draw the checkbox
+             QRectF checkRect = _opt.rect;
+@@ -312,7 +312,8 @@ void ExportDialog::OnExport(FileType _type)
+   fileDialog.setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
+       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
+   fileDialog.setAcceptMode(QFileDialog::AcceptSave);
+-  fileDialog.setFileMode(QFileDialog::DirectoryOnly);
++  fileDialog.setFileMode(QFileDialog::Directory);
++  fileDialog.setOption(QFileDialog::ShowDirsOnly, true);
+ 
+   if (fileDialog.exec() != QDialog::Accepted)
+     return;
+diff --git a/gazebo/gui/plot/IncrementalPlot.cc b/gazebo/gui/plot/IncrementalPlot.cc
+index 90a72a7..17ec3ea 100644
+--- a/gazebo/gui/plot/IncrementalPlot.cc
++++ b/gazebo/gui/plot/IncrementalPlot.cc
+@@ -55,7 +55,7 @@ namespace gazebo
+       /// \param[in] _wheelEvent Qt mouse wheel event
+       protected: virtual void widgetWheelEvent(QWheelEvent *_wheelEvent)
+               {
+-                this->mousePos = _wheelEvent->pos();
++                this->mousePos = _wheelEvent->position().toPoint();
+ 
+                 QwtMagnifier::widgetWheelEvent(_wheelEvent);
+               }
+diff --git a/gazebo/gui/plot/Palette.cc b/gazebo/gui/plot/Palette.cc
+index 9f8fd29..5484325 100644
+--- a/gazebo/gui/plot/Palette.cc
++++ b/gazebo/gui/plot/Palette.cc
+@@ -234,7 +234,7 @@ class PlotItemDelegate : public QStyledItemDelegate
+         _painter->drawText(textRect, textStr);
+ 
+         // Move rect to the right
+-        textRect.adjust(fmRegular.width(textStr), 0, 0, 0);
++        textRect.adjust(fmRegular.horizontalAdvance(textStr), 0, 0, 0);
+ 
+         // Next, paint text that is bold
+         textStr = QString::fromStdString(text.substr(renderPos, len));
+@@ -244,7 +244,7 @@ class PlotItemDelegate : public QStyledItemDelegate
+         _painter->drawText(textRect, textStr);
+ 
+         // Move rect to the right
+-        textRect.adjust(fmBold.width(textStr), 0, 0, 0);
++        textRect.adjust(fmBold.horizontalAdvance(textStr), 0, 0, 0);
+       }
+ 
+       // Render any remaining text.
+@@ -436,7 +436,7 @@ bool SearchModel::hasChildAcceptsItself(const QModelIndex &_srcParent,
+ void SearchModel::SetSearch(const QString &_search)
+ {
+   this->search = _search;
+-  this->filterChanged();
++  this->invalidateFilter();
+ }
+ 
+ /////////////////////////////////////////////////
+diff --git a/gazebo/gui/plot/PlotTracker.cc b/gazebo/gui/plot/PlotTracker.cc
+index 509e90b..d4b8957 100644
+--- a/gazebo/gui/plot/PlotTracker.cc
++++ b/gazebo/gui/plot/PlotTracker.cc
+@@ -239,7 +239,7 @@ QString PlotTracker::CurveInfoAt(const QwtPlotCurve *curve,
+ {
+   const QLineF line = this->CurveLineAt(curve, _pos.x());
+   if (line.isNull())
+-    return QString::null;
++    return QString();
+ 
+   // interpolate
+   const double y = line.pointAt(
+diff --git a/gazebo/gui/qt.h b/gazebo/gui/qt.h
+index 218454b..eccc8c4 100644
+--- a/gazebo/gui/qt.h
++++ b/gazebo/gui/qt.h
+@@ -36,13 +36,13 @@
+ #include <QtGui/QVector3D>
+ #include <QtGui/QWindow>
+ 
+-#include <QtWidgets/QAction>
++#include <QtGui/QAction>
++#include <QtGui/QActionGroup>
+ #include <QtWidgets/QApplication>
+ #include <QtWidgets/QButtonGroup>
+ #include <QtWidgets/QCheckBox>
+ #include <QtWidgets/QColorDialog>
+ #include <QtWidgets/QComboBox>
+-#include <QtWidgets/QDesktopWidget>
+ #include <QtWidgets/QDialogButtonBox>
+ #include <QtWidgets/QDoubleSpinBox>
+ #include <QtWidgets/QFileDialog>
+@@ -66,7 +66,7 @@
+ #include <QtWidgets/QPushButton>
+ #include <QtWidgets/QRadioButton>
+ #include <QtWidgets/QScrollArea>
+-#include <QtWidgets/QShortcut>
++#include <QtGui/QShortcut>
+ #include <QtWidgets/QSizeGrip>
+ #include <QtWidgets/QSplashScreen>
+ #include <QtWidgets/QSplitter>
+diff --git a/gazebo/gui/viewers/LaserView.cc b/gazebo/gui/viewers/LaserView.cc
+index c142854..f003386 100644
+--- a/gazebo/gui/viewers/LaserView.cc
++++ b/gazebo/gui/viewers/LaserView.cc
+@@ -297,7 +297,7 @@ void LaserView::LaserItem::paint(QPainter *_painter,
+ 
+     // Compute the text scaling factor.
+     float textFactor = textBoxWidth /
+-      _painter->fontMetrics().width(stream.str().c_str());
++      _painter->fontMetrics().horizontalAdvance(stream.str().c_str());
+ 
+     // Set the font according to the scaling factor.
+     QFont f = _painter->font();
+@@ -305,7 +305,7 @@ void LaserView::LaserItem::paint(QPainter *_painter,
+     _painter->setFont(f);
+ 
+     // The final text width and height
+-    float textWidth = _painter->fontMetrics().width(stream.str().c_str());
++    float textWidth = _painter->fontMetrics().horizontalAdvance(stream.str().c_str());
+     float textHeight = _painter->fontMetrics().height();
+ 
+     // Compute the additional offset to apply to the range text. This will
+-- 
+2.53.0
+

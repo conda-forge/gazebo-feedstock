@@ -1,0 +1,26 @@
+Build the qttools copy of the property browser (Qt 6) that build.sh puts in place of
+the bundled Qt Solutions one: its private headers and C++17.
+
+diff --git a/gazebo/gui/qtpropertybrowser/CMakeLists.txt b/gazebo/gui/qtpropertybrowser/CMakeLists.txt
+index 8230686..eb5b638 100644
+--- a/gazebo/gui/qtpropertybrowser/CMakeLists.txt
++++ b/gazebo/gui/qtpropertybrowser/CMakeLists.txt
+@@ -20,6 +20,9 @@ set (qt_headers qtpropertybrowser.h
+                 qtbuttonpropertybrowser.h
+                 qtgroupboxpropertybrowser.h
+                 qtpropertybrowserutils_p.h
++                qtpropertybrowser_p.h qtpropertymanager_p.h qteditorfactory_p.h
++                qtvariantproperty_p.h qttreepropertybrowser_p.h
++                qtbuttonpropertybrowser_p.h qtgroupboxpropertybrowser_p.h
+   )
+ 
+ set (resources qtpropertybrowser.qrc)
+@@ -33,7 +36,7 @@ if (NOT MSVC)
+   if(CMAKE_VERSION VERSION_LESS 3.8.2)
+     target_compile_options(gzqtpropertybrowser PUBLIC -std=c++11)
+   else()
+-    target_compile_features(gzqtpropertybrowser PUBLIC cxx_std_11)
++    target_compile_features(gzqtpropertybrowser PUBLIC cxx_std_17)
+   endif()
+ endif()
+ #set(CMAKE_PACKAGE_QTGUI TRUE)

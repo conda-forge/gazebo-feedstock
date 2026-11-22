@@ -5,89 +5,169 @@
 jobs:
 - job: osx
   pool:
-    vmImage: $(VMIMAGE)
+    vmImage: $(vm_image)
   strategy:
     matrix:
-      osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_64_GZ_CLI_NAME_VARIANTorignamehdf52:
-        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignamehdf52
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52:
-        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52
+        vm_image: macOS-15
+      osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52:
+        CONFIG: osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52
         UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15-arm64
         build_workspace_dir: ~/miniforge3/conda-bld
         free_disk_space: skip
         pagefile_size: 0
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
+        vm_image: macOS-15
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
+      osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52:
+        CONFIG: osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52
+        UPLOAD_PACKAGES: 'True'
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+        vm_image: macOS-15-arm64
   timeoutInMinutes: 360
   variables: {}
 

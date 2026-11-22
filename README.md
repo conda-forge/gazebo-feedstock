@@ -3,6 +3,10 @@ About gazebo-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gazebo-feedstock/blob/main/LICENSE.txt)
 
+
+About gazebo
+------------
+
 Home: http://classic.gazebosim.org/
 
 Package license: Apache-2.0
@@ -15,7 +19,26 @@ To simplify migration to gz-sim, we want to permit to side-by-side installation 
 So, this feedstock is building two different variants of the `gazebo` conda package:
   * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
   * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
+Each of them is also built against Qt 6, with `qt6` at the start of the build string
+(for example `gazebo=*=qt6*`); the Qt 5 builds stay the default.
 
+About gazebo
+------------
+
+Home: http://classic.gazebosim.org/
+
+Package license: Apache-2.0 AND LGPL-3.0-only
+
+Summary: Gazebo Classic robot simulator for research, design, and development.
+
+This feedstock packages the Gazebo Classic simulator, that will not be supported past 2025.
+For new development, please consider migrating to Modern gz-sim simulator, available in conda-forge.
+To simplify migration to gz-sim, we want to permit to side-by-side installation of gazebo and libgz-tools2, however they both install a command called `gz`.
+So, this feedstock is building two different variants of the `gazebo` conda package:
+  * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
+  * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
+Each of them is also built against Qt 6, with `qt6` at the start of the build string
+(for example `gazebo=*=qt6*`); the Qt 5 builds stay the default.
 
 Current build status
 ====================
@@ -42,59 +65,115 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_GZ_CLI_NAME_VARIANTorignamehdf52</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignamehdf52" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf51.14.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnamehdf52" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf51.14.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52</td>
+              <td>osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignamehdf52" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt5hdf52" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTgzcompatnameGZ_QT_VARIANTqt6hdf52" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt5hdf52" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=8325&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gazebo-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_GZ_CLI_NAME_VARIANTorignameGZ_QT_VARIANTqt6hdf52" alt="variant">
                 </a>
               </td>
             </tr>
@@ -204,6 +283,7 @@ mamba repoquery depends gazebo --channel conda-forge
 </details>
 
 
+
 About conda-forge
 =================
 
@@ -218,9 +298,7 @@ for each of the installable packages. Such a repository is known as a *feedstock
 A feedstock is made up of a conda recipe (the instructions on what and how to build
 the package) and the necessary configurations for automatic building using freely
 available continuous integration services. Thanks to the awesome service provided by
-[Azure](https://azure.microsoft.com/en-us/services/devops/), [GitHub](https://github.com/),
-[CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
-[Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
+[Azure](https://azure.microsoft.com/en-us/services/devops/) and [GitHub](https://github.com/)
 it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.

@@ -1,0 +1,60 @@
+GZ_CLI_NAME_VARIANT:
+- origname
+GZ_QT_VARIANT:
+- qt6
+assimp:
+- '6'
+c_compiler:
+- vs
+c_compiler_version:
+- '2022'
+c_stdlib:
+- vs
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '8'
+cxx_compiler:
+- vs
+cxx_compiler_version:
+- '2022'
+dartsim_cpp:
+- '6.19'
+ffmpeg:
+- '9'
+glib:
+- '2'
+graphviz:
+- '14'
+hdf5:
+- 1.14.6
+libabseil:
+- '20260817'
+libblas:
+- 3.9.* *netlib
+libboost_devel:
+- '1.90'
+libcblas:
+- 3.9.* *netlib
+libcurl:
+- '8'
+libgdal_core:
+- '3.13'
+libode:
+- 0.16.6
+libprotobuf:
+- 7.35.1
+qt6_main:
+- '6.11'
+qt_main:
+- '5.15'
+target_platform:
+- win-64
+tbb_devel:
+- '2023'
+tinyxml2:
+- '11.0'
+urdfdom:
+- '6'

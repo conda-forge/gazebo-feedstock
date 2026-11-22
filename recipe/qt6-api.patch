@@ -1,0 +1,272 @@
+From 657068e0e938a7fefb07623175a64d87dc14d453 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Sat, 21 Nov 2026 10:12:13 +0000
+Subject: [PATCH 3/5] gui: Qt 6 API fixes (QSignalMapper/QComboBox/QButtonGroup
+ signals, QMatrix, grabWindow)
+
+String-based SIGNAL() connections to signals removed in Qt 6 compile but
+silently fail to connect at runtime:
+- QSignalMapper::mapped(QString|int) -> mappedString/mappedInt
+- QComboBox::currentIndexChanged(QString) -> currentTextChanged
+- QSpinBox::valueChanged(QString) -> textChanged
+- QButtonGroup::buttonClicked(int) -> idClicked
+QMatrix -> QTransform, QPixmap::grabWindow -> QWidget::grab.
+---
+ gazebo/gui/AlignWidget.cc                    | 2 +-
+ gazebo/gui/ApplyWrenchDialog.cc              | 2 +-
+ gazebo/gui/ConfigWidget.cc                   | 8 ++++----
+ gazebo/gui/VideoRecorder.cc                  | 2 +-
+ gazebo/gui/building/BuildingEditorPalette.cc | 2 +-
+ gazebo/gui/building/EditorView.cc            | 4 ++--
+ gazebo/gui/model/CollisionConfig.cc          | 6 +++---
+ gazebo/gui/model/GraphView.cc                | 4 ++--
+ gazebo/gui/model/JointCreationDialog.cc      | 4 ++--
+ gazebo/gui/model/ModelCreator.cc             | 4 ++--
+ gazebo/gui/model/ModelEditor.cc              | 2 +-
+ gazebo/gui/model/VisualConfig.cc             | 4 ++--
+ gazebo/gui/plot/ExportDialog.cc              | 2 +-
+ 13 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/gazebo/gui/AlignWidget.cc b/gazebo/gui/AlignWidget.cc
+index ddf239f..1a374d7 100644
+--- a/gazebo/gui/AlignWidget.cc
++++ b/gazebo/gui/AlignWidget.cc
+@@ -37,7 +37,7 @@ AlignWidget::AlignWidget(QWidget *_parent)
+   this->dataPtr->zAlignBar->addWidget(zAlignLabel);
+   // align action triggered event
+   this->dataPtr->alignSignalMapper = new QSignalMapper(this);
+-  connect(this->dataPtr->alignSignalMapper, SIGNAL(mapped(QString)),
++  connect(this->dataPtr->alignSignalMapper, SIGNAL(mappedString(QString)),
+       this, SLOT(OnAlignMode(QString)));
+ 
+   QLabel *noteLabel = new QLabel(tr("Remember to Pause"));
+diff --git a/gazebo/gui/ApplyWrenchDialog.cc b/gazebo/gui/ApplyWrenchDialog.cc
+index 04119ea..2902593 100644
+--- a/gazebo/gui/ApplyWrenchDialog.cc
++++ b/gazebo/gui/ApplyWrenchDialog.cc
+@@ -62,7 +62,7 @@ ApplyWrenchDialog::ApplyWrenchDialog(QWidget *_parent)
+   this->dataPtr->linksComboBox = new QComboBox();
+   this->dataPtr->linksComboBox->installEventFilter(this);
+   this->dataPtr->linksComboBox->setMinimumWidth(200);
+-  connect(this->dataPtr->linksComboBox, SIGNAL(currentIndexChanged(QString)),
++  connect(this->dataPtr->linksComboBox, SIGNAL(currentTextChanged(const QString &)),
+       this, SLOT(SetLink(QString)));
+ 
+   linkLayout->addWidget(linkLabel);
+diff --git a/gazebo/gui/ConfigWidget.cc b/gazebo/gui/ConfigWidget.cc
+index 968e845..ea43d0d 100644
+--- a/gazebo/gui/ConfigWidget.cc
++++ b/gazebo/gui/ConfigWidget.cc
+@@ -1916,7 +1916,7 @@ ConfigChildWidget *ConfigWidget::CreateGeometryWidget(
+   geomFilenameLineEdit->setVisible(false);
+   geomFilenameButton->setVisible(false);
+ 
+-  this->connect(geometryComboBox, SIGNAL(currentIndexChanged(const QString)),
++  this->connect(geometryComboBox, SIGNAL(currentTextChanged(const QString &)),
+       widget, SLOT(OnGeometryTypeChanged(const QString)));
+ 
+   this->connect(geomFilenameButton, SIGNAL(clicked()),
+@@ -1982,7 +1982,7 @@ ConfigChildWidget *ConfigWidget::CreateEnumWidget(
+   EnumConfigWidget *widget = new EnumConfigWidget();
+   widget->setLayout(widgetLayout);
+   widget->setFrameStyle(QFrame::Box);
+-  this->connect(enumComboBox, SIGNAL(currentIndexChanged(const QString &)),
++  this->connect(enumComboBox, SIGNAL(currentTextChanged(const QString &)),
+       widget, SLOT(EnumChanged(const QString &)));
+ 
+   widget->widgets.push_back(enumComboBox);
+@@ -2051,10 +2051,10 @@ ConfigChildWidget *ConfigWidget::CreateDensityWidget(
+   widget->comboBox = comboBox;
+   widget->spinBox = spinBox;
+ 
+-  this->connect(comboBox, SIGNAL(currentIndexChanged(const QString &)),
++  this->connect(comboBox, SIGNAL(currentTextChanged(const QString &)),
+       widget, SLOT(OnComboBoxChanged(const QString &)));
+ 
+-  this->connect(spinBox, SIGNAL(valueChanged(const QString &)),
++  this->connect(spinBox, SIGNAL(textChanged(const QString &)),
+       widget, SLOT(OnSpinBoxChanged(const QString &)));
+ 
+   this->connect(widget, SIGNAL(DensityValueChanged(const double)),
+diff --git a/gazebo/gui/VideoRecorder.cc b/gazebo/gui/VideoRecorder.cc
+index fca06b6..0a91fbb 100644
+--- a/gazebo/gui/VideoRecorder.cc
++++ b/gazebo/gui/VideoRecorder.cc
+@@ -103,7 +103,7 @@ VideoRecorder::VideoRecorder(QWidget *_parent)
+   signalMapper->setMapping(v4lAction, QString("v4l2"));
+ #endif
+ 
+-  connect(signalMapper, SIGNAL(mapped(QString)), this,
++  connect(signalMapper, SIGNAL(mappedString(QString)), this,
+           SLOT(OnRecordStart(const QString &)));
+ 
+   this->setLayout(mainLayout);
+diff --git a/gazebo/gui/building/BuildingEditorPalette.cc b/gazebo/gui/building/BuildingEditorPalette.cc
+index fd7ad2e..44e9fa3 100644
+--- a/gazebo/gui/building/BuildingEditorPalette.cc
++++ b/gazebo/gui/building/BuildingEditorPalette.cc
+@@ -51,7 +51,7 @@ BuildingEditorPalette::BuildingEditorPalette(QWidget *_parent)
+ 
+   // Brushes (button group)
+   this->dataPtr->brushes = new QButtonGroup();
+-  connect(this->dataPtr->brushes, SIGNAL(buttonClicked(int)),
++  connect(this->dataPtr->brushes, SIGNAL(idClicked(int)),
+       this, SLOT(OnBrush(int)));
+ 
+   QSize toolButtonSize(100, 100);
+diff --git a/gazebo/gui/building/EditorView.cc b/gazebo/gui/building/EditorView.cc
+index 932236d..63ce43b 100644
+--- a/gazebo/gui/building/EditorView.cc
++++ b/gazebo/gui/building/EditorView.cc
+@@ -216,7 +216,7 @@ void EditorView::wheelEvent(QWheelEvent *_event)
+   int delta = std::max(std::abs(rawDelta), wheelIncr) * sign;
+   int numSteps = delta / wheelIncr;
+ 
+-  QMatrix mat = matrix();
++  QTransform mat = transform();
+   QPointF mousePosition = _event->pos();
+ 
+   mat.translate((width()/2) - mousePosition.x(), (height() / 2) -
+@@ -236,7 +236,7 @@ void EditorView::wheelEvent(QWheelEvent *_event)
+   }
+   mat.translate(mousePosition.x() - (this->width()/2),
+       mousePosition.y() -(this->height()/2));
+-  this->setMatrix(mat);
++  this->setTransform(mat);
+ 
+   if (this->gridLines)
+   {
+diff --git a/gazebo/gui/model/CollisionConfig.cc b/gazebo/gui/model/CollisionConfig.cc
+index c4eeecf..21dbac5 100644
+--- a/gazebo/gui/model/CollisionConfig.cc
++++ b/gazebo/gui/model/CollisionConfig.cc
+@@ -81,7 +81,7 @@ CollisionConfig::CollisionConfig()
+     QString::fromStdString("sphere"));
+   this->mapperAdd->setMapping(addCollisionButtonCylinder,
+     QString::fromStdString("cylinder"));
+-  this->connect(this->mapperAdd, SIGNAL(mapped(const QString)),
++  this->connect(this->mapperAdd, SIGNAL(mappedString(QString)),
+     this, SLOT(OnAddCollision(const QString)));
+ 
+   QHBoxLayout *buttons = new QHBoxLayout();
+@@ -99,11 +99,11 @@ CollisionConfig::CollisionConfig()
+   this->counter = 0;
+ 
+   this->mapperRemove = new QSignalMapper(this);
+-  this->connect(this->mapperRemove, SIGNAL(mapped(int)),
++  this->connect(this->mapperRemove, SIGNAL(mappedInt(int)),
+      this, SLOT(OnRemoveCollision(int)));
+ 
+   this->mapperShow = new QSignalMapper(this);
+-  this->connect(this->mapperShow, SIGNAL(mapped(int)),
++  this->connect(this->mapperShow, SIGNAL(mappedInt(int)),
+      this, SLOT(OnShowCollision(int)));
+ }
+ 
+diff --git a/gazebo/gui/model/GraphView.cc b/gazebo/gui/model/GraphView.cc
+index 47d7ff6..a4ed89f 100644
+--- a/gazebo/gui/model/GraphView.cc
++++ b/gazebo/gui/model/GraphView.cc
+@@ -74,7 +74,7 @@ void GraphView::wheelEvent(QWheelEvent *_event)
+   int delta = std::max(std::abs(rawDelta), wheelIncr) * sign;
+   int numSteps = delta / wheelIncr;
+ 
+-  QMatrix mat = matrix();
++  QTransform mat = transform();
+   QPointF mousePosition = _event->pos();
+ 
+   mat.translate((width()/2) - mousePosition.x(), (height()/2) -
+@@ -94,7 +94,7 @@ void GraphView::wheelEvent(QWheelEvent *_event)
+   }
+   mat.translate(mousePosition.x() - (this->width()/2),
+       mousePosition.y() -(this->height()/2));
+-  this->setMatrix(mat);
++  this->setTransform(mat);
+ 
+   _event->accept();
+ }
+diff --git a/gazebo/gui/model/JointCreationDialog.cc b/gazebo/gui/model/JointCreationDialog.cc
+index fec3ea4..8b063de 100644
+--- a/gazebo/gui/model/JointCreationDialog.cc
++++ b/gazebo/gui/model/JointCreationDialog.cc
+@@ -77,9 +77,9 @@ JointCreationDialog::JointCreationDialog(JointMaker *_jointMaker,
+   this->dataPtr->typeButtons->addButton(universalJointRadio, 6);
+   this->dataPtr->typeButtons->addButton(ballJointRadio, 7);
+   this->dataPtr->typeButtons->addButton(gearboxJointRadio, 8);
+-  connect(this->dataPtr->typeButtons, SIGNAL(buttonClicked(int)),
++  connect(this->dataPtr->typeButtons, SIGNAL(idClicked(int)),
+       this->dataPtr->jointMaker, SLOT(OnType(int)));
+-  connect(this->dataPtr->typeButtons, SIGNAL(buttonClicked(int)),
++  connect(this->dataPtr->typeButtons, SIGNAL(idClicked(int)),
+       this, SLOT(OnType(int)));
+ 
+   for (auto button : this->dataPtr->typeButtons->buttons())
+diff --git a/gazebo/gui/model/ModelCreator.cc b/gazebo/gui/model/ModelCreator.cc
+index b2c937f..9da410a 100644
+--- a/gazebo/gui/model/ModelCreator.cc
++++ b/gazebo/gui/model/ModelCreator.cc
+@@ -2441,7 +2441,7 @@ void ModelCreator::ShowModelPluginContextMenu(const std::string &_name)
+   connect(inspectorAct, SIGNAL(triggered()), inspectorMapper, SLOT(map()));
+   inspectorMapper->setMapping(inspectorAct, QString::fromStdString(_name));
+ 
+-  connect(inspectorMapper, SIGNAL(mapped(QString)), this,
++  connect(inspectorMapper, SIGNAL(mappedString(QString)), this,
+       SLOT(OnOpenModelPluginInspector(QString)));
+ 
+   // Delete
+@@ -2453,7 +2453,7 @@ void ModelCreator::ShowModelPluginContextMenu(const std::string &_name)
+   connect(deleteAct, SIGNAL(triggered()), deleteMapper, SLOT(map()));
+   deleteMapper->setMapping(deleteAct, QString::fromStdString(_name));
+ 
+-  connect(deleteMapper, SIGNAL(mapped(QString)), this,
++  connect(deleteMapper, SIGNAL(mappedString(QString)), this,
+       SLOT(OnRemoveModelPlugin(QString)));
+ 
+   // Menu
+diff --git a/gazebo/gui/model/ModelEditor.cc b/gazebo/gui/model/ModelEditor.cc
+index 9cb93e5..7c3920d 100644
+--- a/gazebo/gui/model/ModelEditor.cc
++++ b/gazebo/gui/model/ModelEditor.cc
+@@ -226,7 +226,7 @@ ModelEditor::ModelEditor(MainWindow *_mainWindow)
+   jointTypeAct->setVisible(false);
+ 
+   this->dataPtr->signalMapper = new QSignalMapper(this);
+-  connect(this->dataPtr->signalMapper, SIGNAL(mapped(const QString)),
++  connect(this->dataPtr->signalMapper, SIGNAL(mappedString(QString)),
+       this, SLOT(OnAddJoint(const QString)));
+ 
+   connect(revoluteJointAct, SIGNAL(triggered()), this->dataPtr->signalMapper,
+diff --git a/gazebo/gui/model/VisualConfig.cc b/gazebo/gui/model/VisualConfig.cc
+index 9cbaa6b..849cff5 100644
+--- a/gazebo/gui/model/VisualConfig.cc
++++ b/gazebo/gui/model/VisualConfig.cc
+@@ -61,11 +61,11 @@ VisualConfig::VisualConfig()
+   this->counter = 0;
+   this->mapperRemove = new QSignalMapper(this);
+ 
+-  this->connect(this->mapperRemove, SIGNAL(mapped(int)),
++  this->connect(this->mapperRemove, SIGNAL(mappedInt(int)),
+      this, SLOT(OnRemoveVisual(int)));
+ 
+   this->mapperShow = new QSignalMapper(this);
+-  this->connect(this->mapperShow, SIGNAL(mapped(int)),
++  this->connect(this->mapperShow, SIGNAL(mappedInt(int)),
+      this, SLOT(OnShowVisual(int)));
+ }
+ 
+diff --git a/gazebo/gui/plot/ExportDialog.cc b/gazebo/gui/plot/ExportDialog.cc
+index 0685a4d..a6ee6b9 100644
+--- a/gazebo/gui/plot/ExportDialog.cc
++++ b/gazebo/gui/plot/ExportDialog.cc
+@@ -236,7 +236,7 @@ ExportDialog::ExportDialog(QWidget *_parent,
+   {
+     // \todo: This is getting the header too, it would be nice to see only the
+     // plot itself
+-    QIcon icon(QPixmap::grabWindow(plot->winId()));
++    QIcon icon(plot->grab());
+     PlotViewItem *item = new PlotViewItem;
+     item->canvas = plot;
+ 
+-- 
+2.53.0
+

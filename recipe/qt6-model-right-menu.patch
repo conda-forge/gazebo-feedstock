@@ -1,0 +1,37 @@
+From bf258600e9aea9ddc4b7bcd72ecc9127cd27ac40 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Sat, 21 Nov 2026 10:46:52 +0000
+Subject: [PATCH 5/5] gui: create ModelRightMenu after QApplication
+
+In Qt 6 QAction's constructor needs a QGuiApplication instance; creating
+the ModelRightMenu (which owns QActions) before QApplication segfaults.
+---
+ gazebo/gui/GuiIface.cc | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/gazebo/gui/GuiIface.cc b/gazebo/gui/GuiIface.cc
+index cd915c1..0c68049 100644
+--- a/gazebo/gui/GuiIface.cc
++++ b/gazebo/gui/GuiIface.cc
+@@ -313,8 +313,6 @@ bool gui::load()
+ {
+   gui::loadINI();
+ 
+-  g_modelRightMenu = new gui::ModelRightMenu();
+-
+   // Load the rendering engine.
+   rendering::load();
+   rendering::init();
+@@ -352,6 +350,9 @@ bool gui::load()
+   g_app = new QApplication(g_argc, g_argv);
+   set_style();
+ 
++  // Qt 6: QAction (used by ModelRightMenu) needs a QGuiApplication instance
++  g_modelRightMenu = new gui::ModelRightMenu();
++
+   if (!gui::register_metatypes())
+     std::cerr << "Unable to register Qt metatypes" << std::endl;
+ 
+-- 
+2.53.0
+

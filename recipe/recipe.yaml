@@ -1,0 +1,254 @@
+schema_version: 1
+
+context:
+  name: gazebo
+  version: "11.15.1"
+  major_version: ${{ (version | split('.'))[0] }}
+  build_number: 24
+  # The origname variant gets a higher build number so that it has higher priority,
+  # and so do the Qt 5 builds over the Qt 6 ones (see conda_build_config.yaml)
+  variant_build_number: ${{ build_number + (200 if GZ_CLI_NAME_VARIANT == "origname" else 0) + (100 if GZ_QT_VARIANT == "qt5" else 0) }}
+  # Qt major version of this build and of the other one, for the linkage tests
+  qt_major: ${{ GZ_QT_VARIANT[2:] }}
+  qt_other_major: ${{ "5" if GZ_QT_VARIANT == "qt6" else "6" }}
+  # gazebo bundles the Qt 4/5-only Qt Solutions property browser; for Qt 6, build.sh
+  # replaces it with the Qt 6 port that qttools ships (src/shared/qtpropertybrowser)
+  qttools_version: "6.11.1"
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/osrf/${{ name }}/archive/${{ name }}${{ major_version }}_${{ version }}.tar.gz
+    sha256: 77a952971eabfd79e16d2582a355ee017a2e22cc369b68453323c0984b725126
+    patches:
+      - use-external-libs-config.patch
+      - fix-invisible-meshes.patch
+      - protobuf30.patch
+      - ffmpeg8.patch
+      - boost188.patch
+      - boost190.patch
+      - if: GZ_QT_VARIANT == "qt6"
+        then:
+          - qt6-cmake.patch
+          - qt6-propertybrowser.patch
+          - qt6-api.patch
+          - qt6-compile.patch
+          - qt6-model-right-menu.patch
+  - if: GZ_QT_VARIANT == "qt6"
+    then:
+      url: https://download.qt.io/official_releases/qt/${{ (qttools_version | split('.'))[:2] | join('.') }}/${{ qttools_version }}/submodules/qttools-everywhere-src-${{ qttools_version }}.tar.xz
+      sha256: 8e61835a679c93fa9c6065b142353c2071ba68e297898937c32a03777fcaf50d
+      target_directory: qttools
+
+build:
+  number: ${{ variant_build_number }}
+  string: ${{ GZ_QT_VARIANT }}${{ GZ_CLI_NAME_VARIANT }}h${{ hash }}_${{ variant_build_number }}
+  script:
+    env:
+      GZ_CLI_NAME_VARIANT: ${{ GZ_CLI_NAME_VARIANT }}
+      GZ_QT_VARIANT: ${{ GZ_QT_VARIANT }}
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - cmake
+    - pkgconf
+    - ninja
+    # We need all host deps also in build for cross-compiling gazebomsgs_out
+    - if: build_platform != target_platform
+      then:
+        - libabseil
+        - libprotobuf
+        - libsdformat 9.*
+        - libignition-cmake2
+        - libignition-math6
+        - libignition-transport8
+        - libignition-common3
+        - libignition-fuel-tools4
+        - ogre 1.10.*
+        - ${{ "qt6-main" if GZ_QT_VARIANT == "qt6" else "qt-main" }}
+        - freeimage
+        - curl
+        - tbb-devel
+        # qwt 6.3 is built against Qt 6, qwt 6.2 against Qt 5
+        - ${{ "qwt >=6.3.0" if GZ_QT_VARIANT == "qt6" else "qwt <6.3.0" }}
+        - tinyxml2
+        - libtar
+        - libccd-double
+        - libboost-devel
+  host:
+    - if: unix
+      then:
+        - xorg-libxext
+        - xorg-libxdmcp
+        - xorg-libxau
+        - libxcb
+        - xorg-libxfixes
+        - xorg-libxrender
+        - xorg-libx11
+        - xorg-libice
+        - xorg-libsm
+        - libtar
+    - if: linux
+      then:
+        - libglu
+        - libgl-devel
+        - libuuid
+    - if: osx
+      then:
+        - bzip2
+        - zlib
+    - if: win
+      then:
+        - dlfcn-win32
+        - tiny-process-library
+    # deps
+    - libabseil
+    - libprotobuf
+    - libsdformat 9.*
+    - libignition-cmake2
+    - libignition-math6
+    - libignition-transport8
+    - libignition-common3
+    # Workaround for https://github.com/conda-forge/gazebo-feedstock/pull/143
+    - libignition-fuel-tools4 >=4.6
+    - libignition-msgs5
+    - ogre 1.10.*
+    - ${{ "qt6-main" if GZ_QT_VARIANT == "qt6" else "qt-main" }}
+    - freeimage
+    - curl
+    - tbb-devel
+    # qwt 6.3 is built against Qt 6, qwt 6.2 against Qt 5
+    - ${{ "qwt >=6.3.0" if GZ_QT_VARIANT == "qt6" else "qwt <6.3.0" }}
+    - tinyxml2
+    - libccd-double
+    - libboost-devel
+    # additional deps
+    - libcurl
+    - tinyxml
+    # - gts
+    - ffmpeg
+    - graphviz
+    # gts (found via graphviz) includes glib.h, whose glibconfig.h is in glib, not libglib
+    - if: GZ_QT_VARIANT == "qt6"
+      then: glib
+    # Avoid the libgdal metapackage, which pulls every optional plugin
+    # (including TileDB and its unrelated cloud/AWS SDK stack). gazebo's
+    # DEM/heightmap loader (gazebo/common/HeightmapData.cc) just calls the
+    # generic GDALOpen() on GeoTIFF/USGS DEM files (see test/data/dem_*),
+    # which libgdal-core already provides without any optional plugin.
+    - libgdal-core
+    - libusb
+    # Bullet is not detected on win for some reason
+    - if: not win
+      then: bullet-cpp
+    - dartsim-cpp
+    - simbody
+    - hdf5
+    - openal-soft
+    - libode
+    - assimp
+    - urdfdom
+    - libblas
+    - libcblas
+  run:
+    - if: unix
+      then:
+        - xorg-libxext
+        - xorg-libxdmcp
+        - xorg-libxau
+        - libxcb
+        - xorg-libxfixes
+        - xorg-libxrender
+        - xorg-libx11
+        - xorg-libice
+        - xorg-libsm
+    - if: linux
+      then: libglu
+    # deps
+    - libboost-devel
+    - tbb-devel
+    - libgdal-netcdf
+    # Add constraint to avoid that old ogre gets installed during migratons,
+    # see https://github.com/conda-forge/gazebo-feedstock/pull/188/files and
+    # https://github.com/conda-forge/gazebo-feedstock/pull/203#issuecomment-1981995139
+    - ogre >=1.10.12.1
+  run_exports:
+    - ${{ pin_subpackage('gazebo', upper_bound='x') }}
+    # gazebo's public headers expose Qt, so downstream packages must keep the Qt variant
+    # they were built against
+    - gazebo * ${{ GZ_QT_VARIANT }}*
+  run_constraints:
+    # Prevent to install side-by-side installation with libgz-tools2 or libgz-tools
+    - if: GZ_CLI_NAME_VARIANT == "origname"
+      then:
+        - libgz-tools2 <0.0.0
+        - libgz-tools <0.0.0
+
+tests:
+  - package_contents:
+      # bin entries resolve to bin/<name> on unix and Library/bin/<name>.exe on win
+      bin:
+        - gzserver
+        - gzclient
+        - gazebo
+        - gz11
+        - if: GZ_CLI_NAME_VARIANT == "origname"
+          then: gz
+      files:
+        - if: osx
+          then: lib/libCameraPlugin.dylib
+  - script:
+      - if: unix
+        then:
+          - gzserver --version | grep "Gazebo multi-robot simulator, version"
+          - gzclient --version | grep "Gazebo multi-robot simulator, version"
+          - gazebo --version | grep "Gazebo multi-robot simulator, version"
+      # gz11 prints its help on stderr, so we only check that it exits successfully
+      - gz11 help
+      # the GUI links the Qt major version of its variant, and only that one
+      - if: osx
+        then:
+          - otool -L $PREFIX/lib/libgazebo_gui.dylib | grep -q libQt${{ qt_major }}Core
+          - "! otool -L $PREFIX/lib/libgazebo_gui.dylib | grep -q libQt${{ qt_other_major }}"
+      - if: linux
+        then:
+          - patchelf --print-needed $PREFIX/lib/libgazebo_gui.so | grep -q libQt${{ qt_major }}Core
+          - "! patchelf --print-needed $PREFIX/lib/libgazebo_gui.so | grep -q libQt${{ qt_other_major }}"
+    requirements:
+      run:
+        - if: linux
+          then: patchelf
+
+about:
+  homepage: http://classic.gazebosim.org/
+  # gazebo is Apache-2.0; its GUI includes a Qt property browser: the Qt 5 builds the one
+  # bundled with gazebo (Qt Solutions, BSD-3-Clause), the Qt 6 builds the one from qttools
+  # (LGPL-3.0-only)
+  license: ${{ "Apache-2.0 AND LGPL-3.0-only" if GZ_QT_VARIANT == "qt6" else "Apache-2.0 AND BSD-3-Clause" }}
+  license_file:
+    - LICENSE
+    - if: GZ_QT_VARIANT == "qt6"
+      then: qttools/LICENSES/LGPL-3.0-only.txt
+  summary: Gazebo Classic robot simulator for research, design, and development.
+  description: |
+    This feedstock packages the Gazebo Classic simulator, that will not be supported past 2025.
+    For new development, please consider migrating to Modern gz-sim simulator, available in conda-forge.
+    To simplify migration to gz-sim, we want to permit to side-by-side installation of gazebo and libgz-tools2, however they both install a command called `gz`.
+    So, this feedstock is building two different variants of the `gazebo` conda package:
+      * One that contains `origname` in its build string that has higher priority and is installed if libgz-tools2 is not installed, that uses `gz` as the name for the cli helper of gazebo classic. This variant cannot be installed if `libgz-tools2` is installed. For forward compatibility, this variant also installs a `gz11` command.
+      * One that contains `gzcompatname` that is co-installable with libgz-tools2, but that renames the `gz` commmand line tool to `gz11`.
+    Each of them is built against Qt 5 and against Qt 6, with `qt5` or `qt6` at the start of
+    the build string (for example `gazebo=*=qt6*`); the Qt 5 builds stay the default.
+    Packages built against gazebo keep the Qt variant they were built with (run_exports).
+
+extra:
+  recipe-maintainers:
+    - seanyen
+    - wolfv
+    - Tobias-Fischer
+    - traversaro
